@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Many Minds One Tomorrow · Goa Conclave Computational Artwork & Tablet Kiosk</title>
+  <meta name="description" content="A live dynamic computational artwork running on a 9:16 vertical screen responding every 30 minutes to conclave attendee sentiment via a QR-connected Goan tablet web app." />
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Marcellus&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/artwork.css?v=2" />
+  <link rel="stylesheet" href="css/tablet.css?v=2" />
+  <link rel="stylesheet" href="css/modal.css?v=2" />
+</head>
+<body>
+  <div id="app-root">
+    <!-- Dynamic views mounted by app.js based on URL parameter (?mode=screen | ?mode=tablet | ?mode=dual | ?mode=wall) -->
+  </div>
+
+  <!-- Discrete Presenter / Demo Controls Tray (Toggle with 'D' key or click) -->
+  <nav class="presenter-tray" id="presenter-tray" aria-label="Demo controls">
+    <div class="tray-group">
+      <button class="tray-btn" id="btn-mode-dual" title="Showcase: Artwork Screen + Details Label + Tablet Interface">
+        <span>Showcase View</span>
+      </button>
+      <button class="tray-btn" id="btn-mode-screen" title="Pure 16:9 Vertical Artwork Screen">
+        <span>Artwork Only</span>
+      </button>
+      <button class="tray-btn" id="btn-mode-tablet" title="Dedicated Tablet Voting Kiosk">
+        <span>Tablet Only</span>
+      </button>
+    </div>
+
+    <div class="tray-divider"></div>
+
+    <div class="tray-group">
+      <button class="tray-btn tray-btn-action" id="btn-simulate-cycle" title="Simulate 30 minutes of audience data and immediately generate a new mutated artwork (S / C)">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="#F2C249">
+          <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+        </svg>
+        <span style="font-weight: 700; color: #FFF;">⚡ Simulate 30-Min & Mutate</span>
+      </button>
+
+      <button class="tray-btn" id="btn-evolve-session" title="Evolve artwork to the next 30-minute cycle">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+        </svg>
+        <span>Next 30-Min</span>
+      </button>
+
+      <button class="tray-btn" id="btn-inject-mock" title="Inject +5 simulated audience votes (M)">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+          <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+        <span>+5 Live Votes</span>
+      </button>
+
+      <button class="tray-btn" id="btn-open-past" title="Open past sessions gallery">
+        <span>Past Sessions</span>
+      </button>
+
+      <button class="tray-btn" id="btn-toggle-fs" title="Toggle Fullscreen (F)">
+        <span>Fullscreen</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main JavaScript Bootstrap -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
