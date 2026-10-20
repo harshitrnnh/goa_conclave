@@ -206,7 +206,7 @@ export class PastSessionsManager {
 
     const downloadDirect = () => {
       const link = document.createElement('a');
-      link.download = `ManyMindsOneTomorrow-Session-${session.sessionNumber || 'Artwork'}-Postcard.png`;
+      link.download = `ManyMinds-CollectiveArtworks-Session-${session.sessionNumber || 'Artwork'}-Postcard.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
     };
@@ -256,7 +256,7 @@ export class PastSessionsManager {
       ctx.fillStyle = '#F2C249';
       ctx.font = 'bold 36px Georgia, serif';
       ctx.textAlign = 'center';
-      ctx.fillText('MANY MINDS ONE TOMORROW', 600, 112);
+      ctx.fillText('MANY MINDS - COLLECTIVE ARTWORKS', 600, 112);
 
       ctx.fillStyle = '#E2A085';
       ctx.font = '500 22px Georgia, serif';
@@ -359,7 +359,7 @@ export class PastSessionsManager {
       // 7. Footer Tagline
       ctx.fillStyle = 'rgba(248, 239, 227, 0.45)';
       ctx.font = '14px sans-serif';
-      ctx.fillText('Goa AI Tech Conclave  ·  Live Algorithmic Tapestry  ·  Many Minds One Tomorrow', 600, 1680);
+      ctx.fillText('Goa AI Tech Conclave  ·  Live Algorithmic Tapestry  ·  Many Minds - Collective Artworks', 600, 1680);
 
       downloadDirect();
     };
@@ -380,7 +380,7 @@ export class PastSessionsManager {
   downloadRawArtwork(session) {
     const rawUrl = session.snapshotUrl || session.gifUrl || `/archive/session-0${session.sessionNumber || 1}.jpg`;
     const link = document.createElement('a');
-    link.download = `ManyMindsOneTomorrow-Session-${session.sessionNumber || 'Artwork'}-HD.jpg`;
+    link.download = `ManyMinds-CollectiveArtworks-Session-${session.sessionNumber || 'Artwork'}-HD.jpg`;
     link.href = rawUrl;
     link.target = '_blank';
     link.click();

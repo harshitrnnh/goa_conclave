@@ -425,7 +425,7 @@ export class TabletApp {
                     <span>${timeRange}</span>
                     <span class="tablet-card-voices-count">${count} voices</span>
                   </div>
-                  <h3 class="tablet-art-title">${sess.name || 'Conclave Dynamic Artwork'}</h3>
+                  <h3 class="tablet-art-title">${sess.name || 'Many Minds - Collective Artworks'}</h3>
                   <div class="tablet-art-archetype">${topoName}</div>
                   <p class="tablet-art-reasoning">${reasoning}</p>
                   <div class="tablet-card-sentiment-tags">

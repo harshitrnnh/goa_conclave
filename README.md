@@ -1,4 +1,4 @@
-# Many Minds One Tomorrow · Goa Conclave Computational Artwork & Tablet Kiosk
+# Many Minds - Collective Artworks · Goa Conclave Computational Artwork & Tablet Kiosk
 
 A live, dynamic computational point cloud artwork built for a vertical screen (16:9 vertical ratio / 9:16 portrait) responding continuously to attendee sentiment collected via a companion tablet web app or smartphone QR code.
 

@@ -421,7 +421,7 @@ class ConclaveApp {
       poaiBadge.onclick = () => {
         this.showToastNotification({
           author: 'POAI 2026',
-          note: 'Goa AI Conclave · Many Minds One Tomorrow'
+          note: 'Goa AI Conclave · Many Minds - Collective Artworks'
         });
       };
     }
