@@ -63,71 +63,87 @@
   background-color: #0b0302;
 }
 
-/* Floating Glass Banner Centered on Uncropped Artwork */
+/* Heading removed per user request */
 .tv-sentiment-pill {
+  display: none !important;
+}
+
+/* ==========================================================================
+   OUTSIDE QR CARD (Bottom-Left outside vertical artwork screen)
+   ========================================================================== */
+.tv-outside-qr-card {
   position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: inline-flex;
+  bottom: 24px;
+  left: 24px;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(22, 6, 4, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(242, 194, 73, 0.4);
+  border-radius: 14px;
+  padding: 10px 14px;
+  max-width: 280px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75);
+}
+
+.tv-outside-qr-box {
+  width: 76px;
+  height: 76px;
+  min-width: 76px;
+  background: #FAF3E8;
+  border-radius: 10px;
+  padding: 5px;
+  box-sizing: border-box;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  background: rgba(36, 12, 8, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(242, 194, 73, 0.4);
-  border-radius: 12px;
-  padding: 8px 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75);
-  pointer-events: none;
-  white-space: nowrap;
-  max-width: 92%;
+  border: 1px solid rgba(242, 194, 73, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.tv-sentiment-pill .pill-diamond {
-  color: #F2C249;
-  font-size: 0.8rem;
-  line-height: 1;
-}
-
-.tv-sentiment-pill .pill-text {
-  font-family: 'Cinzel', 'Marcellus', serif;
-  color: #FAF3E8;
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-
-/* Discreet QR Code in bottom-center of uncropped screen */
-.tv-vertical-screen-frame .artwork-hud-bottom {
-  position: absolute;
-  bottom: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-}
-
-.tv-vertical-screen-frame .screen-qr-badge {
-  background: rgba(248, 239, 227, 0.92);
-  border-radius: 10px;
-  padding: 6px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(242, 194, 73, 0.4);
-  width: 72px;
-  height: 72px;
+.tv-outside-qr-box .qr-code-wrapper,
+.tv-outside-qr-box .qr-link {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.tv-vertical-screen-frame .screen-qr-badge img {
-  width: 100%;
-  height: 100%;
+.tv-outside-qr-box .qr-image {
+  width: 100% !important;
+  height: 100% !important;
   object-fit: contain;
   display: block;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.tv-outside-qr-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tv-outside-qr-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #F2C249;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tv-outside-qr-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: #FAF3E8;
+  margin: 0;
+  opacity: 0.95;
 }
 
 /* ==========================================================================
@@ -212,13 +228,13 @@
   letter-spacing: -0.01em;
 }
 
-/* POAI White Logo Badge in Top Right */
+/* POAI Official Logo Badge in Top Right */
 .tv-poai-badge {
-  background: #180603;
-  border: 1px solid rgba(242, 194, 73, 0.45);
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(135, 32, 18, 0.18);
   border-radius: 12px;
-  padding: 6px 14px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  padding: 6px 12px;
+  box-shadow: 0 4px 14px rgba(135, 32, 18, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -230,13 +246,13 @@
 .tv-poai-badge:hover,
 .tv-poai-badge:active {
   transform: scale(1.04);
-  box-shadow: 0 6px 20px rgba(242, 194, 73, 0.45);
+  box-shadow: 0 6px 20px rgba(135, 32, 18, 0.18);
 }
 
 .tv-poai-logo-img {
-  height: 36px;
+  height: 56px;
   width: auto;
-  max-width: 170px;
+  max-width: 90px;
   object-fit: contain;
   display: block;
 }
@@ -606,4 +622,9 @@ body:has(.touch-tv-layout) .presenter-tray,
   transform: translateX(-50%) !important;
   bottom: 14px !important;
   z-index: 999 !important;
+}
+
+/* In simulate mode, offset outside QR card above presenter tray */
+body:has(.presenter-tray:not([style*="none"])) .tv-outside-qr-card {
+  bottom: 72px;
 }

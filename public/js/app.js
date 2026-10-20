@@ -32,6 +32,9 @@ class ConclaveApp {
   detectMode() {
     const params = new URLSearchParams(window.location.search);
     const mode = params.get('mode');
+    if (mode === 'simulate') {
+      return 'simulate';
+    }
     if (mode === 'dual' || mode === 'wall') {
       return 'dual';
     }
@@ -259,10 +262,10 @@ class ConclaveApp {
     this.root.innerHTML = '';
     this.updateTrayButtons();
 
-    // Bottom debug controls bar: displayed ONLY in dual/showcase mode
+    // Bottom debug controls bar: displayed ONLY in simulate mode (/?mode=simulate)
     const tray = document.getElementById('presenter-tray');
     if (tray) {
-      tray.style.display = (this.currentMode === 'dual' || this.currentMode === 'wall') ? 'flex' : 'none';
+      tray.style.display = (this.currentMode === 'simulate') ? 'flex' : 'none';
     }
 
     switch (this.currentMode) {
@@ -272,6 +275,7 @@ class ConclaveApp {
       case 'tablet':
         this.renderTabletView();
         break;
+      case 'simulate':
       case 'dual':
       case 'wall':
       default:
@@ -316,24 +320,21 @@ class ConclaveApp {
         <section class="touch-tv-screen-side" aria-label="Conference Sentiment Computational Artwork">
           <div class="tv-vertical-screen-frame" id="vertical-frame">
             <canvas id="artwork-canvas" class="computational-artwork-canvas"></canvas>
-            
-            <!-- Top Floating Glass Banner on Artwork -->
-            <div class="tv-sentiment-pill">
-              <span class="pill-diamond">◆</span>
-              <span class="pill-text">Conference Sentiment Visualization</span>
-              <span class="pill-diamond">◆</span>
-            </div>
-
-            <!-- Subtle bottom QR code for mobile scanning -->
-            <div class="artwork-hud-bottom">
-              <div class="screen-qr-badge" id="screen-qr-container"></div>
-            </div>
           </div>
+
+          <!-- Outside QR code at bottom-left with instructions -->
+          <aside class="tv-outside-qr-card" aria-label="Scan to Participate and Download">
+            <div class="tv-outside-qr-box" id="screen-qr-container"></div>
+            <div class="tv-outside-qr-info">
+              <span class="tv-outside-qr-title">Scan to Participate</span>
+              <p class="tv-outside-qr-desc">You can give your inputs that will change the artwork and download previous artworks.</p>
+            </div>
+          </aside>
         </section>
 
         <!-- 2. RIGHT PANEL: Touch-Enabled Tablet Kiosk (~36.5%) -->
         <section class="touch-tv-kiosk-side" aria-label="Audience Sentiment Touch Kiosk" id="tv-kiosk-container">
-          <!-- Header: Artist Credit on Left, POAI White Logo on Right -->
+          <!-- Header: Artist Credit on Left, POAI Official PNG Logo on Right -->
           <header class="tv-kiosk-header">
             <div class="tv-artist-block">
               <span class="tv-artist-title">ARTWORK BY HARSHIT AGRAWAL</span>
@@ -344,7 +345,7 @@ class ConclaveApp {
               </div>
             </div>
             <div class="tv-poai-badge" id="tv-poai-badge" title="POAI - Conclave">
-              <img src="assets/poai_logo_horizontal.png" alt="POAI" class="tv-poai-logo-img" />
+              <img src="assets/poai_official_logo.png" alt="POAI" class="tv-poai-logo-img" />
             </div>
           </header>
 
@@ -983,7 +984,7 @@ class ConclaveApp {
     ['screen', 'tablet', 'dual'].forEach(m => {
       const btn = document.getElementById(`btn-mode-${m}`);
       if (btn) {
-        if (m === this.currentMode || (this.currentMode === 'wall' && m === 'dual')) btn.classList.add('active');
+        if (m === this.currentMode || ((this.currentMode === 'wall' || this.currentMode === 'simulate') && m === 'dual')) btn.classList.add('active');
         else btn.classList.remove('active');
       }
     });
