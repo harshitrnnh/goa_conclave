@@ -12,17 +12,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Marcellus&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/artwork.css?v=2" />
-  <link rel="stylesheet" href="css/tablet.css?v=2" />
-  <link rel="stylesheet" href="css/modal.css?v=2" />
+  <link rel="stylesheet" href="css/artwork.css?v=3" />
+  <link rel="stylesheet" href="css/tablet.css?v=3" />
+  <link rel="stylesheet" href="css/modal.css?v=3" />
 </head>
 <body>
   <div id="app-root">
     <!-- Dynamic views mounted by app.js based on URL parameter (?mode=screen | ?mode=tablet | ?mode=dual | ?mode=wall) -->
   </div>
 
-  <!-- Discrete Presenter / Demo Controls Tray (Toggle with 'D' key or click) -->
-  <nav class="presenter-tray" id="presenter-tray" aria-label="Demo controls">
+  <!-- Discrete Presenter / Demo Controls Tray (Debug mode for Dual View only; toggle with 'D' key) -->
+  <nav class="presenter-tray" id="presenter-tray" aria-label="Demo controls" style="display: none;">
     <div class="tray-group">
       <button class="tray-btn" id="btn-mode-dual" title="Showcase: Artwork Screen + Details Label + Tablet Interface">
         <span>Showcase View</span>
@@ -70,6 +70,6 @@
   </nav>
 
   <!-- Main JavaScript Bootstrap -->
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/app.js?v=3"></script>
 </body>
 </html>

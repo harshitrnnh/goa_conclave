@@ -253,6 +253,12 @@ class ConclaveApp {
     this.root.innerHTML = '';
     this.updateTrayButtons();
 
+    // Bottom debug controls bar: displayed ONLY in dual/showcase mode
+    const tray = document.getElementById('presenter-tray');
+    if (tray) {
+      tray.style.display = (this.currentMode === 'dual' || this.currentMode === 'wall') ? 'flex' : 'none';
+    }
+
     switch (this.currentMode) {
       case 'screen':
         this.renderPureScreenView();
