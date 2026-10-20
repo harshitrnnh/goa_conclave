@@ -446,10 +446,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 48px;
+  gap: 28px;
   width: 100vw;
   height: 100vh;
-  padding: 16px 28px 76px 28px;
+  padding: 16px 20px 76px 20px;
   box-sizing: border-box;
   background: radial-gradient(circle at 50% 25%, #1d0905 0%, #0d0403 70%, #050201 100%);
   overflow-x: auto;
@@ -476,7 +476,11 @@
 }
 
 .showcase-label-col {
-  display: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  max-width: 300px;
 }
 
 .showcase-tablet-col {

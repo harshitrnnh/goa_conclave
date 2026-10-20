@@ -308,8 +308,8 @@ class ConclaveApp {
           </div>
         </section>
 
-        <!-- 2. Topology & Sentiment Details (Hidden) -->
-        <section class="showcase-label-col" aria-label="Topology & Sentiment Details" style="display: none;">
+        <!-- 2. Topology & Sentiment Details (Kept in dual view only) -->
+        <section class="showcase-label-col" aria-label="Topology & Sentiment Details">
           ${this.renderCuratorCardHtml()}
         </section>
 
@@ -456,11 +456,11 @@ class ConclaveApp {
     this.renderUnifiedShowcaseView();
   }
 
-  // 2. Pure Vertical Screen View (Direct 16:9 for dedicated vertical display)
+  // 2. Pure Vertical Screen View (Direct 16:9 for dedicated vertical display - ZERO text at all points)
   renderPureScreenView() {
     this.root.innerHTML = `
       <div class="screen-view-container pure-screen-layout">
-        <!-- 16:9 Vertical Framed Screen (Canvas + QR Badge only) -->
+        <!-- 16:9 Vertical Framed Screen (Canvas + subtle QR badge only) -->
         <div class="vertical-screen-frame fullscreen-kiosk" id="vertical-frame">
           <canvas id="artwork-canvas" class="computational-artwork-canvas"></canvas>
 
@@ -468,14 +468,9 @@ class ConclaveApp {
             <div class="screen-qr-badge" id="screen-qr-container"></div>
           </div>
         </div>
-
-        <!-- Outside Screen Reference Note & Data -->
-        <div class="screen-outside-curator">
-          ${this.renderCuratorCardHtml()}
-        </div>
       </div>
 
-      <div class="influx-toast-container" id="toast-container"></div>
+      <div class="influx-toast-container" id="toast-container" style="display: none;"></div>
       <section id="past-sessions-strip-container" style="display: none;"></section>
     `;
 
@@ -621,6 +616,7 @@ class ConclaveApp {
   }
 
   showToastNotification(response) {
+    if (this.currentMode === 'screen') return; // Dedicated artwork screen: zero text at all points
     const container = document.getElementById('toast-container');
     if (!container) return;
 
