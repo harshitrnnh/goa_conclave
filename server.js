@@ -589,7 +589,7 @@ function advanceToNextSession(customName, forcedMutation) {
 // API Routes
 app.get('/api/state', (req, res) => {
   const baseUrl = getBaseUrl(req);
-  const tabletUrl = `${baseUrl}/?mode=tablet`;
+  const tabletUrl = `${baseUrl}/`;
   
   res.json({
     localIP: LOCAL_IP,
@@ -664,7 +664,7 @@ app.post('/api/sessions/:id/snapshot', (req, res) => {
 app.get('/api/qr', async (req, res) => {
   try {
     const baseUrl = getBaseUrl(req);
-    const url = req.query.url || `${baseUrl}/?mode=tablet`;
+    const url = req.query.url || `${baseUrl}/`;
     const qrDataUrl = await QRCode.toDataURL(url, {
       margin: 1,
       color: {

@@ -7,7 +7,7 @@ export class QRHelper {
   }
 
   async renderQRCode(targetUrl) {
-    this.currentUrl = targetUrl || window.location.origin + '/?mode=tablet';
+    this.currentUrl = targetUrl || window.location.origin + '/';
 
     try {
       // 1. Fetch from server API

@@ -23,7 +23,7 @@ class ConclaveApp {
     this.activeShowcaseTab = 'live'; // 'live' | 'past'
     this.currentSession = null;
     this.pastSessions = [];
-    this.tabletUrl = window.location.origin + '/?mode=tablet';
+    this.tabletUrl = window.location.origin + '/';
 
     this.timerInterval = null;
     this.init();
@@ -32,11 +32,14 @@ class ConclaveApp {
   detectMode() {
     const params = new URLSearchParams(window.location.search);
     const mode = params.get('mode');
-    if (mode === 'screen' || mode === 'tablet' || mode === 'dual') {
-      return mode;
+    if (mode === 'dual' || mode === 'wall') {
+      return 'dual';
     }
-    // Default to unified showcase (Artwork Screen + Details Label + Tablet Interface) without background wall
-    return 'dual';
+    if (mode === 'screen') {
+      return 'screen';
+    }
+    // Default: root URL (https://goa-conclave.onrender.com/) opens ONLY tablet input mode
+    return 'tablet';
   }
 
   async init() {
@@ -739,7 +742,11 @@ class ConclaveApp {
   switchMode(mode) {
     this.currentMode = mode;
     const url = new URL(window.location);
-    url.searchParams.set('mode', mode);
+    if (mode === 'tablet') {
+      url.searchParams.delete('mode');
+    } else {
+      url.searchParams.set('mode', mode);
+    }
     window.history.replaceState({}, '', url);
     this.setupView();
   }
