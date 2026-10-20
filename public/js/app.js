@@ -189,11 +189,6 @@ class ConclaveApp {
         }
 
         this.updateHUD();
-
-        this.showToastNotification({
-          author: 'Topology Mutated',
-          note: `${data.topologyInfo?.name || 'New Topology'} (${data.topologyInfo?.archetype || 'Evolution'})`
-        });
       },
 
       onSessionSnapshotUpdated: (data) => {
@@ -629,21 +624,11 @@ class ConclaveApp {
           </div>
         </div>
 
-        <form class="reflection-form" id="tv-reflection-form">
-          <div class="form-group">
-            <label for="tv-attendee-name">Your Name or College / Org (Optional)</label>
-            <input type="text" id="tv-attendee-name" maxlength="50" placeholder="e.g. Maria / Goa Univ / BITS Pilani" value="${this.tvSurvey.author || ''}" />
-          </div>
-
-          <div class="form-group">
-            <label for="tv-attendee-note">A word, thought, or takeaway from this session (Optional)</label>
-            <input type="text" id="tv-attendee-note" maxlength="120" placeholder="e.g. Inclusivity first / Inspiring open source debate" value="${this.tvSurvey.note || ''}" />
-          </div>
-
-          <button type="submit" class="weave-btn" id="tv-submit-weave-btn">
+        <div class="tv-submit-action-wrap">
+          <button type="button" class="weave-btn" id="tv-submit-weave-btn">
             <span>Weave Into Live Artwork &rarr;</span>
           </button>
-        </form>
+        </div>
       </section>
     `;
   }
@@ -756,23 +741,17 @@ class ConclaveApp {
       };
     }
 
-    // 3. Form submission
-    const form = document.getElementById('tv-reflection-form');
-    if (form) {
-      form.onsubmit = (e) => {
-        e.preventDefault();
-        const nameInput = document.getElementById('tv-attendee-name');
-        const noteInput = document.getElementById('tv-attendee-note');
-        this.tvSurvey.author = nameInput ? nameInput.value.trim() : '';
-        this.tvSurvey.note = noteInput ? noteInput.value.trim() : '';
-
+    // 3. Direct submit weave button
+    const submitBtn = document.getElementById('tv-submit-weave-btn');
+    if (submitBtn) {
+      submitBtn.onclick = () => {
         const fullResponse = {
           weather: this.tvSurvey.weather || 'sunny',
           food: this.tvSurvey.food || 'bebinca',
           location: this.tvSurvey.location || 'aguada_fort',
           emblem: this.tvSurvey.emblem || 'mandovi_boat',
-          author: this.tvSurvey.author || 'TV Attendee',
-          note: this.tvSurvey.note || 'Touch TV Attendee Vote'
+          author: 'TV Attendee',
+          note: 'Touch TV Attendee Vote'
         };
 
         if (this.syncManager) {
@@ -782,8 +761,6 @@ class ConclaveApp {
         if (this.artworkEngine) {
           this.artworkEngine.addResponseBurst(fullResponse);
         }
-
-        this.showToastNotification(fullResponse);
 
         this.tvSurvey.step = 6;
         this.renderTVSurveyStep();
@@ -1133,7 +1110,7 @@ class ConclaveApp {
   }
 
   showToastNotification(response) {
-    if (this.currentMode === 'screen') return; // Dedicated artwork screen: zero text at all points
+    if (this.currentMode === 'screen' || this.currentMode === 'dual' || this.currentMode === 'wall' || this.currentMode === 'simulate') return; // Zero temporary text over artwork
     const container = document.getElementById('toast-container');
     if (!container) return;
 

@@ -2954,5 +2954,167 @@
     },
     "snapshotUrl": "/archive/session-051.jpg?v=1792516870826",
     "gifUrl": "/api/sessions/session-051/artwork.gif"
+  },
+  {
+    "id": "session-052",
+    "sessionNumber": 52,
+    "name": "Mandovi River Sailboat & Fluvial Wake Currents",
+    "timeLabel": "35:00 - 35:30 IST",
+    "timestamp": 1792516870554,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 2,
+    "topologyInfo": {
+      "id": 2,
+      "name": "Fort Aguada Lighthouse Beacon & Expanding Orbital Ripples",
+      "archetype": "Concentric Coastal Beacon Vortex & Celestial Rays",
+      "reasoning": "Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.",
+      "score": 8
+    },
+    "snapshotUrl": "/archive/session-052.jpg?v=1792518671173",
+    "gifUrl": "/api/sessions/session-052/artwork.gif"
+  },
+  {
+    "id": "session-053",
+    "sessionNumber": 53,
+    "name": "Fort Aguada Lighthouse Beacon & Expanding Orbital Ripples",
+    "timeLabel": "35:30 - 36:00 IST",
+    "timestamp": 1792518671025,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 8,
+    "topologyInfo": {
+      "id": 8,
+      "name": "Cumbarjua Mangrove Estuary & Braided Waterways",
+      "archetype": "Dendritic Root Networks & Braided Silt Channels",
+      "reasoning": "Estuarine river currents and coconut palm motifs (MANDOVI_BOAT) formed dendritic branching root channels weaving through emerald and silt mud banks.",
+      "score": 8
+    },
+    "snapshotUrl": "/archive/session-053.jpg?v=1792520471911",
+    "gifUrl": "/api/sessions/session-053/artwork.gif"
+  },
+  {
+    "id": "session-054",
+    "sessionNumber": 54,
+    "name": "Cumbarjua Mangrove Estuary & Braided Waterways",
+    "timeLabel": "36:00 - 36:30 IST",
+    "timestamp": 1792520471680,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 15,
+    "topologyInfo": {
+      "id": 15,
+      "name": "Chorao Bird Sanctuary & Kingfisher Flight Vectors",
+      "archetype": "Aerodynamic Vector Plumes & Turquoise Dart Plumes",
+      "reasoning": "Agile kingfisher emblem (MANDOVI_BOAT) and breezy coastal air (SUNNY) shaped particles into aerodynamic cobalt and turquoise flight vector plumes.",
+      "score": 8
+    },
+    "snapshotUrl": "/archive/session-054.jpg?v=1792522272333",
+    "gifUrl": "/api/sessions/session-054/artwork.gif"
   }
 ]

@@ -73,35 +73,35 @@
    ========================================================================== */
 .tv-outside-qr-card {
   position: absolute;
-  bottom: 24px;
-  left: 24px;
+  bottom: 16px;
+  left: 16px;
   z-index: 25;
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: rgba(22, 6, 4, 0.88);
+  gap: 8px;
+  background: rgba(20, 6, 4, 0.88);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(242, 194, 73, 0.4);
-  border-radius: 14px;
-  padding: 10px 14px;
-  max-width: 280px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(242, 194, 73, 0.35);
+  border-radius: 10px;
+  padding: 6px 10px;
+  max-width: 195px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
 }
 
 .tv-outside-qr-box {
-  width: 76px;
-  height: 76px;
-  min-width: 76px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
   background: #FAF3E8;
-  border-radius: 10px;
-  padding: 5px;
+  border-radius: 6px;
+  padding: 2px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(242, 194, 73, 0.35);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(242, 194, 73, 0.3);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .tv-outside-qr-box .qr-code-wrapper,
@@ -125,12 +125,12 @@
 .tv-outside-qr-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 
 .tv-outside-qr-title {
   font-family: 'Cinzel', serif;
-  font-size: 0.76rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: #F2C249;
   letter-spacing: 0.05em;
@@ -139,8 +139,8 @@
 
 .tv-outside-qr-desc {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.72rem;
-  line-height: 1.35;
+  font-size: 0.6rem;
+  line-height: 1.25;
   color: #FAF3E8;
   margin: 0;
   opacity: 0.95;
@@ -169,19 +169,19 @@
   position: relative;
 }
 
-/* Header: Artist Info on Left, POAI White Logo on Right */
+/* Header: Artist Info on Left, POAI Logo on Right (Aligned to top) */
 .tv-kiosk-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
   flex-shrink: 0;
 }
 
 .tv-artist-block {
   display: flex;
   flex-direction: column;
-  max-width: calc(100% - 170px);
+  max-width: calc(100% - 150px);
 }
 
 .tv-artist-title {
@@ -191,7 +191,7 @@
   color: #3B140D;
   letter-spacing: 0.07em;
   text-transform: uppercase;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .tv-artist-handle {
@@ -228,12 +228,13 @@
   letter-spacing: -0.01em;
 }
 
-/* POAI Official Logo Badge in Top Right */
+/* POAI Official Logo Badge in Top Right (Aligned to artwork line) */
 .tv-poai-badge {
   background: rgba(255, 255, 255, 0.75);
   border: 1px solid rgba(135, 32, 18, 0.18);
-  border-radius: 12px;
-  padding: 6px 12px;
+  border-radius: 10px;
+  padding: 4px 8px;
+  margin-top: -2px;
   box-shadow: 0 4px 14px rgba(135, 32, 18, 0.08);
   display: flex;
   align-items: center;
@@ -250,9 +251,9 @@
 }
 
 .tv-poai-logo-img {
-  height: 56px;
+  height: 48px;
   width: auto;
-  max-width: 90px;
+  max-width: 80px;
   object-fit: contain;
   display: block;
 }
@@ -830,4 +831,18 @@ body:has(.touch-tv-layout) .presenter-tray,
 /* In simulate mode, offset outside QR card above presenter tray */
 body:has(.presenter-tray:not([style*="none"])) .tv-outside-qr-card {
   bottom: 72px;
+}
+
+/* Zero temporary text over artwork - permanently disable toast notifications on TV layout */
+body:has(.touch-tv-layout) .influx-toast-container,
+#app-root:has(.touch-tv-layout) ~ .influx-toast-container,
+.touch-tv-layout ~ .influx-toast-container,
+#toast-container {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.tv-submit-action-wrap {
+  width: 100%;
+  margin-top: 8px;
 }
