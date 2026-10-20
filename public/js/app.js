@@ -133,12 +133,6 @@ class ConclaveApp {
           this.artworkEngine.addResponseBurst(response);
         }
 
-        const best = scoreBestTopologyForResponse(response);
-        const titleEl = document.getElementById('tv-current-art-title');
-        const descEl = document.getElementById('tv-current-art-desc');
-        if (titleEl && best) titleEl.textContent = best.name;
-        if (descEl && best) descEl.textContent = best.computedReasoning;
-
         if (this.currentSession) {
           if (!this.currentSession.responses) this.currentSession.responses = [];
           this.currentSession.responses.push(response);
@@ -762,13 +756,6 @@ class ConclaveApp {
         if (this.artworkEngine) {
           this.artworkEngine.addResponseBurst(fullResponse);
         }
-
-        // Live Artwork Card Update
-        const best = scoreBestTopologyForResponse(fullResponse);
-        const titleEl = document.getElementById('tv-current-art-title');
-        const descEl = document.getElementById('tv-current-art-desc');
-        if (titleEl && best) titleEl.textContent = best.name;
-        if (descEl && best) descEl.textContent = best.computedReasoning;
 
         this.tvSurvey.step = 6;
         this.renderTVSurveyStep();

@@ -1626,14 +1626,11 @@ export class GoanArtworkEngine {
     const lKey = (response.location || 'aguada_fort').toLowerCase();
     const eKey = (response.emblem || 'mandovi_boat').toLowerCase();
 
-    // 1. Calculate best matching topology and MORPH IMMEDIATELY
-    const bestTopo = scoreBestTopologyForResponse(response);
-    if (bestTopo && typeof bestTopo.id === 'number') {
-      console.log(`[ArtworkEngine] Attendee input mutates tapestry to Topology #${bestTopo.id} (${bestTopo.name})`);
-      this.morphToTopology(bestTopo.id, 2.8);
-    }
+    // Base Macro Spatial Topology (Form & Structure) does NOT change on individual votes.
+    // It changes exclusively on the 30-minute cycle.
+    // Individual attendee inputs dynamically modulate: animation movement, flow physics, and color themes!
 
-    // 2. Tightly couple physical forces in sentimentEngine
+    // 1. Tightly couple animation movement and physical forces in sentimentEngine
     if (this.sentimentEngine) {
       if (typeof this.sentimentEngine.addResponse === 'function') {
         this.sentimentEngine.addResponse(response);
