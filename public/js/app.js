@@ -312,20 +312,22 @@ class ConclaveApp {
 
     this.root.innerHTML = `
       <main class="touch-tv-layout" id="touch-tv-root">
-        <!-- 1. LEFT PANEL: Full-Height Computational Artwork (~63.5%) -->
+        <!-- 1. LEFT PANEL: Full-Height Computational Artwork (Uncropped 16-9 Vertical Screen Ratio) -->
         <section class="touch-tv-screen-side" aria-label="Conference Sentiment Computational Artwork">
-          <canvas id="artwork-canvas" class="computational-artwork-canvas"></canvas>
-          
-          <!-- Top-Left Floating Glass Banner -->
-          <div class="tv-sentiment-pill">
-            <span class="pill-diamond">◆</span>
-            <span class="pill-text">Conference Sentiment Visualization</span>
-            <span class="pill-diamond">◆</span>
-          </div>
+          <div class="tv-vertical-screen-frame" id="vertical-frame">
+            <canvas id="artwork-canvas" class="computational-artwork-canvas"></canvas>
+            
+            <!-- Top Floating Glass Banner on Artwork -->
+            <div class="tv-sentiment-pill">
+              <span class="pill-diamond">◆</span>
+              <span class="pill-text">Conference Sentiment Visualization</span>
+              <span class="pill-diamond">◆</span>
+            </div>
 
-          <!-- Subtle bottom QR code for mobile scanning -->
-          <div class="artwork-hud-bottom">
-            <div class="screen-qr-badge" id="screen-qr-container"></div>
+            <!-- Subtle bottom QR code for mobile scanning -->
+            <div class="artwork-hud-bottom">
+              <div class="screen-qr-badge" id="screen-qr-container"></div>
+            </div>
           </div>
         </section>
 

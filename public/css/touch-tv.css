@@ -19,84 +19,111 @@
 }
 
 /* ==========================================================================
-   LEFT PANEL: Computational Artwork Canvas (~63.5% width)
+   LEFT PANEL: Computational Artwork Canvas (Uncropped 9:16 / 16:9 Vertical Ratio)
    ========================================================================== */
 .touch-tv-screen-side {
   flex: 0 0 63.5%;
   width: 63.5%;
   height: 100vh;
   position: relative;
-  background-color: #0d0403;
+  background: radial-gradient(circle at 50% 30%, #1e0905 0%, #0d0403 70%, #050201 100%);
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
-.touch-tv-screen-side .computational-artwork-canvas {
+.tv-vertical-screen-frame {
+  position: relative;
+  height: calc(100vh - 36px);
+  max-height: 96vh;
+  width: calc((100vh - 36px) * 9 / 16);
+  aspect-ratio: 9 / 16;
+  max-width: calc(63.5vw - 32px);
+  background-color: #050201;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 
+    0 25px 60px rgba(0, 0, 0, 0.95),
+    0 0 40px rgba(221, 104, 41, 0.22),
+    inset 0 0 25px rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(242, 194, 73, 0.35);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.tv-vertical-screen-frame .computational-artwork-canvas {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
   background-color: #0b0302;
 }
 
-/* Top-Left Floating Glass Banner */
+/* Floating Glass Banner Centered on Uncropped Artwork */
 .tv-sentiment-pill {
   position: absolute;
-  top: 26px;
-  left: 32px;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  justify-content: center;
+  gap: 12px;
   background: rgba(36, 12, 8, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(242, 194, 73, 0.4);
   border-radius: 12px;
-  padding: 10px 24px;
+  padding: 8px 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75);
   pointer-events: none;
+  white-space: nowrap;
+  max-width: 92%;
 }
 
 .tv-sentiment-pill .pill-diamond {
   color: #F2C249;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   line-height: 1;
 }
 
 .tv-sentiment-pill .pill-text {
   font-family: 'Cinzel', 'Marcellus', serif;
   color: #FAF3E8;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
-/* Discreet QR Code in bottom-left corner */
-.touch-tv-screen-side .artwork-hud-bottom {
+/* Discreet QR Code in bottom-center of uncropped screen */
+.tv-vertical-screen-frame .artwork-hud-bottom {
   position: absolute;
-  bottom: 24px;
-  left: 28px;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
 }
 
-.touch-tv-screen-side .screen-qr-badge {
+.tv-vertical-screen-frame .screen-qr-badge {
   background: rgba(248, 239, 227, 0.92);
   border-radius: 10px;
   padding: 6px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(242, 194, 73, 0.4);
-  width: 76px;
-  height: 76px;
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.touch-tv-screen-side .screen-qr-badge img {
+.tv-vertical-screen-frame .screen-qr-badge img {
   width: 100%;
   height: 100%;
   object-fit: contain;

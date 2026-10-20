@@ -2900,5 +2900,59 @@
     },
     "snapshotUrl": "/archive/session-050.jpg?v=1792515070411",
     "gifUrl": "/api/sessions/session-050/artwork.gif"
+  },
+  {
+    "id": "session-051",
+    "sessionNumber": 51,
+    "name": "Mandovi S-Curve & Sacred Kaavi Geometry",
+    "timeLabel": "34:30 - 35:00 IST",
+    "timestamp": 1792515070161,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 11,
+    "topologyInfo": {
+      "id": 11,
+      "name": "Mandovi River Sailboat & Fluvial Wake Currents",
+      "archetype": "Graceful Hull Silhouette, Billowing Solar Sails & Diverging Wake Ripples",
+      "reasoning": "Mandovi river navigation heritage and iconic sailboat emblem (MANDOVI_BOAT) mapped to a graceful hull silhouette, billowing solar sails, and expanding fluvial wake ripples.",
+      "score": 11
+    },
+    "snapshotUrl": "/archive/session-051.jpg?v=1792516870826",
+    "gifUrl": "/api/sessions/session-051/artwork.gif"
   }
 ]
