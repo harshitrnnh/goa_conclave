@@ -7,7 +7,7 @@ import { TabletApp } from './tablet-app.js';
 import { SyncManager } from './sync.js';
 import { PastSessionsManager } from './past-sessions.js';
 import { QRHelper } from './qr-helper.js';
-import { GOAN_BORDER_FRIEZE } from './icons.js';
+import { GOAN_BORDER_FRIEZE, WEATHER_ICONS } from './icons.js';
 
 class ConclaveApp {
   constructor() {
@@ -108,6 +108,7 @@ class ConclaveApp {
         if (badgeEl) badgeEl.textContent = this.pastSessions.length;
 
         this.updateHUD();
+        this.updateTVArchiveCard();
         this.refreshQRCode();
         this.ensureHistoricalSnapshots();
       },
@@ -147,6 +148,7 @@ class ConclaveApp {
           if (this.activeShowcaseTab === 'past') {
             this.renderShowcasePastGallery();
           }
+          this.updateTVArchiveCard();
         }
 
         // Capture final frame snapshot of the completed session and upload to server storage
@@ -195,6 +197,7 @@ class ConclaveApp {
           if (this.activeShowcaseTab === 'past') {
             this.renderShowcasePastGallery();
           }
+          this.updateTVArchiveCard();
         }
       }
     });
@@ -280,65 +283,284 @@ class ConclaveApp {
     }
   }
 
-  // Unified Showcase: Artwork Screen + Details Label + Tablet Interface (No Background Wall)
+  // Unified Showcase: Horizontal Touch-Enabled TV Layout (63.5% Artwork Canvas + 36.5% Interactive Tablet Kiosk + POAI Logo)
   renderUnifiedShowcaseView() {
-    this.root.innerHTML = `
-      <!-- Showcase Navigation Tabs -->
-      <nav class="showcase-header-nav" role="tablist" aria-label="Showcase Navigation">
-        <button class="showcase-nav-btn active" id="btn-showcase-tab-live">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-          </svg>
-          <span>🎨 Live Showcase</span>
-        </button>
-        <button class="showcase-nav-btn" id="btn-showcase-tab-past">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
-          </svg>
-          <span>🏛️ Previous Artworks</span>
-          <span class="showcase-nav-badge" id="showcase-past-badge">${this.pastSessions.length}</span>
-        </button>
-      </nav>
+    const featuredSession = (this.pastSessions && this.pastSessions.length > 0)
+      ? this.pastSessions[this.pastSessions.length - 1]
+      : (this.currentSession || {
+          sessionNumber: 49,
+          name: 'Mandovi River Sailboat & Fluvial Wake Currents',
+          timeLabel: '12:00 - 12:30 IST',
+          totalResponses: 0,
+          snapshotUrl: 'assets/test_fontainhas.gif',
+          topologyInfo: {
+            name: 'Mandovi River Sailboat & Fluvial Wake Currents',
+            archetype: 'Concentric Coastal Beacon Vortex & Celestial Rays',
+            reasoning: 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'
+          }
+        });
 
-      <main class="showcase-container">
-        <!-- 1. Artwork Screen (Clean 9:16 Vertical Canvas + bottom QR badge only) -->
-        <section class="showcase-screen-col" aria-label="Computational Artwork Display">
-          <div class="vertical-screen-frame" id="vertical-frame">
-            <canvas id="artwork-canvas" class="computational-artwork-canvas"></canvas>
-            <div class="artwork-hud-bottom">
-              <div class="screen-qr-badge" id="screen-qr-container"></div>
+    const pastCount = this.pastSessions.length || 49;
+
+    const weatherOptions = [
+      { id: 'sunny', label: 'Sunny', sub: '& Energetic', icon: WEATHER_ICONS.sunny },
+      { id: 'windy', label: 'Windy', sub: '& Restless', icon: WEATHER_ICONS.windy },
+      { id: 'rainy', label: 'Rainy', sub: '& Reflective', icon: WEATHER_ICONS.rainy },
+      { id: 'stormy', label: 'Stormy', sub: '& Eclectic', icon: WEATHER_ICONS.stormy },
+      { id: 'calm', label: 'Calm', sub: '& Serene', icon: WEATHER_ICONS.calm }
+    ];
+
+    this.root.innerHTML = `
+      <main class="touch-tv-layout" id="touch-tv-root">
+        <!-- 1. LEFT PANEL: Full-Height Computational Artwork (~63.5%) -->
+        <section class="touch-tv-screen-side" aria-label="Conference Sentiment Computational Artwork">
+          <canvas id="artwork-canvas" class="computational-artwork-canvas"></canvas>
+          
+          <!-- Top-Left Floating Glass Banner -->
+          <div class="tv-sentiment-pill">
+            <span class="pill-diamond">◆</span>
+            <span class="pill-text">Conference Sentiment Visualization</span>
+            <span class="pill-diamond">◆</span>
+          </div>
+
+          <!-- Subtle bottom QR code for mobile scanning -->
+          <div class="artwork-hud-bottom">
+            <div class="screen-qr-badge" id="screen-qr-container"></div>
+          </div>
+        </section>
+
+        <!-- 2. RIGHT PANEL: Touch-Enabled Tablet Kiosk (~36.5%) -->
+        <section class="touch-tv-kiosk-side" aria-label="Audience Sentiment Touch Kiosk" id="tv-kiosk-container">
+          <!-- Header: Artist Credit on Left, POAI White Logo on Right -->
+          <header class="tv-kiosk-header">
+            <div class="tv-artist-block">
+              <span class="tv-artist-title">ARTWORK BY HARSHIT AGRAWAL</span>
+              <span class="tv-artist-handle">@harshitrnnh</span>
+            </div>
+            <div class="tv-poai-badge" id="tv-poai-badge" title="POAI - Conclave">
+              <img src="assets/poai_logo_horizontal.png" alt="POAI" class="tv-poai-logo-img" />
+            </div>
+          </header>
+
+          <!-- Action Row / Pill Buttons -->
+          <div class="tv-action-row">
+            <button class="tv-past-pill-btn" id="tv-toggle-archive-btn" title="Toggle Previous Artworks Archive">
+              <span class="pill-plus-icon">+</span>
+              <span>Previous Artworks</span>
+              <span class="pill-count-badge" id="tv-past-count">${pastCount}</span>
+            </button>
+          </div>
+
+          <!-- Previous Artworks Archive Card (embedded exactly as shown in reference photo) -->
+          <div class="tv-archive-card" id="tv-archive-card">
+            <div class="tv-archive-card-top">
+              <div>
+                <h3 class="tv-archive-heading">Previous Artworks Archive</h3>
+                <p class="tv-archive-subtext">Looping GIFs of 30-min cycles (max 10s loop) · Responding dynamically to Goan sentiment</p>
+              </div>
+              <button class="tv-archive-close-btn" id="tv-archive-close-btn" title="Close Archive">&times;</button>
+            </div>
+
+            <div class="tv-archive-card-body">
+              <div class="tv-archive-thumb-wrap" id="tv-archive-thumb-wrap" style="cursor: pointer;">
+                <img src="${featuredSession.snapshotUrl || featuredSession.gifUrl || 'assets/test_fontainhas.gif'}" alt="${featuredSession.name || 'Artwork'}" class="tv-archive-thumb-img" id="tv-archive-thumb" />
+              </div>
+              <div class="tv-archive-info-wrap" id="tv-archive-info-wrap" style="cursor: pointer;">
+                <h4 class="tv-archive-art-name" id="tv-archive-title">${featuredSession.topologyInfo?.name || featuredSession.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h4>
+                <div class="tv-archive-meta-row" id="tv-archive-meta">${featuredSession.timeLabel || '12:00 - 12:30 IST'} · ${featuredSession.totalResponses || 0} audience responses</div>
+                <p class="tv-archive-reasoning" id="tv-archive-reasoning">${featuredSession.topologyInfo?.reasoning || featuredSession.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'}</p>
+              </div>
+            </div>
+
+            <div class="tv-archive-card-actions">
+              <button class="tv-archive-btn tv-btn-dl-postcard" id="tv-btn-dl-postcard">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+                <span>Download Postcard</span>
+              </button>
+              <button class="tv-archive-btn tv-btn-dl-hd" id="tv-btn-dl-hd">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                </svg>
+                <span>Artwork HD</span>
+              </button>
             </div>
           </div>
-        </section>
 
-        <!-- 2. Topology & Sentiment Details (Kept in dual view only) -->
-        <section class="showcase-label-col" aria-label="Topology & Sentiment Details">
-          ${this.renderCuratorCardHtml()}
-        </section>
-
-        <!-- 3. Tablet Interface (Interactive Survey Kiosk) -->
-        <section class="showcase-tablet-col" aria-label="Audience Survey Tablet">
-          <div class="tablet-device-frame" id="tablet-frame">
-            <!-- Tablet App mounts here -->
+          <!-- Survey Section -->
+          <div class="tv-survey-section" id="tv-survey-section">
+            <h2 class="tv-survey-question">What did the previous session of the Conclave feel like in terms of the weather of Goa?</h2>
+            
+            <div class="tv-weather-row" id="tv-weather-options">
+              ${weatherOptions.map(opt => `
+                <button class="tv-weather-card" data-weather="${opt.id}" title="${opt.label}">
+                  <div class="tv-weather-circle">
+                    ${opt.icon}
+                  </div>
+                  <span class="tv-weather-title">${opt.label}</span>
+                  <span class="tv-weather-subtitle">${opt.sub}</span>
+                </button>
+              `).join('')}
+            </div>
           </div>
+
+          <!-- Footer / Stepper & Touch Hint -->
+          <footer class="tv-kiosk-footer">
+            <div class="tv-stepper-dots">
+              <span class="tv-step-dot active"></span>
+              <span class="tv-step-dot"></span>
+              <span class="tv-step-dot"></span>
+              <span class="tv-step-dot"></span>
+              <span class="tv-step-dot"></span>
+            </div>
+            <span class="tv-hint-text">Touch an option to proceed · Tapestry continuously morphs on the vertical screen</span>
+          </footer>
         </section>
       </main>
 
-      <!-- Toast notifications placed strictly outside screen -->
+      <!-- Toast notifications container -->
       <div class="influx-toast-container" id="toast-container"></div>
-      <section id="past-sessions-strip-container"></section>
+      <section id="past-sessions-strip-container" style="display: none;"></section>
     `;
 
     this.mountArtworkCanvas();
     this.mountQRHelpers();
     this.mountPastSessions();
+    this.bindTouchTVEvents(featuredSession);
+  }
 
-    const tabletFrame = document.getElementById('tablet-frame');
-    this.tabletApp = new TabletApp(tabletFrame, this.syncManager, this.pastSessionsManager);
+  bindTouchTVEvents(featuredSession) {
+    // 1. Toggle archive card
+    const toggleBtn = document.getElementById('tv-toggle-archive-btn');
+    const archiveCard = document.getElementById('tv-archive-card');
+    const closeBtn = document.getElementById('tv-archive-close-btn');
 
-    document.getElementById('btn-showcase-tab-past')?.addEventListener('click', () => {
-      this.switchShowcaseTab('past');
+    if (toggleBtn && archiveCard) {
+      toggleBtn.onclick = () => {
+        const isHidden = (archiveCard.style.display === 'none');
+        archiveCard.style.display = isHidden ? 'flex' : 'none';
+      };
+    }
+
+    if (closeBtn && archiveCard) {
+      closeBtn.onclick = () => {
+        archiveCard.style.display = 'none';
+      };
+    }
+
+    // 2. Download actions
+    const dlPostcardBtn = document.getElementById('tv-btn-dl-postcard');
+    if (dlPostcardBtn) {
+      dlPostcardBtn.onclick = () => {
+        if (this.pastSessionsManager && featuredSession) {
+          this.pastSessionsManager.generateSwagPostcard(featuredSession);
+        }
+      };
+    }
+
+    const dlHdBtn = document.getElementById('tv-btn-dl-hd');
+    if (dlHdBtn) {
+      dlHdBtn.onclick = () => {
+        if (this.pastSessionsManager && featuredSession) {
+          this.pastSessionsManager.downloadRawArtwork(featuredSession);
+        }
+      };
+    }
+
+    // 3. Thumbnail / Title inspection modal
+    const thumbWrap = document.getElementById('tv-archive-thumb-wrap');
+    const infoWrap = document.getElementById('tv-archive-info-wrap');
+    [thumbWrap, infoWrap].forEach(el => {
+      if (el) {
+        el.onclick = () => {
+          if (this.pastSessionsManager && featuredSession) {
+            this.pastSessionsManager.showSessionModal(featuredSession);
+          }
+        };
+      }
     });
+
+    // 4. Touch Survey Weather Buttons
+    const weatherBtns = document.querySelectorAll('.tv-weather-card');
+    weatherBtns.forEach(btn => {
+      btn.onclick = () => {
+        const weatherId = btn.getAttribute('data-weather');
+        if (!weatherId) return;
+
+        // Visual feedback
+        weatherBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+
+        // Submit sentiment to live system
+        if (this.syncManager) {
+          this.syncManager.submitResponse({
+            weather: weatherId,
+            author: 'TV Kiosk Attendee',
+            note: 'Touch TV Attendee Vote'
+          });
+        }
+
+        // Live shockwave burst
+        if (this.artworkEngine) {
+          this.artworkEngine.addResponseBurst({ weather: weatherId });
+        }
+
+        this.showToastNotification({
+          author: 'Touch TV Attendee',
+          weather: weatherId,
+          food: 'bebinca',
+          location: 'aguada_fort',
+          emblem: 'mandovi_boat',
+          note: 'Woven into Live Artwork'
+        });
+
+        setTimeout(() => {
+          btn.classList.remove('selected');
+        }, 1800);
+      };
+    });
+
+    // 5. POAI badge tap feedback
+    const poaiBadge = document.getElementById('tv-poai-badge');
+    if (poaiBadge) {
+      poaiBadge.onclick = () => {
+        this.showToastNotification({
+          author: 'POAI 2026',
+          note: 'Goa AI Conclave · Many Minds One Tomorrow'
+        });
+      };
+    }
+  }
+
+  updateTVArchiveCard() {
+    if (this.currentMode !== 'dual' && this.currentMode !== 'wall') return;
+    const featuredSession = (this.pastSessions && this.pastSessions.length > 0)
+      ? this.pastSessions[this.pastSessions.length - 1]
+      : (this.currentSession || null);
+    if (!featuredSession) return;
+
+    const thumbEl = document.getElementById('tv-archive-thumb');
+    const titleEl = document.getElementById('tv-archive-title');
+    const metaEl = document.getElementById('tv-archive-meta');
+    const reasonEl = document.getElementById('tv-archive-reasoning');
+    const countEl = document.getElementById('tv-past-count');
+
+    if (thumbEl) {
+      thumbEl.src = featuredSession.snapshotUrl || featuredSession.gifUrl || 'assets/test_fontainhas.gif';
+    }
+    if (titleEl) {
+      titleEl.textContent = featuredSession.topologyInfo?.name || featuredSession.name || 'Mandovi River Sailboat & Fluvial Wake Currents';
+    }
+    if (metaEl) {
+      metaEl.textContent = `${featuredSession.timeLabel || '12:00 - 12:30 IST'} · ${featuredSession.totalResponses || 0} audience responses`;
+    }
+    if (reasonEl) {
+      reasonEl.textContent = featuredSession.topologyInfo?.reasoning || featuredSession.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.';
+    }
+    if (countEl) {
+      countEl.textContent = this.pastSessions.length || 49;
+    }
   }
 
   // Showcase Gallery View for Previous 30-Minute Artworks (Animated Looping GIFs)

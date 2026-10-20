@@ -1,0 +1,555 @@
+/* Touch-Enabled TV Dual View Layout
+   Faithfully matching the horizontal TV installation in the reference photo
+   Left: Computational Artwork Canvas (63.5% width) with Floating Banner
+   Right: Interactive Attendee Touch Kiosk (36.5% width) with POAI White Logo
+*/
+
+.touch-tv-layout {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  background-color: #0b0302;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  position: relative;
+}
+
+/* ==========================================================================
+   LEFT PANEL: Computational Artwork Canvas (~63.5% width)
+   ========================================================================== */
+.touch-tv-screen-side {
+  flex: 0 0 63.5%;
+  width: 63.5%;
+  height: 100vh;
+  position: relative;
+  background-color: #0d0403;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-tv-screen-side .computational-artwork-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  background-color: #0b0302;
+}
+
+/* Top-Left Floating Glass Banner */
+.tv-sentiment-pill {
+  position: absolute;
+  top: 26px;
+  left: 32px;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(36, 12, 8, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(242, 194, 73, 0.4);
+  border-radius: 12px;
+  padding: 10px 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+}
+
+.tv-sentiment-pill .pill-diamond {
+  color: #F2C249;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.tv-sentiment-pill .pill-text {
+  font-family: 'Cinzel', 'Marcellus', serif;
+  color: #FAF3E8;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+/* Discreet QR Code in bottom-left corner */
+.touch-tv-screen-side .artwork-hud-bottom {
+  position: absolute;
+  bottom: 24px;
+  left: 28px;
+  z-index: 10;
+}
+
+.touch-tv-screen-side .screen-qr-badge {
+  background: rgba(248, 239, 227, 0.92);
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(242, 194, 73, 0.4);
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-tv-screen-side .screen-qr-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* ==========================================================================
+   RIGHT PANEL: Touch Tablet Kiosk (~36.5% width)
+   ========================================================================== */
+.touch-tv-kiosk-side {
+  flex: 0 0 36.5%;
+  width: 36.5%;
+  height: 100vh;
+  background-color: #FAF3E8;
+  background-image: 
+    radial-gradient(rgba(135, 32, 18, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, #FAF3E8 0%, #F5EAE0 100%);
+  background-size: 20px 20px, 100% 100%;
+  border-left: 1px solid rgba(135, 32, 18, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 28px 20px 28px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  color: #3B140D;
+  position: relative;
+}
+
+/* Header: Artist Info on Left, POAI White Logo on Right */
+.tv-kiosk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.tv-artist-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.tv-artist-title {
+  font-family: 'Cinzel', 'Marcellus', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #3B140D;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.tv-artist-handle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  color: #872012;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* POAI White Logo Badge in Top Right */
+.tv-poai-badge {
+  background: #180603;
+  border: 1px solid rgba(242, 194, 73, 0.45);
+  border-radius: 12px;
+  padding: 6px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+
+.tv-poai-badge:hover,
+.tv-poai-badge:active {
+  transform: scale(1.04);
+  box-shadow: 0 6px 20px rgba(242, 194, 73, 0.45);
+}
+
+.tv-poai-logo-img {
+  height: 36px;
+  width: auto;
+  max-width: 170px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Action Row / Pill Buttons */
+.tv-action-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.tv-past-pill-btn {
+  background: #B83A24;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 20px;
+  padding: 7px 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(184, 58, 36, 0.3);
+  transition: transform 0.15s, background-color 0.15s;
+}
+
+.tv-past-pill-btn:hover,
+.tv-past-pill-btn:active {
+  background: #A32F1A;
+  transform: translateY(-1px);
+}
+
+.tv-past-pill-btn .pill-plus-icon {
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.tv-past-pill-btn .pill-count-badge {
+  background: #F2C249;
+  color: #4A170B;
+  font-weight: 800;
+  font-size: 0.74rem;
+  padding: 2px 7px;
+  border-radius: 10px;
+  line-height: 1;
+}
+
+/* Previous Artworks Archive Card (embedded exactly as shown in reference photo) */
+.tv-archive-card {
+  background: #230B07;
+  border: 1px solid rgba(242, 194, 73, 0.3);
+  border-radius: 14px;
+  padding: 14px 16px;
+  color: #F8EFE3;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-shrink: 0;
+  animation: fadeInDown 0.3s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tv-archive-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.tv-archive-heading {
+  font-family: 'Cinzel', 'Marcellus', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.tv-archive-subtext {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #D4C4B5;
+  margin: 2px 0 0 0;
+  opacity: 0.85;
+}
+
+.tv-archive-close-btn {
+  background: none;
+  border: none;
+  color: #D4C4B5;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  border-radius: 4px;
+  transition: color 0.15s;
+}
+
+.tv-archive-close-btn:hover,
+.tv-archive-close-btn:active {
+  color: #FFFFFF;
+}
+
+.tv-archive-card-body {
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+}
+
+.tv-archive-thumb-wrap {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(242, 194, 73, 0.3);
+  background: #110503;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.tv-archive-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tv-archive-info-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.tv-archive-art-name {
+  font-family: 'Cinzel', 'Marcellus', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #F2C249;
+  margin: 0 0 3px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tv-archive-meta-row {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.73rem;
+  color: #EAD8C3;
+  margin-bottom: 5px;
+  opacity: 0.9;
+}
+
+.tv-archive-reasoning {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #D4C4B5;
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tv-archive-card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.tv-archive-btn {
+  flex: 1;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.78rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s;
+}
+
+.tv-archive-btn:hover,
+.tv-archive-btn:active {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+
+.tv-btn-dl-postcard {
+  background: #C94B34;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(201, 75, 52, 0.35);
+}
+
+.tv-btn-dl-hd {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* ==========================================================================
+   SURVEY SECTION: Weather Question & 5 Large Touch Circles
+   ========================================================================== */
+.tv-survey-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.tv-survey-question {
+  font-family: 'Marcellus', 'Cinzel', serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: #2E0F07;
+  text-align: center;
+  margin: 0 0 20px 0;
+  line-height: 1.38;
+}
+
+.tv-weather-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.tv-weather-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 4px;
+  border-radius: 12px;
+  transition: transform 0.15s;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tv-weather-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #DE543B 0%, #A9331D 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 6px 16px rgba(184, 58, 36, 0.35);
+  margin-bottom: 8px;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+}
+
+.tv-weather-card:hover .tv-weather-circle,
+.tv-weather-card:active .tv-weather-circle,
+.tv-weather-card.selected .tv-weather-circle {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(242, 194, 73, 0.6);
+}
+
+.tv-weather-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: #3B140D;
+  display: block;
+  line-height: 1.2;
+}
+
+.tv-weather-subtitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  color: #872012;
+  display: block;
+  margin-top: 2px;
+}
+
+/* Footer / Stepper */
+.tv-kiosk-footer {
+  margin-top: auto;
+  padding-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.tv-stepper-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tv-step-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: rgba(135, 32, 18, 0.2);
+  transition: all 0.2s;
+}
+
+.tv-step-dot.active {
+  width: 18px;
+  border-radius: 6px;
+  background-color: #872012;
+}
+
+.tv-hint-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem;
+  color: #6E2214;
+  opacity: 0.85;
+}
+
+/* Discrete floating toggle for demo/presenter controls */
+.tv-presenter-tray-toggle {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  z-index: 9999;
+  background: rgba(30, 8, 4, 0.65);
+  border: 1px solid rgba(242, 194, 73, 0.3);
+  color: #FAF3E8;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  opacity: 0.4;
+  transition: opacity 0.2s;
+}
+
+.tv-presenter-tray-toggle:hover {
+  opacity: 1;
+}
+
+/* Center presenter tray under artwork canvas so kiosk is completely clear */
+body:has(.touch-tv-layout) .presenter-tray,
+#app-root:has(.touch-tv-layout) ~ .presenter-tray {
+  left: 31.75% !important;
+  transform: translateX(-50%) !important;
+  bottom: 14px !important;
+  z-index: 999 !important;
+}
