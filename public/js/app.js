@@ -707,7 +707,7 @@ class ConclaveApp {
   }
 
   bindTVSurveyEvents() {
-    // 1. Option selection -> advance to next step
+    // 1. Option selection -> advance to next step (artwork does not change on individual clicks)
     const optionBtns = document.querySelectorAll('.tv-option-btn');
     optionBtns.forEach(btn => {
       btn.onclick = () => {
@@ -717,11 +717,6 @@ class ConclaveApp {
 
         this.tvSurvey[type] = value;
         btn.classList.add('selected');
-
-        // Micro burst on canvas for interactive tactile response
-        if (this.artworkEngine && type === 'weather') {
-          this.artworkEngine.addResponseBurst({ weather: value });
-        }
 
         setTimeout(() => {
           this.tvSurvey.step += 1;
