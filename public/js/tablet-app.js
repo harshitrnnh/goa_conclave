@@ -537,25 +537,58 @@ export class TabletApp {
     if (form) {
       form.onsubmit = async (e) => {
         e.preventDefault();
+        const submitBtn = form.querySelector('#submit-weave-btn');
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.style.opacity = '0.7';
+          submitBtn.textContent = 'Weaving into Tapestry...';
+        }
+
         const nameInput = form.querySelector('#attendee-name');
         const noteInput = form.querySelector('#attendee-note');
         this.attendeeName = nameInput ? nameInput.value : '';
         this.attendeeNote = noteInput ? noteInput.value : '';
 
-        // Submit all 4 answers to sync manager
-        await this.syncManager.submitResponse({
-          weather: this.selectedWeather,
-          food: this.selectedFood,
-          location: this.selectedLocation,
-          emblem: this.selectedEmblem,
+        const payload = {
+          weather: this.selectedWeather || 'sunny',
+          food: this.selectedFood || 'bebinca',
+          location: this.selectedLocation || 'aguada_fort',
+          emblem: this.selectedEmblem || 'sailboat',
           author: this.attendeeName,
           note: this.attendeeNote
-        });
+        };
+
+        // Submit all 4 answers to sync manager with fallback
+        try {
+          if (this.syncManager && typeof this.syncManager.submitResponse === 'function') {
+            await this.syncManager.submitResponse(payload);
+          } else {
+            await fetch('/api/respond', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+          }
+        } catch (err) {
+          console.warn('Sync submission error, continuing to celebratory screen:', err);
+        }
 
         this.currentStep = 6;
         this.render();
         this.startAutoReset();
       };
+
+      const weaveBtn = this.container.querySelector('#submit-weave-btn');
+      if (weaveBtn) {
+        weaveBtn.onclick = (e) => {
+          e.preventDefault();
+          if (typeof form.requestSubmit === 'function') {
+            form.requestSubmit();
+          } else {
+            form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+          }
+        };
+      }
     }
 
     // Past sessions button in header

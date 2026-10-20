@@ -40,8 +40,8 @@ class ConclaveApp {
   }
 
   async init() {
-    this.setupView();
     this.initSyncManager();
+    this.setupView();
     this.setupPresenterTray();
     this.setupKeyboardShortcuts();
     this.startSessionTimer();
