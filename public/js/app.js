@@ -336,6 +336,10 @@ class ConclaveApp {
             <div class="tv-artist-block">
               <span class="tv-artist-title">ARTWORK BY HARSHIT AGRAWAL</span>
               <span class="tv-artist-handle">@harshitrnnh</span>
+              <div class="tv-artist-bio-row">
+                <img src="assets/harshit_agrawal.png" alt="Harshit Agrawal" class="tv-artist-photo" />
+                <span class="tv-artist-bio-text">Held India's first solo AI Art Show, Exhibition in 20 countries, 5 TEDx Talks, Google's first Artist Resident in India.</span>
+              </div>
             </div>
             <div class="tv-poai-badge" id="tv-poai-badge" title="POAI - Conclave">
               <img src="assets/poai_logo_horizontal.png" alt="POAI" class="tv-poai-logo-img" />

@@ -138,6 +138,7 @@
 .tv-artist-block {
   display: flex;
   flex-direction: column;
+  max-width: calc(100% - 170px);
 }
 
 .tv-artist-title {
@@ -154,8 +155,34 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.8rem;
   color: #872012;
+  font-weight: 600;
+  margin-top: 1px;
+}
+
+.tv-artist-bio-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.tv-artist-photo {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #D4AF37;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
+  flex-shrink: 0;
+}
+
+.tv-artist-bio-text {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.69rem;
+  line-height: 1.32;
+  color: #5C2216;
   font-weight: 500;
-  margin-top: 2px;
+  letter-spacing: -0.01em;
 }
 
 /* POAI White Logo Badge in Top Right */

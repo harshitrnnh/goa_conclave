@@ -103,6 +103,37 @@
   opacity: 0.9;
 }
 
+.tablet-artist-meta {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+}
+
+.tablet-artist-bio {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+}
+
+.tablet-artist-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #D4AF37;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+.tablet-artist-tagline {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.65rem;
+  line-height: 1.25;
+  color: #6B271A;
+  font-weight: 500;
+}
+
 .tablet-past-btn {
   background: none;
   border: 1px solid rgba(184, 58, 36, 0.35);

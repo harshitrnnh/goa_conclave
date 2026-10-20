@@ -58,7 +58,13 @@ export class TabletApp {
         <!-- Top Ornamental Goan Frieze Border -->
         <header class="tablet-header">
           <div class="tablet-header-bar">
-            <span class="conclave-brand">Artwork by Harshit Agrawal <span class="brand-handle">@harshitrnnh</span></span>
+            <div class="tablet-artist-meta">
+              <span class="conclave-brand">Artwork by Harshit Agrawal <span class="brand-handle">@harshitrnnh</span></span>
+              <div class="tablet-artist-bio">
+                <img src="assets/harshit_agrawal.png" alt="Harshit Agrawal" class="tablet-artist-avatar" />
+                <span class="tablet-artist-tagline">Held India's first solo AI Art Show, Exhibition in 20 countries, 5 TEDx Talks, Google's first Artist Resident in India.</span>
+              </div>
+            </div>
             
             <!-- iPad Navigation Tabs -->
             <nav class="tablet-nav-tabs" role="tablist" aria-label="Kiosk Tabs">
