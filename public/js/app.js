@@ -360,50 +360,21 @@ class ConclaveApp {
             </div>
           </header>
 
-          <!-- Action Row / Pill Buttons -->
-          <div class="tv-action-row">
-            <button class="tv-past-pill-btn" id="tv-toggle-archive-btn" title="Toggle Previous Artworks Archive">
-              <span class="pill-plus-icon">+</span>
-              <span>Previous Artworks</span>
-              <span class="pill-count-badge" id="tv-past-count">${pastCount}</span>
-            </button>
-          </div>
-
-          <!-- Previous Artworks Archive Card (embedded exactly as shown in reference photo) -->
-          <div class="tv-archive-card" id="tv-archive-card">
-            <div class="tv-archive-card-top">
-              <div>
-                <h3 class="tv-archive-heading">Previous Artworks Archive</h3>
-                <p class="tv-archive-subtext">Looping GIFs of 30-min cycles (max 10s loop) · Responding dynamically to Goan sentiment</p>
+          <!-- Current Live Artwork Information (Title & Brief Description) -->
+          <div class="tv-current-artwork-card" id="tv-current-artwork-card">
+            <div class="tv-current-art-top-row">
+              <div class="tv-current-art-header">
+                <span class="tv-live-pulse-dot"></span>
+                <span class="tv-current-art-badge">CURRENT LIVE ARTWORK</span>
+                <span class="tv-current-art-cycle" id="tv-current-art-time">${featuredSession.timeLabel || 'Live 30-Min Cycle'}</span>
               </div>
-              <button class="tv-archive-close-btn" id="tv-archive-close-btn" title="Close Archive">&times;</button>
-            </div>
-
-            <div class="tv-archive-card-body">
-              <div class="tv-archive-thumb-wrap" id="tv-archive-thumb-wrap" style="cursor: pointer;">
-                <img src="${featuredSession.snapshotUrl || featuredSession.gifUrl || 'assets/test_fontainhas.gif'}" alt="${featuredSession.name || 'Artwork'}" class="tv-archive-thumb-img" id="tv-archive-thumb" />
-              </div>
-              <div class="tv-archive-info-wrap" id="tv-archive-info-wrap" style="cursor: pointer;">
-                <h4 class="tv-archive-art-name" id="tv-archive-title">${featuredSession.topologyInfo?.name || featuredSession.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h4>
-                <div class="tv-archive-meta-row" id="tv-archive-meta">${featuredSession.timeLabel || '12:00 - 12:30 IST'} · ${featuredSession.totalResponses || 0} audience responses</div>
-                <p class="tv-archive-reasoning" id="tv-archive-reasoning">${featuredSession.topologyInfo?.reasoning || featuredSession.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'}</p>
-              </div>
-            </div>
-
-            <div class="tv-archive-card-actions">
-              <button class="tv-archive-btn tv-btn-dl-postcard" id="tv-btn-dl-postcard">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                  <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                </svg>
-                <span>Download Postcard</span>
-              </button>
-              <button class="tv-archive-btn tv-btn-dl-hd" id="tv-btn-dl-hd">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-                </svg>
-                <span>Artwork HD</span>
+              <button class="tv-past-pill-btn" id="tv-open-archive-modal-btn" title="View & Download Previous 30-Min Artworks">
+                <span>🏛️ Past Artworks</span>
+                <span class="pill-count-badge" id="tv-past-count">${pastCount}</span>
               </button>
             </div>
+            <h3 class="tv-current-art-title" id="tv-current-art-title">${featuredSession.topologyInfo?.name || featuredSession.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h3>
+            <p class="tv-current-art-desc" id="tv-current-art-desc">${featuredSession.topologyInfo?.reasoning || featuredSession.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'}</p>
           </div>
 
           <!-- Survey Section (Step 1..6 dynamically rendered) -->
@@ -436,57 +407,20 @@ class ConclaveApp {
   }
 
   bindTouchTVEvents(featuredSession) {
-    // 1. Toggle archive card
-    const toggleBtn = document.getElementById('tv-toggle-archive-btn');
-    const archiveCard = document.getElementById('tv-archive-card');
-    const closeBtn = document.getElementById('tv-archive-close-btn');
-
-    if (toggleBtn && archiveCard) {
-      toggleBtn.onclick = () => {
-        const isHidden = (archiveCard.style.display === 'none');
-        archiveCard.style.display = isHidden ? 'flex' : 'none';
-      };
-    }
-
-    if (closeBtn && archiveCard) {
-      closeBtn.onclick = () => {
-        archiveCard.style.display = 'none';
-      };
-    }
-
-    // 2. Download actions
-    const dlPostcardBtn = document.getElementById('tv-btn-dl-postcard');
-    if (dlPostcardBtn) {
-      dlPostcardBtn.onclick = () => {
-        if (this.pastSessionsManager && featuredSession) {
-          this.pastSessionsManager.generateSwagPostcard(featuredSession);
+    // 1. Previous Artworks button opens Past Sessions modal
+    const archiveBtn = document.getElementById('tv-open-archive-modal-btn');
+    if (archiveBtn) {
+      archiveBtn.onclick = () => {
+        const featured = (this.pastSessions && this.pastSessions.length > 0)
+          ? this.pastSessions[this.pastSessions.length - 1]
+          : this.currentSession;
+        if (this.pastSessionsManager && featured) {
+          this.pastSessionsManager.showSessionModal(featured);
         }
       };
     }
 
-    const dlHdBtn = document.getElementById('tv-btn-dl-hd');
-    if (dlHdBtn) {
-      dlHdBtn.onclick = () => {
-        if (this.pastSessionsManager && featuredSession) {
-          this.pastSessionsManager.downloadRawArtwork(featuredSession);
-        }
-      };
-    }
-
-    // 3. Thumbnail / Title inspection modal
-    const thumbWrap = document.getElementById('tv-archive-thumb-wrap');
-    const infoWrap = document.getElementById('tv-archive-info-wrap');
-    [thumbWrap, infoWrap].forEach(el => {
-      if (el) {
-        el.onclick = () => {
-          if (this.pastSessionsManager && featuredSession) {
-            this.pastSessionsManager.showSessionModal(featuredSession);
-          }
-        };
-      }
-    });
-
-    // 4. POAI badge tap feedback
+    // 2. POAI badge tap feedback
     const poaiBadge = document.getElementById('tv-poai-badge');
     if (poaiBadge) {
       poaiBadge.onclick = () => {
@@ -896,32 +830,28 @@ class ConclaveApp {
   }
 
   updateTVArchiveCard() {
-    if (this.currentMode !== 'dual' && this.currentMode !== 'wall') return;
-    const featuredSession = (this.pastSessions && this.pastSessions.length > 0)
+    if (this.currentMode !== 'dual' && this.currentMode !== 'wall' && this.currentMode !== 'simulate') return;
+    const session = this.currentSession || (this.pastSessions && this.pastSessions.length > 0
       ? this.pastSessions[this.pastSessions.length - 1]
-      : (this.currentSession || null);
-    if (!featuredSession) return;
+      : null);
+    if (!session) return;
 
-    const thumbEl = document.getElementById('tv-archive-thumb');
-    const titleEl = document.getElementById('tv-archive-title');
-    const metaEl = document.getElementById('tv-archive-meta');
-    const reasonEl = document.getElementById('tv-archive-reasoning');
+    const titleEl = document.getElementById('tv-current-art-title');
+    const descEl = document.getElementById('tv-current-art-desc');
+    const timeEl = document.getElementById('tv-current-art-time');
     const countEl = document.getElementById('tv-past-count');
 
-    if (thumbEl) {
-      thumbEl.src = featuredSession.snapshotUrl || featuredSession.gifUrl || 'assets/test_fontainhas.gif';
-    }
     if (titleEl) {
-      titleEl.textContent = featuredSession.topologyInfo?.name || featuredSession.name || 'Mandovi River Sailboat & Fluvial Wake Currents';
+      titleEl.textContent = session.topologyInfo?.name || session.name || 'Mandovi River Sailboat & Fluvial Wake Currents';
     }
-    if (metaEl) {
-      metaEl.textContent = `${featuredSession.timeLabel || '12:00 - 12:30 IST'} · ${featuredSession.totalResponses || 0} audience responses`;
+    if (descEl) {
+      descEl.textContent = session.topologyInfo?.reasoning || session.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.';
     }
-    if (reasonEl) {
-      reasonEl.textContent = featuredSession.topologyInfo?.reasoning || featuredSession.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.';
+    if (timeEl) {
+      timeEl.textContent = session.timeLabel || 'Live 30-Min Cycle';
     }
     if (countEl) {
-      countEl.textContent = this.pastSessions.length || 49;
+      countEl.textContent = this.pastSessions.length || 55;
     }
   }
 

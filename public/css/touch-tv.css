@@ -305,26 +305,27 @@
   line-height: 1;
 }
 
-/* Previous Artworks Archive Card (embedded exactly as shown in reference photo) */
-.tv-archive-card {
-  background: #230B07;
-  border: 1px solid rgba(242, 194, 73, 0.3);
-  border-radius: 14px;
-  padding: 14px 16px;
-  color: #F8EFE3;
-  margin-bottom: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+/* ==========================================================================
+   CURRENT LIVE ARTWORK BANNER (Title & Brief Description)
+   ========================================================================== */
+.tv-current-artwork-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(135, 32, 18, 0.18);
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 14px rgba(135, 32, 18, 0.06);
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  flex-shrink: 0;
-  animation: fadeInDown 0.3s ease-out;
+  gap: 3px;
+  animation: fadeInDown 0.25s ease-out;
 }
 
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-6px);
   }
   to {
     opacity: 1;
@@ -332,157 +333,78 @@
   }
 }
 
-.tv-archive-card-top {
+.tv-current-art-top-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  margin-bottom: 2px;
 }
 
-.tv-archive-heading {
-  font-family: 'Cinzel', 'Marcellus', serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  margin: 0;
-  line-height: 1.25;
-}
-
-.tv-archive-subtext {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.72rem;
-  color: #D4C4B5;
-  margin: 2px 0 0 0;
-  opacity: 0.85;
-}
-
-.tv-archive-close-btn {
-  background: none;
-  border: none;
-  color: #D4C4B5;
-  font-size: 1.4rem;
-  line-height: 1;
-  cursor: pointer;
-  padding: 0 4px;
-  border-radius: 4px;
-  transition: color 0.15s;
-}
-
-.tv-archive-close-btn:hover,
-.tv-archive-close-btn:active {
-  color: #FFFFFF;
-}
-
-.tv-archive-card-body {
-  display: flex;
-  gap: 14px;
-  align-items: stretch;
-}
-
-.tv-archive-thumb-wrap {
-  width: 110px;
-  height: 110px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid rgba(242, 194, 73, 0.3);
-  background: #110503;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-.tv-archive-thumb-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.tv-archive-info-wrap {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-width: 0;
-}
-
-.tv-archive-art-name {
-  font-family: 'Cinzel', 'Marcellus', serif;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #F2C249;
-  margin: 0 0 3px 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.tv-archive-meta-row {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.73rem;
-  color: #EAD8C3;
-  margin-bottom: 5px;
-  opacity: 0.9;
-}
-
-.tv-archive-reasoning {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.72rem;
-  color: #D4C4B5;
-  line-height: 1.35;
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.tv-archive-card-actions {
-  display: flex;
-  gap: 10px;
-}
-
-.tv-archive-btn {
-  flex: 1;
-  border: none;
-  border-radius: 8px;
-  padding: 8px 12px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 600;
-  font-size: 0.78rem;
+.tv-current-art-header {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
   gap: 6px;
-  cursor: pointer;
-  transition: transform 0.15s, opacity 0.15s;
 }
 
-.tv-archive-btn:hover,
-.tv-archive-btn:active {
-  transform: translateY(-1px);
-  opacity: 0.95;
+.tv-live-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #DE543B;
+  box-shadow: 0 0 8px rgba(222, 84, 59, 0.8);
+  animation: liveDotPulse 2s infinite ease-in-out;
 }
 
-.tv-btn-dl-postcard {
-  background: #C94B34;
-  color: #FFFFFF;
-  box-shadow: 0 4px 10px rgba(201, 75, 52, 0.35);
+@keyframes liveDotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
 }
 
-.tv-btn-dl-hd {
-  background: rgba(255, 255, 255, 0.12);
-  color: #FFFFFF;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+.tv-current-art-badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: #872012;
+  text-transform: uppercase;
+}
+
+.tv-current-art-cycle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.68rem;
+  color: #8C4030;
+  margin-left: 4px;
+}
+
+.tv-current-art-title {
+  font-family: 'Cinzel', 'Marcellus', serif;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #3B140D;
+  margin: 0;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
+}
+
+.tv-current-art-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem;
+  line-height: 1.32;
+  color: #5C2216;
+  margin: 0;
+  opacity: 0.92;
 }
 
 /* ==========================================================================
    SURVEY SECTION: Multi-step interactive voting kiosk (Steps 1 to 6)
    ========================================================================== */
 .tv-survey-section {
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 240px;
+  min-height: 0;
+  padding: 4px 0 8px 0;
 }
 
 .touch-tv-kiosk-side .question-section {
@@ -499,7 +421,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .touch-tv-kiosk-side .back-link-btn {
@@ -507,10 +429,10 @@
   border: 1px solid rgba(135, 32, 18, 0.2);
   color: #872012;
   font-family: 'Marcellus', serif;
-  font-size: 0.84rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 16px;
+  padding: 3px 10px;
+  border-radius: 14px;
   cursor: pointer;
   transition: background-color 0.2s, transform 0.15s;
 }
@@ -522,32 +444,55 @@
 
 .touch-tv-kiosk-side .question-title {
   font-family: 'Marcellus', 'Cinzel', serif;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   font-weight: 500;
   color: #2E0F07;
   text-align: center;
-  margin: 0 0 16px 0;
-  line-height: 1.35;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
   max-width: 95%;
 }
 
 .touch-tv-kiosk-side .sentiment-grid {
   display: grid;
   width: 100%;
-  gap: 8px;
+  gap: 6px;
   justify-content: center;
 }
 
 .touch-tv-kiosk-side .weather-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 6px;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.touch-tv-kiosk-side .weather-grid .sentiment-icon-circle {
+  width: 54px;
+  height: 54px;
+  margin-bottom: 4px;
 }
 
 .touch-tv-kiosk-side .food-grid,
 .touch-tv-kiosk-side .location-grid,
 .touch-tv-kiosk-side .emblem-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px 8px;
+  gap: 8px 6px;
+  margin-bottom: 4px;
+}
+
+.touch-tv-kiosk-side .food-grid .sentiment-icon-circle,
+.touch-tv-kiosk-side .location-grid .sentiment-icon-circle,
+.touch-tv-kiosk-side .emblem-grid .sentiment-icon-circle {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 3px;
+}
+
+.touch-tv-kiosk-side .food-grid .sentiment-icon-circle svg,
+.touch-tv-kiosk-side .location-grid .sentiment-icon-circle svg,
+.touch-tv-kiosk-side .emblem-grid .sentiment-icon-circle svg {
+  width: 26px;
+  height: 26px;
 }
 
 .touch-tv-kiosk-side .sentiment-card {
@@ -558,8 +503,8 @@
   align-items: center;
   text-align: center;
   cursor: pointer;
-  padding: 4px 2px;
-  border-radius: 12px;
+  padding: 2px 2px;
+  border-radius: 10px;
   transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -813,11 +758,16 @@
 /* Footer / Stepper */
 .tv-kiosk-footer {
   margin-top: auto;
-  padding-top: 12px;
+  padding-top: 10px;
+  padding-bottom: 2px;
+  border-top: 1px solid rgba(135, 32, 18, 0.12);
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   flex-shrink: 0;
+  background: transparent;
+  position: relative;
+  z-index: 10;
 }
 
 .tv-stepper-dots {
