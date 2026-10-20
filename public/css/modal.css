@@ -289,26 +289,46 @@
   color: rgba(255,255,255,0.7);
 }
 
-.swag-download-btn {
+.modal-download-actions {
+  display: flex;
+  gap: 8px;
   width: 100%;
-  padding: 12px 14px;
+  margin-top: 10px;
+}
+
+.swag-download-btn {
+  flex: 1;
+  padding: 10px 12px;
   background: linear-gradient(135deg, var(--goa-terracotta), var(--goa-laterite));
   border: 1px solid var(--goa-gold);
   border-radius: 10px;
   color: #FFF;
   font-family: 'Marcellus', serif;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
 }
 
 .swag-download-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(184, 58, 36, 0.4);
+}
+
+.swag-download-btn.secondary-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(242, 194, 73, 0.35);
+  color: #F8EFE3;
+}
+
+.swag-download-btn.secondary-btn:hover {
+  background: rgba(242, 194, 73, 0.16);
+  border-color: var(--goa-gold);
+  color: #FFF;
 }
 
 .modal-sentiment-details {

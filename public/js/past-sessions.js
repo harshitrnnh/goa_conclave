@@ -101,12 +101,20 @@ export class PastSessionsManager {
               <img src="${session.snapshotUrl || session.gifUrl || `/api/sessions/${session.id}/artwork.gif`}" alt="${session.name || 'Conclave Artwork'}" class="modal-artwork-gif" />
               <div class="modal-gif-tag">${session.snapshotUrl ? '🎨 42,000 Particles · Authentic Canvas Render' : '⏱️ 9.6s Loop · 8 Keyframes'}</div>
             </div>
-            <button class="swag-download-btn" id="generate-swag-btn">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-              </svg>
-              <span>Download "Sentiment to Swag" Postcard</span>
-            </button>
+            <div class="modal-download-actions">
+              <button class="swag-download-btn" id="generate-swag-btn" title="Download Commemorative Postcard with Authentic Artwork">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+                <span>Download Postcard</span>
+              </button>
+              <button class="swag-download-btn secondary-btn" id="download-raw-artwork-btn" title="Download Pure 42,000 Particle High-Resolution Artwork">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                </svg>
+                <span>Artwork HD</span>
+              </button>
+            </div>
           </div>
 
           <div class="modal-sentiment-details">
@@ -170,6 +178,10 @@ export class PastSessionsManager {
     modal.querySelector('#generate-swag-btn').onclick = () => {
       this.generateSwagPostcard(session);
     };
+
+    modal.querySelector('#download-raw-artwork-btn').onclick = () => {
+      this.downloadRawArtwork(session);
+    };
   }
 
   renderBar(label, count, total, color) {
@@ -185,64 +197,192 @@ export class PastSessionsManager {
     `;
   }
 
-  // Generate a commemorative high-res postcard image for download
+  // Generate a commemorative high-res postcard image embedding the authentic 42,000 particle artwork
   generateSwagPostcard(session) {
     const canvas = document.createElement('canvas');
     canvas.width = 1200;
     canvas.height = 1800;
     const ctx = canvas.getContext('2d');
 
-    // Rich background
-    const grad = ctx.createLinearGradient(0, 0, 0, 1800);
-    grad.addColorStop(0, '#1E0B07');
-    grad.addColorStop(0.4, '#872012');
-    grad.addColorStop(0.8, '#D05228');
-    grad.addColorStop(1, '#F2C249');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 1200, 1800);
+    const downloadDirect = () => {
+      const link = document.createElement('a');
+      link.download = `ManyMindsOneTomorrow-Session-${session.sessionNumber || 'Artwork'}-Postcard.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    };
 
-    // Decorative outer border
-    ctx.strokeStyle = '#F8EFE3';
-    ctx.lineWidth = 14;
-    ctx.strokeRect(30, 30, 1140, 1740);
-    ctx.lineWidth = 2;
-    ctx.strokeRect(46, 46, 1108, 1708);
+    const drawCard = (artworkImg) => {
+      // 1. Rich Museum Background
+      const grad = ctx.createLinearGradient(0, 0, 0, 1800);
+      grad.addColorStop(0, '#0D0403');
+      grad.addColorStop(0.4, '#180705');
+      grad.addColorStop(0.8, '#240A07');
+      grad.addColorStop(1, '#0A0302');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1200, 1800);
 
-    // Conclave Stamp Header
-    ctx.fillStyle = '#F8EFE3';
-    ctx.font = 'bold 36px Georgia, serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('GOA AI TECH CONCLAVE 2026', 600, 110);
-    
-    ctx.font = '22px Georgia, serif';
-    ctx.fillText('SENTIMENT TO SWAG · COLLECTIVE COMPUTATIONAL ART', 600, 145);
+      // Subtle atmospheric warmth in center
+      const radial = ctx.createRadialGradient(600, 680, 50, 600, 680, 700);
+      radial.addColorStop(0, 'rgba(184, 58, 36, 0.22)');
+      radial.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = radial;
+      ctx.fillRect(0, 0, 1200, 1800);
 
-    // Sunburst illustration
-    ctx.beginPath();
-    ctx.arc(600, 500, 140, 0, Math.PI * 2);
-    ctx.fillStyle = '#F2C249';
-    ctx.fill();
+      // 2. Decorative Double Gold Border
+      ctx.strokeStyle = '#D4AF37';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(36, 36, 1128, 1728);
+      ctx.strokeStyle = 'rgba(242, 194, 73, 0.4)';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(48, 48, 1104, 1704);
 
-    // Session badge
-    ctx.fillStyle = '#F8EFE3';
-    ctx.font = 'bold 44px Georgia, serif';
-    ctx.fillText(`Session #${session.sessionNumber}`, 600, 1100);
+      // Corner flourishes
+      const cornerSize = 28;
+      const drawCorner = (x, y, dx, dy) => {
+        ctx.beginPath();
+        ctx.moveTo(x, y + dy * cornerSize);
+        ctx.lineTo(x, y);
+        ctx.lineTo(x + dx * cornerSize, y);
+        ctx.strokeStyle = '#F2C249';
+        ctx.lineWidth = 3;
+        ctx.stroke();
+      };
+      drawCorner(48, 48, 1, 1);
+      drawCorner(1152, 48, -1, 1);
+      drawCorner(48, 1752, 1, -1);
+      drawCorner(1152, 1752, -1, -1);
 
-    ctx.font = '28px sans-serif';
-    ctx.fillText(session.timeLabel || '30-Minute Cycle', 600, 1150);
+      // 3. Exhibition Title & Artist Attribution
+      ctx.fillStyle = '#F2C249';
+      ctx.font = 'bold 36px Georgia, serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('MANY MINDS ONE TOMORROW', 600, 112);
 
-    ctx.font = 'italic 24px Georgia, serif';
-    ctx.fillText(`"Woven from ${session.totalResponses} Conclave attendee voices"`, 600, 1220);
+      ctx.fillStyle = '#E2A085';
+      ctx.font = '500 22px Georgia, serif';
+      ctx.fillText('ARTWORK BY HARSHIT AGRAWAL  ·  @harshitrnnh', 600, 150);
 
-    // Footer info
-    ctx.fillStyle = 'rgba(248, 239, 227, 0.85)';
-    ctx.font = '20px monospace';
-    ctx.fillText(`Weather: ${session.dominantWeather?.toUpperCase()} · Flavour: ${session.dominantFood?.toUpperCase()} · Landmark: ${session.dominantLocation?.toUpperCase()} · Emblem: ${session.dominantEmblem?.toUpperCase()}`, 600, 1680);
+      // Fine separator
+      ctx.strokeStyle = 'rgba(242, 194, 73, 0.35)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(250, 175);
+      ctx.lineTo(950, 175);
+      ctx.stroke();
 
-    // Trigger download
+      // 4. Authentic 42,000 Particle Artwork Canvas Area
+      const artW = 540;
+      const artH = 960;
+      const artX = (1200 - artW) / 2; // 330
+      const artY = 205;
+
+      // Glow behind artwork
+      ctx.save();
+      ctx.shadowColor = 'rgba(221, 104, 41, 0.45)';
+      ctx.shadowBlur = 30;
+      ctx.fillStyle = '#050201';
+      ctx.fillRect(artX, artY, artW, artH);
+      ctx.restore();
+
+      // Draw real artwork image
+      if (artworkImg && artworkImg.naturalWidth) {
+        ctx.drawImage(artworkImg, artX, artY, artW, artH);
+      } else {
+        ctx.fillStyle = '#1a0805';
+        ctx.fillRect(artX, artY, artW, artH);
+      }
+
+      // Gold rim around artwork
+      ctx.strokeStyle = 'rgba(242, 194, 73, 0.6)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(artX, artY, artW, artH);
+
+      // 5. Session & Topology Information (Below Artwork)
+      const topoName = session.topologyInfo?.name || 'Collective Computational Tapestry';
+      const topoArchetype = session.topologyInfo?.archetype || 'Goan Environmental & Cultural Synthesis';
+
+      ctx.fillStyle = '#F8EFE3';
+      ctx.font = 'bold 32px Georgia, serif';
+      ctx.fillText(topoName, 600, 1230);
+
+      ctx.fillStyle = '#E5A93C';
+      ctx.font = 'italic 20px Georgia, serif';
+      ctx.fillText(topoArchetype, 600, 1268);
+
+      // Session number badge & timing
+      ctx.fillStyle = '#F8EFE3';
+      ctx.font = '600 24px sans-serif';
+      ctx.fillText(`Session #${session.sessionNumber || '0'}   ·   ${session.timeLabel || '30-Minute Cycle'}`, 600, 1324);
+
+      // Attendees attribution
+      ctx.fillStyle = '#C99688';
+      ctx.font = 'italic 20px Georgia, serif';
+      const voicesText = session.totalResponses
+        ? `"Woven dynamically from ${session.totalResponses} Conclave attendee voices"`
+        : '"Living computational synthesis of collective attendee sentiment"';
+      ctx.fillText(voicesText, 600, 1362);
+
+      // Fine separator
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(180, 1405);
+      ctx.lineTo(1020, 1405);
+      ctx.stroke();
+
+      // 6. Sentiment Synthesis Strip (Dominant choices)
+      const weather = (session.dominantWeather || 'Sunny').replace('_', ' ').toUpperCase();
+      const food = (session.dominantFood || 'Fish Curry').replace('_', ' ').toUpperCase();
+      const location = (session.dominantLocation || 'Aguada Fort').replace('_', ' ').toUpperCase();
+      const emblem = (session.dominantEmblem || 'Mandovi Boat').replace('_', ' ').toUpperCase();
+
+      const items = [
+        { label: 'WEATHER', val: weather },
+        { label: 'FLAVOUR', val: food },
+        { label: 'LANDMARK', val: location },
+        { label: 'EMBLEM', val: emblem }
+      ];
+
+      const colW = 220;
+      const startX = 170;
+      items.forEach((item, idx) => {
+        const x = startX + idx * colW;
+        ctx.fillStyle = '#E5A93C';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.fillText(item.label, x + colW / 2, 1450);
+
+        ctx.fillStyle = '#F8EFE3';
+        ctx.font = '600 16px Georgia, serif';
+        ctx.fillText(item.val, x + colW / 2, 1480);
+      });
+
+      // 7. Footer Tagline
+      ctx.fillStyle = 'rgba(248, 239, 227, 0.45)';
+      ctx.font = '14px sans-serif';
+      ctx.fillText('Goa AI Tech Conclave  ·  Live Algorithmic Tapestry  ·  Many Minds One Tomorrow', 600, 1680);
+
+      downloadDirect();
+    };
+
+    // Load actual high-res session artwork image
+    const rawUrl = session.snapshotUrl || session.gifUrl || `/archive/session-0${session.sessionNumber || 1}.jpg`;
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = () => drawCard(img);
+    img.onerror = () => {
+      console.warn('Could not load snapshot directly, drawing without image');
+      drawCard(null);
+    };
+    img.src = rawUrl;
+  }
+
+  // Direct 1-click download of the raw 42,000 particle high-res artwork image
+  downloadRawArtwork(session) {
+    const rawUrl = session.snapshotUrl || session.gifUrl || `/archive/session-0${session.sessionNumber || 1}.jpg`;
     const link = document.createElement('a');
-    link.download = `Goa-Conclave-Session-${session.sessionNumber}-Swag.png`;
-    link.href = canvas.toDataURL('image/png');
+    link.download = `ManyMindsOneTomorrow-Session-${session.sessionNumber || 'Artwork'}-HD.jpg`;
+    link.href = rawUrl;
+    link.target = '_blank';
     link.click();
   }
 }
