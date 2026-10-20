@@ -76,6 +76,14 @@ export class SentimentEngine {
     };
   }
 
+  // Add individual attendee response and re-synthesize parameters
+  addResponse(response) {
+    if (!response) return;
+    if (!this.accumulatedResponses) this.accumulatedResponses = [];
+    this.accumulatedResponses.push(response);
+    this.synthesizeSession({ responses: this.accumulatedResponses });
+  }
+
   // Synthesize audience survey responses into target generative parameters
   synthesizeSession(sessionData) {
     const responses = sessionData.responses || [];
@@ -490,5 +498,198 @@ export function getArtworkImpactWriteup(response = {}) {
     locationDetail: loc ? loc.detail : null,
     emblemDetail: emb ? emb.detail : null,
     highlights
+  };
+}
+
+// 20 Diverse Computational Artwork Topologies with Specific Answer Affinities
+export const TOPOLOGY_CATALOG = [
+  {
+    id: 0,
+    name: 'Mandovi S-Curve & Sacred Kaavi Geometry',
+    archetype: 'Meandering River S-Curve & Kaavi Solar Geometry',
+    affinity: { weather: ['sunny', 'calm'], food: ['fish_curry', 'poe_bread'], location: ['aguada_fort'], emblem: ['mandovi_boat'] },
+    reasoning: (w, f, l, e) => `Sunny riverside optimism (${w.toUpperCase()}) and Mandovi boat motifs (${e.toUpperCase()}) mapped to sacred Kaavi solar geometry and graceful fluvial S-curves.`
+  },
+  {
+    id: 1,
+    name: 'Intertwined Marine Currents & Laterite Fire Strata',
+    archetype: 'Dual Opposing Oceanic Teal & Laterite Vermilion Waves',
+    affinity: { weather: ['stormy', 'rainy'], food: ['vindaloo', 'xacuti'], location: ['palolem_beach'], emblem: ['sea_turtle'] },
+    reasoning: (w, f, l, e) => `Western Ghats tempest energy (${w.toUpperCase()}) colliding with Vindaloo spice heat (${f.toUpperCase()}) generated interlocking Arabian Sea teal and laterite vermilion dual currents with bold stipple drops.`
+  },
+  {
+    id: 2,
+    name: 'Fort Aguada Lighthouse Beacon & Expanding Orbital Ripples',
+    archetype: 'Concentric Coastal Beacon Vortex & Celestial Rays',
+    affinity: { weather: ['windy', 'sunny'], food: ['fish_curry'], location: ['aguada_fort'], emblem: ['kingfisher'] },
+    reasoning: (w, f, l, e) => `Restless coastal sea winds (${w.toUpperCase()}) and historic Aguada fortress presence (${l.toUpperCase()}) created 16 concentric orbital light shells and sweeping celestial ray arms.`
+  },
+  {
+    id: 3,
+    name: 'Dudhsagar Waterfall Torrent & Rainforest Terraces',
+    archetype: 'Vertical Roaring Plume & Stepped Mist Pools',
+    affinity: { weather: ['rainy'], food: ['xacuti'], location: ['dudhsagar'], emblem: ['sea_turtle'] },
+    reasoning: (w, f, l, e) => `Goan monsoon deluge (${w.toUpperCase()}) and Dudhsagar waterfall dominance (${l.toUpperCase()}) channeled particles into a roaring vertical plume feeding horizontal rainforest spray terraces.`
+  },
+  {
+    id: 4,
+    name: 'Fontainhas Latin Quarter Archways & Polychrome Mosaic',
+    archetype: 'Triple Portuguese Archways & Polychrome Rosettes',
+    affinity: { weather: ['sunny'], food: ['prawn_curry'], location: ['fontainhas'], emblem: ['carnival_spirit', 'coconut_tree'] },
+    reasoning: (w, f, l, e) => `Vibrant heritage architecture (${l.toUpperCase()}) and celebratory Goan spirit (${e.toUpperCase()}) formed triple nested Portuguese baroque archways and polychromatic mosaic stipples.`
+  },
+  {
+    id: 5,
+    name: 'Palolem Crescent Bay & Harmonic Tidal Swells',
+    archetype: 'Semicircular Coastal Arc & Rhythmic Swells',
+    affinity: { weather: ['calm'], food: ['fish_curry'], location: ['palolem_beach'], emblem: ['susegad', 'sea_turtle'] },
+    reasoning: (w, f, l, e) => `Serene coastal mindset (${e.toUpperCase()}) and southern Palolem crescent beach affinity (${l.toUpperCase()}) produced sweeping semicircular curved wavefronts and calm tidal swells.`
+  },
+  {
+    id: 6,
+    name: 'Chapora Clifftop Ridge & Western Sea Winds',
+    archetype: 'Elevated Contour Crest & Windblown Aerosol Spray',
+    affinity: { weather: ['windy'], food: ['vindaloo'], location: ['chapora_fort'], emblem: ['kingfisher'] },
+    reasoning: (w, f, l, e) => `High clifftop winds skimming Chapora ramparts (${l.toUpperCase()}) generated an elevated undulating contour ridge with high-speed horizontal particle drift.`
+  },
+  {
+    id: 7,
+    name: 'Wood-Fired Goan Poi Bread & Baker Hearth',
+    archetype: 'Puffed Dough Pockets, Aeration Slits & Flour-Dust Stipples',
+    affinity: { weather: ['calm', 'sunny'], food: ['poe_bread'], location: ['fontainhas', 'cabo_de_rama'], emblem: ['susegad', 'mandovi_boat'] },
+    reasoning: (w, f, l, e) => `Traditional Goan Poder baking heritage (${f.toUpperCase()}) mapped to wood-fired oven hearth contours, puffy crust pockets, and flour-dust ivory stipples.`
+  },
+  {
+    id: 8,
+    name: 'Cumbarjua Mangrove Estuary & Braided Waterways',
+    archetype: 'Dendritic Root Networks & Braided Silt Channels',
+    affinity: { weather: ['rainy'], food: ['fish_curry'], location: ['chorao_island', 'dudhsagar'], emblem: ['coconut_tree', 'coconut_palm'] },
+    reasoning: (w, f, l, e) => `Estuarine river currents and mangrove waterways (${l.toUpperCase()}) formed dendritic branching root channels weaving through emerald and silt mud banks.`
+  },
+  {
+    id: 9,
+    name: 'Susegad Celestial Nebula & Twilight Drift',
+    archetype: 'Elliptical Cosmic Cloud & Harmonic Breathing Nodes',
+    affinity: { weather: ['calm'], food: ['bebinca'], location: ['palolem_beach'], emblem: ['susegad', 'sea_turtle'] },
+    reasoning: (w, f, l, e) => `Peak Susegad tranquility (${e.toUpperCase()}) and serene balance (${w.toUpperCase()}) created a diffuse champagne and mother-of-pearl cosmic cloud with slow harmonic breathing.`
+  },
+  {
+    id: 10,
+    name: 'Bebinca Seven-Layer Caramel Culinary Strata',
+    archetype: 'Horizontal Multi-Tiered Caramel & Coconut Bands',
+    affinity: { weather: ['sunny'], food: ['bebinca'], location: ['fontainhas'], emblem: ['coconut_tree', 'coconut_palm'] },
+    reasoning: (w, f, l, e) => `Consensus around iconic 7-layer Bebinca (${f.toUpperCase()}) stratified the point field into 7 rich horizontal bands of golden caramel, jaggery, and coconut ivory.`
+  },
+  {
+    id: 11,
+    name: 'Mandovi River Sailboat & Fluvial Wake Currents',
+    archetype: 'Graceful Hull Silhouette, Billowing Solar Sails & Diverging Wake Ripples',
+    affinity: { weather: ['windy', 'sunny'], food: ['fish_curry'], location: ['aguada_fort', 'palolem_beach'], emblem: ['mandovi_boat'] },
+    reasoning: (w, f, l, e) => `Mandovi river navigation heritage and iconic sailboat emblem (${e.toUpperCase()}) mapped to a graceful hull silhouette, billowing solar sails, and expanding fluvial wake ripples.`
+  },
+  {
+    id: 12,
+    name: 'Morjim Olive Ridley Nesting Swell & Ocean Drift',
+    archetype: 'Elliptical Flipper Wave Arcs & Bioluminescent Drifts',
+    affinity: { weather: ['calm'], food: ['fish_curry'], location: ['palolem_beach'], emblem: ['sea_turtle'] },
+    reasoning: (w, f, l, e) => `Coastal conservation consciousness and sea turtle emblem (${e.toUpperCase()}) generated expansive rhythmic flipper stroke arcs through bioluminescent night currents.`
+  },
+  {
+    id: 13,
+    name: 'Zuari Railway Bridge & Industrial Horizon Strata',
+    archetype: 'Diagonal Structural Truss Lattice & Crossing Currents',
+    affinity: { weather: ['windy'], food: ['prawn_curry', 'poe_bread'], location: ['aguada_fort'], emblem: ['mandovi_boat'] },
+    reasoning: (w, f, l, e) => `Intersection of Goan connectivity and river transport (${e.toUpperCase()}) created geometric truss line lattices spanning across deep blue-green tidal currents.`
+  },
+  {
+    id: 14,
+    name: 'Goa Carnival Samba Corona & Chromatic Confetti',
+    archetype: 'Radial Starburst Corona & Swirling Serpentine Spirals',
+    affinity: { weather: ['sunny'], food: ['prawn_curry'], location: ['fontainhas'], emblem: ['coconut_tree', 'coconut_palm', 'carnival_spirit'] },
+    reasoning: (w, f, l, e) => `Peak festive energy and Goan palm canopy (${e.toUpperCase()}) unleashed an explosive radial starburst corona with multi-hued serpentine ribbons.`
+  },
+  {
+    id: 15,
+    name: 'Chorao Bird Sanctuary & Kingfisher Flight Vectors',
+    archetype: 'Aerodynamic Vector Plumes & Turquoise Dart Plumes',
+    affinity: { weather: ['windy'], food: ['fish_curry'], location: ['dudhsagar', 'chorao_island'], emblem: ['kingfisher'] },
+    reasoning: (w, f, l, e) => `Agile kingfisher emblem (${e.toUpperCase()}) and coastal air (${w.toUpperCase()}) shaped particles into aerodynamic cobalt and turquoise flight vector plumes.`
+  },
+  {
+    id: 16,
+    name: 'Anjuna Flea Market Kaleidoscope & Mandala Vortex',
+    archetype: 'Octagonal Sacred Mandala & Alternating Point Rings',
+    affinity: { weather: ['sunny'], food: ['vindaloo'], location: ['chapora_fort'], emblem: ['sea_shell', 'carnival_spirit'] },
+    reasoning: (w, f, l, e) => `Sacred spiral conch shell motif (${e.toUpperCase()}) and sunny energy (${w.toUpperCase()}) triggered a geometric mandala vortex with alternating kaleidoscopic density rings.`
+  },
+  {
+    id: 17,
+    name: 'Divar Island Monsoon Puddle Ripples & Rain Columns',
+    archetype: 'Six Concentric Impact Circles & Vertical Droplet Trails',
+    affinity: { weather: ['rainy'], food: ['poe_bread'], location: ['cabo_de_rama'], emblem: ['coconut_palm', 'coconut_tree'] },
+    reasoning: (w, f, l, e) => `Introspective monsoon reflection (${w.toUpperCase()}) and heritage island reverence (${l.toUpperCase()}) formed localized concentric puddle ripples under vertical rain shafts.`
+  },
+  {
+    id: 18,
+    name: 'Goan Cashew Apple & Curved Kidney Nut',
+    archetype: 'Ripe Golden-Vermilion Bell Apple, Kidney Nut Crescent & Orchard Mist',
+    affinity: { weather: ['sunny', 'windy'], food: ['xacuti', 'vindaloo'], location: ['chapora_fort', 'dudhsagar'], emblem: ['carnival_spirit', 'coconut_palm'] },
+    reasoning: (w, f, l, e) => `Goan cashew harvest heritage and rich Xacuti spice (${f.toUpperCase()}) mapped to luscious fruit contours, curved kidney nut crescent, and golden orchard mist.`
+  },
+  {
+    id: 19,
+    name: 'Cabo de Rama Sunset Horizon & Golden Hour Thermals',
+    archetype: 'Low Radiant Sun Hearth & Rising Thermal Convection Plumes',
+    affinity: { weather: ['sunny'], food: ['bebinca'], location: ['palolem_beach'], emblem: ['susegad'] },
+    reasoning: (w, f, l, e) => `Warm sunset sunshine (${w.toUpperCase()}) and southern coastal tranquility anchored a radiant solar hearth low on the horizon, driving golden thermal convection plumes upward.`
+  }
+];
+
+// Logically score and select the best matching topology based on all 4 user answers
+export function scoreBestTopologyForResponse(response = {}) {
+  const w = (response.weather || 'sunny').toLowerCase();
+  const f = (response.food || 'fish_curry').toLowerCase();
+  const l = (response.location || 'aguada_fort').toLowerCase();
+  const e = (response.emblem || 'mandovi_boat').toLowerCase();
+
+  let bestTopo = TOPOLOGY_CATALOG[0];
+  let highestScore = -1;
+
+  for (const topo of TOPOLOGY_CATALOG) {
+    let score = 0;
+    if (topo.affinity.weather.includes(w)) score += 5;
+    if (topo.affinity.food.includes(f)) score += 6;
+    if (topo.affinity.location.includes(l)) score += 7;
+    if (topo.affinity.emblem.includes(e)) score += 5;
+
+    // Distinctive visual priority anchors:
+    if (f === 'bebinca' && topo.id === 10) score += 16;
+    if (l === 'dudhsagar' && topo.id === 3) score += 16;
+    if (l === 'aguada_fort' && topo.id === 2) score += 15;
+    if (l === 'fontainhas' && topo.id === 4) score += 15;
+    if (l === 'palolem_beach' && topo.id === 5) score += 15;
+    if ((l === 'chorao_island' || l === 'chorao') && topo.id === 8) score += 15;
+    if (e === 'kingfisher' && topo.id === 15) score += 14;
+    if (e === 'sea_turtle' && topo.id === 12) score += 14;
+    if (e === 'mandovi_boat' && topo.id === 11) score += 12;
+    if (e === 'sea_shell' && topo.id === 16) score += 14;
+    if (f === 'poe_bread' && topo.id === 7) score += 13;
+    if (f === 'xacuti' && topo.id === 18) score += 13;
+    if (f === 'prawn_curry' && topo.id === 13) score += 11;
+    if ((f === 'vindaloo' || w === 'stormy') && topo.id === 1) score += 12;
+    if (w === 'rainy' && topo.id === 17) score += 11;
+    if (w === 'windy' && topo.id === 6) score += 10;
+    if (w === 'calm' && topo.id === 9) score += 10;
+    if (w === 'sunny' && topo.id === 19) score += 9;
+
+    if (score > highestScore) {
+      highestScore = score;
+      bestTopo = topo;
+    }
+  }
+
+  return {
+    ...bestTopo,
+    computedReasoning: bestTopo.reasoning(w, f, l, e)
   };
 }

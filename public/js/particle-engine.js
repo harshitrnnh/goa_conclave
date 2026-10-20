@@ -12,6 +12,8 @@
 // 3. Instant 30-Minute Simulation & Mutation Trigger:
 //    - Cinematic 3.5s fluid morphing between structural mutations
 
+import { scoreBestTopologyForResponse } from './sentiment-engine.js';
+
 export const THEME_PALETTES = {
   weather: {
     sunny: {
@@ -1615,82 +1617,198 @@ export class GoanArtworkEngine {
 
   // Trigger immediate, dramatic input-driven transformation with each submission!
   addResponseBurst(response) {
+    if (!response) return;
     const W = this.width;
     const H = this.height;
 
-    const burstOriginX = W * 0.22;
-    const burstOriginY = H * 0.88;
+    const wKey = (response.weather || 'sunny').toLowerCase();
+    const fKey = (response.food || 'fish_curry').toLowerCase();
+    const lKey = (response.location || 'aguada_fort').toLowerCase();
+    const eKey = (response.emblem || 'mandovi_boat').toLowerCase();
 
-    let signatureColorIdx = 0;
-    let signatureRGB = [255, 215, 0];
-
-    if (response.weather === 'rainy') {
-      signatureColorIdx = 1;
-      signatureRGB = [75, 185, 195];
-    } else if (response.weather === 'stormy' || response.food === 'vindaloo') {
-      signatureColorIdx = 7;
-      signatureRGB = [240, 45, 25];
-    } else if (response.food === 'bebinca') {
-      signatureColorIdx = 9;
-      signatureRGB = [220, 155, 45];
-    } else if (response.food === 'prawn_curry') {
-      signatureColorIdx = 10;
-      signatureRGB = [255, 120, 110];
-    } else if (response.location === 'dudhsagar') {
-      signatureColorIdx = 8;
-      signatureRGB = [50, 195, 150];
-    } else if (response.location === 'fontainhas') {
-      signatureColorIdx = 11;
-      signatureRGB = [70, 135, 240];
-    } else if (response.location === 'palolem_beach') {
-      signatureColorIdx = 1;
-      signatureRGB = [25, 190, 210];
+    // 1. Calculate best matching topology and MORPH IMMEDIATELY
+    const bestTopo = scoreBestTopologyForResponse(response);
+    if (bestTopo && typeof bestTopo.id === 'number') {
+      console.log(`[ArtworkEngine] Attendee input mutates tapestry to Topology #${bestTopo.id} (${bestTopo.name})`);
+      this.morphToTopology(bestTopo.id, 2.8);
     }
 
-    // 1. Chromatic Shockwave
+    // 2. Tightly couple physical forces in sentimentEngine
+    if (this.sentimentEngine) {
+      if (typeof this.sentimentEngine.addResponse === 'function') {
+        this.sentimentEngine.addResponse(response);
+      }
+      const p = this.sentimentEngine.currentParameters;
+
+      // Reset base multipliers
+      p.windSweep = 0;
+      p.rainGravity = 0;
+      p.calmSwell = 0;
+      p.stormVortex = 0;
+      p.strataStrength = 0;
+      p.chiliSparks = 0;
+      p.flourSpeckles = 0;
+      p.dudhsagarCascade = 0;
+      p.aguadaBeacon = 0;
+      p.fontainhasNodes = 0;
+      p.palolemCrescent = 0;
+      p.wakeRipples = 0;
+      p.kingfisherDarts = 0;
+      p.frondTendrils = 0;
+      p.turtleSwell = 0;
+
+      // Weather atmospheric physics
+      if (wKey === 'sunny') {
+        p.flowSpeed = 1.7;
+        p.turbulence = 0.85;
+        p.sunRadius = 1.6;
+        p.sunPulseSpeed = 2.2;
+        p.sunIntensity = 1.7;
+      } else if (wKey === 'windy') {
+        p.windSweep = 3.0;
+        p.biasX = 1.3;
+        p.biasY = -0.4;
+        p.flowSpeed = 2.1;
+        p.turbulence = 1.6;
+      } else if (wKey === 'rainy') {
+        p.rainGravity = 3.2;
+        p.biasX = 0;
+        p.biasY = 1.8;
+        p.flowSpeed = 1.9;
+        p.turbulence = 0.7;
+      } else if (wKey === 'stormy') {
+        p.stormVortex = 3.4;
+        p.turbulence = 3.0;
+        p.flowSpeed = 2.5;
+        p.chiliSparks = 2.8;
+      } else if (wKey === 'calm') {
+        p.calmSwell = 3.0;
+        p.susegadDamping = 2.4;
+        p.flowSpeed = 0.45;
+        p.turbulence = 0.25;
+      }
+
+      // Food texture & structure
+      if (fKey === 'bebinca') {
+        p.strataStrength = 3.4;
+        p.particleSizeScale = 1.45;
+      } else if (fKey === 'vindaloo') {
+        p.chiliSparks = 3.4;
+        p.emberDensity = 3.2;
+      } else if (fKey === 'poe_bread') {
+        p.flourSpeckles = 3.4;
+        p.particleSizeScale = 0.85;
+      } else if (fKey === 'fish_curry') {
+        p.particleSizeScale = 1.3;
+        p.curlScale = 0.0036;
+      } else if (fKey === 'prawn_curry') {
+        p.emberDensity = 2.0;
+        p.particleSizeScale = 1.25;
+      } else if (fKey === 'xacuti') {
+        p.flourSpeckles = 0.8;
+        p.curlScale = 0.0042;
+      }
+
+      // Location spatial geometry
+      if (lKey === 'dudhsagar') p.dudhsagarCascade = 3.4;
+      if (lKey === 'aguada_fort') p.aguadaBeacon = 3.4;
+      if (lKey === 'fontainhas') p.fontainhasNodes = 3.2;
+      if (lKey === 'palolem_beach') p.palolemCrescent = 3.2;
+      if (lKey === 'chapora_fort') p.chaporaRidge = 3.2;
+
+      // Emblem kinetic signatures
+      if (eKey === 'kingfisher') p.kingfisherDarts = 4.0;
+      if (eKey === 'mandovi_boat') p.wakeRipples = 3.6;
+      if (eKey === 'sea_turtle') p.turtleSwell = 3.4;
+      if (eKey === 'coconut_tree' || eKey === 'coconut_palm') p.frondTendrils = 3.4;
+      if (eKey === 'sea_shell') { p.stormVortex = 1.8; p.calmSwell = 1.5; }
+    }
+
+    // 3. Chromatic Dominance
+    this.recentInput = {
+      weather: wKey,
+      food: fKey,
+      location: lKey,
+      emblem: eKey,
+      weight: 1.0
+    };
+    this.paletteDirty = true;
+
+    // 4. Custom Thematic Shockwave & Directional Particle Burst
+    let burstOriginX = W * 0.5;
+    let burstOriginY = H * 0.5;
+    let burstDirection = -Math.PI * 0.5;
+
+    if (lKey === 'dudhsagar') {
+      burstOriginX = W * 0.5;
+      burstOriginY = H * 0.06;
+      burstDirection = Math.PI * 0.5; // Downward plunge
+    } else if (lKey === 'aguada_fort') {
+      burstOriginX = W * 0.74;
+      burstOriginY = H * 0.17;
+      burstDirection = Math.random() * Math.PI * 2;
+    } else if (lKey === 'palolem_beach') {
+      burstOriginX = W * 0.45;
+      burstOriginY = H * 0.85;
+      burstDirection = -Math.PI * 0.55;
+    } else if (wKey === 'windy') {
+      burstOriginX = W * 0.12;
+      burstOriginY = H * 0.88;
+      burstDirection = -Math.PI * 0.25; // Diagonal sweep
+    } else if (wKey === 'rainy') {
+      burstOriginX = W * (0.25 + Math.random() * 0.5);
+      burstOriginY = H * 0.04;
+      burstDirection = Math.PI * 0.5; // Downward rain
+    } else if (fKey === 'bebinca') {
+      burstOriginX = W * 0.5;
+      burstOriginY = H * 0.65;
+      burstDirection = 0; // Horizontal strata ripple
+    }
+
+    // Signature color for the shockwave
+    let signatureColorIdx = 0;
+    let signatureRGB = [255, 215, 0];
+    if (wKey === 'rainy') { signatureColorIdx = 1; signatureRGB = [75, 185, 195]; }
+    else if (wKey === 'stormy' || fKey === 'vindaloo') { signatureColorIdx = 7; signatureRGB = [245, 45, 25]; }
+    else if (fKey === 'bebinca') { signatureColorIdx = 9; signatureRGB = [225, 160, 45]; }
+    else if (fKey === 'prawn_curry') { signatureColorIdx = 10; signatureRGB = [255, 120, 110]; }
+    else if (eKey === 'kingfisher') { signatureColorIdx = 1; signatureRGB = [38, 166, 154]; }
+    else if (lKey === 'dudhsagar') { signatureColorIdx = 8; signatureRGB = [50, 195, 150]; }
+    else if (lKey === 'fontainhas') { signatureColorIdx = 11; signatureRGB = [70, 135, 240]; }
+
+    // Chromatic Shockwave
     this.shockwaves.push({
       x: burstOriginX,
       y: burstOriginY,
       radius: 0,
-      maxRadius: Math.hypot(W, H) * 1.15,
-      speed: 40,
+      maxRadius: Math.hypot(W, H) * 1.2,
+      speed: 44,
       colorIdx: signatureColorIdx,
       rgb: signatureRGB,
-      thickness: 180,
+      thickness: 220,
       intensity: 1.0
     });
 
-    // 2. High-energy rising burst particles from the QR code scanner
+    // High-energy particles launching in the signature direction
     let spawned = 0;
-    const maxSpawn = 340;
+    const maxSpawn = 420;
     for (let i = 0; i < this.TOTAL_PARTICLES && spawned < maxSpawn; i++) {
-      if (this.layer[i] === 3 && Math.random() < 0.28) {
+      if ((this.layer[i] === 3 || this.layer[i] === 2) && Math.random() < 0.35) {
         this.layer[i] = 4;
-        this.px[i] = burstOriginX + (Math.random() - 0.5) * 70;
-        this.py[i] = burstOriginY + (Math.random() - 0.5) * 70;
+        this.px[i] = burstOriginX + (Math.random() - 0.5) * 90;
+        this.py[i] = burstOriginY + (Math.random() - 0.5) * 90;
 
-        const launchAngle = -Math.PI * 0.5 + (Math.random() - 0.5) * 0.9;
-        const launchSpeed = 9.0 + Math.random() * 16.0;
-        this.vx[i] = Math.cos(launchAngle) * launchSpeed;
-        this.vy[i] = Math.sin(launchAngle) * launchSpeed;
-        this.size[i] = 3.8 + Math.random() * 4.0;
+        const angle = burstDirection + (Math.random() - 0.5) * 1.2;
+        const speed = 10.0 + Math.random() * 18.0;
+        this.vx[i] = Math.cos(angle) * speed;
+        this.vy[i] = Math.sin(angle) * speed;
+        this.size[i] = 3.6 + Math.random() * 4.4;
         this.alpha[i] = 1.0;
         this.colorIdx[i] = signatureColorIdx;
 
         spawned++;
       }
     }
-
-    // 3. Activate Recent Input Chromatic Dominance
-    this.recentInput = {
-      weather: response.weather,
-      food: response.food,
-      location: response.location,
-      emblem: response.emblem,
-      weight: 1.0
-    };
-
-    this.paletteDirty = true;
   }
 
   // Cubic easing helper

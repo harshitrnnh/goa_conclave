@@ -403,9 +403,9 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 0;
-  padding: 4px 0 8px 0;
+  padding: 10px 0 8px 0;
 }
 
 .touch-tv-kiosk-side .question-section {
@@ -642,6 +642,8 @@
 
 /* Step 6: Celebration Success */
 .touch-tv-kiosk-side .success-section {
+  padding-top: 8px;
+  margin-top: 4px;
   padding-bottom: 16px;
 }
 

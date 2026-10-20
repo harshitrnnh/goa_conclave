@@ -2,7 +2,7 @@
 // Integrates Computational Artwork, Tablet Kiosk, Real-Time Sync, and 30-Min Cycles
 
 import { GoanArtworkEngine } from './particle-engine.js';
-import { SentimentEngine, getArtworkImpactWriteup } from './sentiment-engine.js';
+import { SentimentEngine, getArtworkImpactWriteup, scoreBestTopologyForResponse } from './sentiment-engine.js';
 import { TabletApp } from './tablet-app.js';
 import { SyncManager } from './sync.js';
 import { PastSessionsManager } from './past-sessions.js';
@@ -132,6 +132,12 @@ class ConclaveApp {
         if (this.artworkEngine) {
           this.artworkEngine.addResponseBurst(response);
         }
+
+        const best = scoreBestTopologyForResponse(response);
+        const titleEl = document.getElementById('tv-current-art-title');
+        const descEl = document.getElementById('tv-current-art-desc');
+        if (titleEl && best) titleEl.textContent = best.name;
+        if (descEl && best) descEl.textContent = best.computedReasoning;
 
         if (this.currentSession) {
           if (!this.currentSession.responses) this.currentSession.responses = [];
@@ -756,6 +762,13 @@ class ConclaveApp {
         if (this.artworkEngine) {
           this.artworkEngine.addResponseBurst(fullResponse);
         }
+
+        // Live Artwork Card Update
+        const best = scoreBestTopologyForResponse(fullResponse);
+        const titleEl = document.getElementById('tv-current-art-title');
+        const descEl = document.getElementById('tv-current-art-desc');
+        if (titleEl && best) titleEl.textContent = best.name;
+        if (descEl && best) descEl.textContent = best.computedReasoning;
 
         this.tvSurvey.step = 6;
         this.renderTVSurveyStep();

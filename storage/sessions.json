@@ -3170,5 +3170,59 @@
     },
     "snapshotUrl": "/archive/session-055.jpg?v=1792524072864",
     "gifUrl": "/api/sessions/session-055/artwork.gif"
+  },
+  {
+    "id": "session-056",
+    "sessionNumber": 56,
+    "name": "Bebinca Seven-Layer Caramel Culinary Strata",
+    "timeLabel": "37:00 - 37:30 IST",
+    "timestamp": 1792524072697,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 1,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 1,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 1,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 1,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 1,
+    "seedVariant": 1,
+    "mutationTopology": 18,
+    "topologyInfo": {
+      "id": 18,
+      "name": "Goan Cashew Apple & Curved Kidney Nut",
+      "archetype": "Ripe Golden-Vermilion Bell Apple, Kidney Nut Crescent & Orchard Mist",
+      "reasoning": "Goan cashew harvest heritage (FISH_CURRY) and coastal sunshine (SUNNY) mapped to luscious pear-bell fruit contours, curved kidney nut crescent, and golden orchard mist.",
+      "score": 9
+    },
+    "snapshotUrl": "/archive/session-056.jpg?v=1792525874170",
+    "gifUrl": "/api/sessions/session-056/artwork.gif"
   }
 ]
