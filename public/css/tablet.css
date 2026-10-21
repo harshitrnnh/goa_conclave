@@ -492,6 +492,21 @@
   transition: all 0.2s;
 }
 
+.action-btn-primary.go-to-input-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #872012 0%, #A02B1A 100%);
+  border: 1px solid rgba(255, 230, 180, 0.4);
+  box-shadow: 0 4px 16px rgba(135, 32, 18, 0.35);
+}
+
+.action-btn-primary.go-to-input-btn:hover {
+  background: linear-gradient(135deg, #A02B1A 0%, #B83A24 100%);
+  transform: translateY(-2px);
+}
+
 .action-btn-secondary {
   padding: 12px 24px;
   background: transparent;

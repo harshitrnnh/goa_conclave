@@ -653,13 +653,13 @@ class ConclaveApp {
 
         <h2 class="success-title">Your voice is now woven into the artwork</h2>
         <p class="success-subtitle">
-          Watch the vertical screen! The particle tapestry is dynamically responding to your choices.
+          Watch the live vertical screen! The particle tapestry is dynamically responding to your choices.
         </p>
 
         <!-- Dynamic Artwork Transformation Writeup -->
         <div class="impact-writeup-card">
           <div class="impact-card-header">
-            <span class="impact-card-badge">✨ Artwork Transformation</span>
+            <span class="impact-card-badge">✨ Live Artwork Transformation</span>
             <span class="impact-card-tagline">${impact.headline}</span>
           </div>
           <p class="impact-card-summary">${impact.summary}</p>
@@ -674,12 +674,14 @@ class ConclaveApp {
         </div>
 
         <div class="success-actions">
-          <button class="action-btn-primary" id="tv-vote-again-btn">
-            Next Attendee
+          <button class="action-btn-primary go-to-input-btn" id="tv-vote-again-btn" aria-label="Back to Input View">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Input View (Next Attendee)</span>
           </button>
         </div>
-
-        <p class="auto-reset-notice">Screen resets automatically for the next attendee in <span id="tv-reset-counter">15</span>s</p>
       </section>
     `;
   }
@@ -701,7 +703,7 @@ class ConclaveApp {
       } else if (this.tvSurvey.step === 5) {
         hint.textContent = 'Review your selections and tap "Weave Into Live Artwork" to submit';
       } else {
-        hint.textContent = 'Tapestry dynamically responding · Ready for next attendee';
+        hint.textContent = 'Artwork responding dynamically · Tap "Back to Input View" when ready for next attendee';
       }
     }
   }
@@ -757,24 +759,18 @@ class ConclaveApp {
           this.artworkEngine.addResponseBurst(fullResponse);
         }
 
+        // Clean up any residual timer - do NOT auto-reset back to input mode
+        if (this.tvSurvey.resetTimer) {
+          clearInterval(this.tvSurvey.resetTimer);
+          this.tvSurvey.resetTimer = null;
+        }
+
         this.tvSurvey.step = 6;
         this.renderTVSurveyStep();
-
-        let timeLeft = 15;
-        const counterEl = document.getElementById('tv-reset-counter');
-        this.tvSurvey.resetTimer = setInterval(() => {
-          timeLeft--;
-          if (counterEl) counterEl.textContent = timeLeft;
-          if (timeLeft <= 0) {
-            clearInterval(this.tvSurvey.resetTimer);
-            this.tvSurvey.resetTimer = null;
-            this.resetTVSurvey();
-          }
-        }, 1000);
       };
     }
 
-    // 4. Reset / Next Attendee button
+    // 4. Reset / Next Attendee button (Manual return to Input View)
     const voteAgainBtn = document.getElementById('tv-vote-again-btn');
     if (voteAgainBtn) {
       voteAgainBtn.onclick = () => {

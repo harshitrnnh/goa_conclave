@@ -364,15 +364,17 @@ export class TabletApp {
         </div>
 
         <div class="success-actions">
-          <button class="action-btn-primary" id="view-past-gallery-btn">
+          <button class="action-btn-primary go-to-input-btn" id="vote-again-btn" aria-label="Back to Input View">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Input View (Next Attendee)</span>
+          </button>
+          <button class="action-btn-secondary" id="view-past-gallery-btn">
             View Past Artworks Gallery
           </button>
-          <button class="action-btn-secondary" id="vote-again-btn">
-            Next Attendee
-          </button>
         </div>
-
-        <p class="auto-reset-notice">This screen will reset automatically for the next attendee in <span id="reset-counter">15</span>s</p>
       </section>
     `;
   }
@@ -580,8 +582,11 @@ export class TabletApp {
         }
 
         this.currentStep = 6;
+        if (this.resetTimer) {
+          clearInterval(this.resetTimer);
+          this.resetTimer = null;
+        }
         this.render();
-        this.startAutoReset();
       };
 
       const weaveBtn = this.container.querySelector('#submit-weave-btn');

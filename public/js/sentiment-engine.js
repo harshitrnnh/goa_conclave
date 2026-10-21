@@ -350,33 +350,33 @@ export class SentimentEngine {
   }
 }
 
-// Generate dynamic brief narrative writeups explaining how any attendee input mutates the artwork
+// Generate dynamic narrative writeups explaining how attendee input dynamically mutates movement and colors
 export function getArtworkImpactWriteup(response = {}) {
   const weatherMap = {
     sunny: {
       name: 'Sunny & Energetic',
-      title: 'Solar Radiance & Corona Expansion',
-      detail: 'Intensifies the Goan sun corona radius, accelerating particle flow velocity and infusing golden solar highlights.'
+      title: 'Solar Radiance & Corona Acceleration',
+      detail: 'Expands the central solar corona radius, accelerating particle flow velocity and suffusing golden amber highlights throughout the currents.'
     },
     windy: {
       name: 'Windy & Restless',
       title: 'Breeze Vector Sweeps',
-      detail: 'Injects dynamic diagonal wind forces across the river streamlines, dispersing particles into buoyant swirling eddies.'
+      detail: 'Injects dynamic diagonal wind forces across the river streamlines, sweeping particles into buoyant drifting eddies and airy trails.'
     },
     rainy: {
       name: 'Rainy & Reflective',
-      title: 'Monsoon Cascades',
-      detail: 'Pulls cascading vertical ribbons downward, suffusing the tapestry in monsoon slate-blue and cool teal tones.'
+      title: 'Monsoon Gravitational Cascades',
+      detail: 'Pulls cascading vertical particle gravity downward, washing the tapestry in deep monsoon slate-blue and cool teal tones.'
     },
     stormy: {
       name: 'Stormy & Eclectic',
       title: 'Turbulent Angular Vortices',
-      detail: 'Ignites tight spiral vortices, spiking kinetic turbulence and launching volatile glowing embers across the field.'
+      detail: 'Ignites tight spiral vortices, spiking kinetic turbulence and launching volatile glowing fiery embers across the flow field.'
     },
     calm: {
       name: 'Calm & Serene',
       title: 'Susegad Harmonic Swells',
-      detail: 'Damps chaotic noise into slow, rhythmic oceanic breathing waves with serene equilibrium.'
+      detail: 'Damps chaotic flutter into slow, rhythmic oceanic breathing waves with serene aqua-indigo equilibrium.'
     }
   };
 
@@ -384,90 +384,90 @@ export function getArtworkImpactWriteup(response = {}) {
     fish_curry: {
       name: 'Fish Curry',
       title: 'Turmeric Ochre & Emerald Tides',
-      detail: 'Enlarges particle scales and weaves deep turmeric ochre with Arabian Sea emerald accents.'
+      detail: 'Enlarges particle scale and weaves deep turmeric ochre with Arabian Sea emerald accents.'
     },
     prawn_curry: {
       name: 'Prawn Curry',
       title: 'Warm Saffron Coral Glow',
-      detail: 'Bathes the currents in a rich coral-terracotta glow, evoking warm coastal energy.'
+      detail: 'Bathes the fluid currents in a warm coral-terracotta glow, radiating coastal warmth and gentle pulse speed.'
     },
     vindaloo: {
       name: 'Vindaloo',
-      title: 'Chili Crimson Sparks & Embers',
-      detail: 'Spikes ember density, sending crackling fiery crimson sparks drifting vigorously through the flow.'
+      title: 'Chili Crimson Sparks & Heat',
+      detail: 'Spikes ember particle density, sending crackling fiery crimson shockwaves drifting vigorously through the field.'
     },
     xacuti: {
       name: 'Xacuti',
       title: 'Roasted Masala & Coconut Umber',
-      detail: 'Enriches the tapestry with deep roasted umber tones and complex multi-spice speckles.'
+      detail: 'Enriches the tapestry with deep roasted umber tones, coconut cream, and complex multi-spice speckles.'
     },
     bebinca: {
       name: 'Bebinca',
       title: '7-Layer Caramelized Strata',
-      detail: 'Forms 7 distinct caramelized horizontal bands in toasted jaggery and golden ghee.'
+      detail: 'Forms 7 distinct caramelized horizontal bands in toasted jaggery, nutmeg, and golden ghee hues.'
     },
     poe_bread: {
       name: 'Poe Bread',
       title: 'Flour Dust & Rustic Crust',
-      detail: 'Sprinkles delicate flour-white dusting ivory speckles and rustic comforting crust undertones.'
+      detail: 'Sprinkles delicate flour-white dusting ivory speckles and rustic warm earthen crust undertones.'
     }
   };
 
   const locationMap = {
     dudhsagar: {
       name: 'Dudhsagar Falls',
-      detail: 'Channels vertical waterfall cascades with frothy mist spray down the central corridor.'
+      detail: 'Channels powerful vertical waterfall cascades with frothy mist spray down the central corridor.'
     },
     aguada_fort: {
       name: 'Fort Aguada Lighthouse',
-      detail: 'Sweeps a rotating lighthouse beacon beam across the point cloud.'
+      detail: 'Sweeps dual rotating lighthouse beacon beams continuously across the particle cloud.'
     },
     fontainhas: {
       name: 'Fontainhas Latin Quarter',
-      detail: 'Ignites vibrant architectural cluster nodes of color across the canvas.'
+      detail: 'Ignites vibrant architectural cluster nodes with Portuguese ochre, cobalt, and terracotta hues.'
     },
     chapora_fort: {
       name: 'Chapora Fort Ridge',
-      detail: 'Sculpts an elevated clifftop perimeter stone ridge along the upper currents.'
+      detail: 'Sculpts an elevated clifftop perimeter stone ridge along the upper currents with expansive horizon drift.'
     },
     palolem_beach: {
       name: 'Palolem Beach Crescent',
-      detail: 'Guides particle trajectories into a graceful coastal crescent bay arc.'
+      detail: 'Guides particle trajectories into a graceful coastal crescent bay arc with gentle rolling surf.'
     },
     cabo_de_rama: {
       name: 'Cabo de Rama Fort',
       detail: 'Sculpts a dramatic clifftop promontory over ocean swells and draws warm thermal updrafts.'
     },
     old_goa_basilica: {
-      name: 'Cabo de Rama Fort',
-      detail: 'Sculpts a dramatic clifftop promontory over ocean swells and draws warm thermal updrafts.'
+      name: 'Old Goa Basilica',
+      detail: 'Weaves sacred baroque gilded contours and solemn choral resonance into the tapestry.'
     }
   };
 
   const emblemMap = {
     mandovi_boat: {
       name: 'Mandovi Sailboat',
-      detail: 'Leaves kinetic wake ripples across the Mandovi river flow.'
+      detail: 'Leaves trailing kinetic wake ripples carving smoothly across the river currents.'
     },
     coconut_palm: {
       name: 'Coconut Palm',
-      detail: 'Spreads arching frond canopy tendrils gracefully overhead.'
+      detail: 'Spreads arching frond canopy tendrils gracefully overhead with emerald resilience.'
     },
     sea_turtle: {
       name: 'Olive Ridley Turtle',
       detail: 'Deepens oceanic gliding currents and tranquil hydrodynamic swells.'
     },
     kingfisher: {
-      name: 'Common Kingfisher',
-      detail: 'Streaks agile turquoise azure darts cutting swiftly through the currents.'
+      name: 'Goan Kingfisher',
+      detail: 'Streaks agile turquoise-azure dart vectors cutting swiftly through the particle field.'
     },
     carnival_spirit: {
-      name: 'Carnival Spirit',
-      detail: 'Detonates festive micro-bursts of celebratory multi-colored sparks.'
+      name: 'Viva Carnival Mask',
+      detail: 'Detonates festive micro-bursts of celebratory multi-colored sparks and buoyant rhythm.'
     },
     susegad: {
-      name: 'Susegad Philosophy',
-      detail: 'Imparts viscous peace and contemplative balance across the entire canvas.'
+      name: 'Susegad Hammock',
+      detail: 'Imparts contemplative stillness, smooth viscosity, and deep harmony across the flow.'
     }
   };
 
@@ -478,17 +478,17 @@ export function getArtworkImpactWriteup(response = {}) {
 
   const w = weatherMap[wKey] || weatherMap.sunny;
   const f = foodMap[fKey] || foodMap.fish_curry;
-  const loc = locationMap[lKey];
-  const emb = emblemMap[eKey];
+  const loc = locationMap[lKey] || locationMap.aguada_fort;
+  const emb = emblemMap[eKey] || emblemMap.mandovi_boat;
 
   const highlights = [
     { label: `Weather: ${w.name}`, text: w.detail },
-    { label: `Flavour: ${f.name}`, text: f.detail }
+    { label: `Flavour: ${f.name}`, text: f.detail },
+    { label: `Landmark: ${loc.name}`, text: loc.detail },
+    { label: `Emblem: ${emb.name}`, text: emb.detail }
   ];
-  if (loc) highlights.push({ label: `Landmark: ${loc.name}`, text: loc.detail });
-  if (emb) highlights.push({ label: `Emblem: ${emb.name}`, text: emb.detail });
 
-  const summary = `${w.detail} Concurrently, ${f.detail.charAt(0).toLowerCase() + f.detail.slice(1)}`;
+  const summary = `${w.detail} Concurrently, ${f.detail.charAt(0).toLowerCase() + f.detail.slice(1)} ${loc.detail} ${emb.detail}`;
 
   return {
     headline: `${w.title} · ${f.title}`,
