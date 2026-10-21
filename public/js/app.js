@@ -160,6 +160,8 @@ class ConclaveApp {
           }
           const badgeEl = document.getElementById('showcase-past-badge');
           if (badgeEl) badgeEl.textContent = this.pastSessions.length;
+          const tvTabCount = document.getElementById('tv-tab-past-count');
+          if (tvTabCount) tvTabCount.textContent = this.pastSessions.length;
           if (this.activeShowcaseTab === 'past') {
             this.renderShowcasePastGallery();
           }
@@ -204,6 +206,8 @@ class ConclaveApp {
           }
           const badgeEl = document.getElementById('showcase-past-badge');
           if (badgeEl) badgeEl.textContent = this.pastSessions.length;
+          const tvTabCount = document.getElementById('tv-tab-past-count');
+          if (tvTabCount) tvTabCount.textContent = this.pastSessions.length;
           if (this.activeShowcaseTab === 'past') {
             this.renderShowcasePastGallery();
           }
@@ -299,19 +303,19 @@ class ConclaveApp {
     const featuredSession = (this.pastSessions && this.pastSessions.length > 0)
       ? this.pastSessions[this.pastSessions.length - 1]
       : (this.currentSession || {
-          sessionNumber: 49,
-          name: 'Mandovi River Sailboat & Fluvial Wake Currents',
-          timeLabel: '12:00 - 12:30 IST',
+          sessionNumber: 1,
+          name: 'Many Minds - Collective Artworks',
+          timeLabel: '11:00 - 11:30 IST',
           totalResponses: 0,
-          snapshotUrl: 'assets/test_fontainhas.gif',
+          snapshotUrl: null,
           topologyInfo: {
-            name: 'Mandovi River Sailboat & Fluvial Wake Currents',
-            archetype: 'Concentric Coastal Beacon Vortex & Celestial Rays',
-            reasoning: 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'
+            name: 'Intertwined Marine Currents & Laterite Fire Strata',
+            archetype: 'Dual Opposing Oceanic Teal & Laterite Vermilion Waves',
+            reasoning: 'Western Ghats tempest energy colliding with coastal warmth generated interlocking Arabian Sea teal and laterite vermilion dual currents.'
           }
         });
 
-    const pastCount = this.pastSessions.length || 49;
+    const pastCount = (this.pastSessions && Array.isArray(this.pastSessions)) ? this.pastSessions.length : 0;
 
     const weatherOptions = [
       { id: 'sunny', label: 'Sunny', sub: '& Energetic', icon: WEATHER_ICONS.sunny },
@@ -974,26 +978,28 @@ class ConclaveApp {
     const p1 = count > 0 ? this.pastSessions[count - 1] : null;
     const p2 = count > 1 ? this.pastSessions[count - 2] : null;
 
-    const getThumbHtml = (sess, num) => {
+    const getThumbHtml = (sess, slotNum) => {
       if (!sess) {
+        const slotLabel = slotNum === 1 ? 'Session 1 Live' : 'Upcoming Session';
         return `
-          <div class="tv-past-thumb-card tv-past-empty-card">
+          <div class="tv-past-thumb-card tv-past-empty-card" title="Artwork archives every 30 minutes">
             <div class="tv-thumb-empty-ph">
-              <span class="tv-thumb-empty-icon">🎨</span>
-              <span class="tv-thumb-empty-txt">Upcoming</span>
+              <span class="tv-thumb-empty-icon">⏳</span>
+              <span class="tv-thumb-empty-txt">${slotLabel}</span>
+              <span class="tv-thumb-empty-sub">Archives in 30m</span>
             </div>
           </div>
         `;
       }
       const imgSrc = sess.snapshotUrl || sess.gifUrl || `/archive/${sess.id}.jpg`;
-      const title = sess.topologyInfo?.name || sess.name || `Artwork #${sess.sessionNumber || num}`;
+      const title = sess.topologyInfo?.name || sess.name || `Artwork #${sess.sessionNumber || slotNum}`;
       const time = sess.timeLabel || 'Previous Cycle';
-      const sessionNum = sess.sessionNumber || num;
+      const sessionNum = sess.sessionNumber || slotNum;
 
       return `
-        <div class="tv-past-thumb-card" data-session-id="${sess.id}" title="Tap to Inspect & Swag" tabindex="0">
+        <div class="tv-past-thumb-card" data-session-id="${sess.id}" title="${title} (Tap to Inspect)" tabindex="0">
           <div class="tv-thumb-img-wrap">
-            <img src="${imgSrc}" alt="Artwork" class="tv-thumb-img" onerror="this.onerror=null; this.src='assets/harshit_agrawal.png'; this.style.opacity='0.4';" />
+            <img src="${imgSrc}" alt="${title}" class="tv-thumb-img" onerror="this.onerror=null; this.src='assets/harshit_agrawal.png'; this.style.opacity='0.4';" />
           </div>
         </div>
       `;
@@ -1001,8 +1007,8 @@ class ConclaveApp {
 
     gridEl.innerHTML = `
       <div class="tv-past-grid-row">
-        ${getThumbHtml(p1, count)}
-        ${getThumbHtml(p2, count - 1)}
+        ${getThumbHtml(p1, count > 0 ? count : 1)}
+        ${getThumbHtml(p2, count > 1 ? count - 1 : 2)}
         <div class="tv-past-thumb-card tv-past-view-more-card" id="tv-open-archive-grid-btn" title="View & Download All Past 30-Min Artworks" tabindex="0">
           <div class="tv-thumb-more-inner">
             <div class="tv-thumb-more-icon">
@@ -1014,7 +1020,7 @@ class ConclaveApp {
               </svg>
             </div>
             <span class="tv-more-text">View More</span>
-            <span class="tv-more-badge">${count > 2 ? `+${count - 2} Artworks &rarr;` : 'All Artworks &rarr;'}</span>
+            <span class="tv-more-badge">${count > 2 ? `+${count - 2} Artworks &rarr;` : (count > 0 ? 'All Artworks &rarr;' : 'Archive &rarr;')}</span>
           </div>
         </div>
       </div>

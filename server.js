@@ -182,16 +182,16 @@ export function loadPersistedSessions() {
   if (fs.existsSync(SESSIONS_FILE)) {
     try {
       const data = JSON.parse(fs.readFileSync(SESSIONS_FILE, 'utf8'));
-      if (Array.isArray(data) && data.length > 0) {
+      if (Array.isArray(data)) {
         console.log(`[Storage] Loaded ${data.length} past sessions from disk.`);
         return data;
       }
     } catch (e) {
-      console.warn('[Storage] Failed to read sessions.json, resetting to seeds:', e);
+      console.warn('[Storage] Failed to read sessions.json:', e);
     }
   }
-  savePersistedSessions(DEFAULT_PAST_SESSIONS);
-  return JSON.parse(JSON.stringify(DEFAULT_PAST_SESSIONS));
+  savePersistedSessions([]);
+  return [];
 }
 
 // Save sessions to disk storage
@@ -204,43 +204,22 @@ export function savePersistedSessions(sessions) {
   }
 }
 
-let pastSessions = loadPersistedSessions();
+// Format IST (Indian Standard Time) cycle window e.g. "11:00 AM - 11:30 AM IST"
+export function formatTimeLabelIST(startTimeMs, durationMs) {
+  const start = new Date(startTimeMs);
+  const end = new Date(startTimeMs + durationMs);
+  const fmt = (d) => {
+    return d.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'Asia/Kolkata'
+    });
+  };
+  return `${fmt(start)} - ${fmt(end)} IST`;
+}
 
-// Current active session state
-let currentSession = {
-  id: 'session-04',
-  sessionNumber: 4,
-  name: 'Intertwined Marine Currents & Laterite Fire Strata',
-  timeLabel: '11:00 - 11:30 AM',
-  startTime: Date.now() - 11 * 60 * 1000,
-  durationMs: SESSION_DURATION_MS,
-  mutationTopology: 1,
-  topologyInfo: {
-    id: 1,
-    name: 'Intertwined Marine Currents & Laterite Fire Strata',
-    archetype: 'Dual Opposing Oceanic Teal & Laterite Vermilion Waves',
-    reasoning: 'Western Ghats tempest energy (STORMY) colliding with Vindaloo spice heat (VINDALOO) generated interlocking Arabian Sea teal and laterite vermilion dual currents with bold stipple drops.',
-    dataSummary: {
-      dominantWeather: 'stormy',
-      dominantFood: 'vindaloo',
-      dominantLocation: 'palolem_beach',
-      dominantEmblem: 'sea_turtle',
-      totalResponses: 48,
-      weatherDist: { stormy: 24, rainy: 12, windy: 8, sunny: 4 },
-      foodDist: { vindaloo: 22, fish_curry: 14, prawn_curry: 8, xacuti: 4 },
-      locationDist: { palolem_beach: 28, chapora_fort: 12, dudhsagar: 8 },
-      emblemDist: { sea_turtle: 26, mandovi_boat: 12, kingfisher: 10 }
-    }
-  },
-  responses: [
-    { weather: 'stormy', food: 'vindaloo', location: 'palolem_beach', emblem: 'sea_turtle', note: 'Energy in the hall is palpable!', timestamp: Date.now() - 600000 },
-    { weather: 'stormy', food: 'fish_curry', location: 'palolem_beach', emblem: 'sea_turtle', note: 'Loved the student demo', timestamp: Date.now() - 520000 },
-    { weather: 'rainy', food: 'vindaloo', location: 'chapora_fort', emblem: 'mandovi_boat', note: 'Reflective and thoughtful', timestamp: Date.now() - 410000 },
-    { weather: 'windy', food: 'vindaloo', location: 'palolem_beach', emblem: 'kingfisher', note: 'Fiery debate on open source', timestamp: Date.now() - 330000 },
-    { weather: 'stormy', food: 'xacuti', location: 'dudhsagar', emblem: 'sea_turtle', note: 'Multilayered perspectives', timestamp: Date.now() - 250000 },
-    { weather: 'rainy', food: 'vindaloo', location: 'palolem_beach', emblem: 'sea_turtle', note: 'Optimistic about Goa AI', timestamp: Date.now() - 140000 }
-  ]
-};
+let pastSessions = loadPersistedSessions();
 
 // WebSocket broadcast helper
 function broadcast(data) {
@@ -252,15 +231,7 @@ function broadcast(data) {
   });
 }
 
-// Check and evolve session every 30 minutes
-function checkSessionCycle() {
-  const elapsed = Date.now() - currentSession.startTime;
-  if (elapsed >= currentSession.durationMs) {
-    advanceToNextSession();
-  }
-}
 
-setInterval(checkSessionCycle, 5000);
 
 // =========================================================================
 // 20 DIVERSE COMPUTATIONAL ARTWORK TOPOLOGIES & COMBINED SENTIMENT SCORING
@@ -453,6 +424,56 @@ function selectBestTopology(domWeather, domFood, domLocation, domEmblem, dist, t
   };
 }
 
+// Initialize active session starting fresh from Session 1 (or next session based on persisted pastSessions)
+export function initCurrentSession() {
+  const sessionNum = pastSessions.length + 1;
+  const sessionId = `session-${String(sessionNum).padStart(2, '0')}`;
+  const topoIndex = sessionNum === 1 ? 1 : ((sessionNum - 1) % TOPOLOGY_CATALOG.length);
+  const initialTopo = TOPOLOGY_CATALOG[topoIndex];
+  const now = Date.now();
+
+  return {
+    id: sessionId,
+    sessionNumber: sessionNum,
+    name: initialTopo.name,
+    timeLabel: formatTimeLabelIST(now, SESSION_DURATION_MS),
+    startTime: now,
+    durationMs: SESSION_DURATION_MS,
+    mutationTopology: initialTopo.id,
+    topologyInfo: {
+      id: initialTopo.id,
+      name: initialTopo.name,
+      archetype: initialTopo.archetype,
+      reasoning: initialTopo.reasoning('sunny', 'fish_curry', 'aguada_fort', 'mandovi_boat'),
+      dataSummary: {
+        dominantWeather: 'sunny',
+        dominantFood: 'fish_curry',
+        dominantLocation: 'aguada_fort',
+        dominantEmblem: 'mandovi_boat',
+        totalResponses: 0,
+        weatherDist: { sunny: 0, windy: 0, rainy: 0, stormy: 0, calm: 0 },
+        foodDist: { fish_curry: 0, prawn_curry: 0, vindaloo: 0, xacuti: 0, bebinca: 0, poe_bread: 0 },
+        locationDist: { aguada_fort: 0, dudhsagar: 0, fontainhas: 0, chapora_fort: 0, palolem_beach: 0, cabo_de_rama: 0 },
+        emblemDist: { mandovi_boat: 0, coconut_palm: 0, sea_turtle: 0, kingfisher: 0, carnival_spirit: 0, susegad: 0 }
+      }
+    },
+    responses: []
+  };
+}
+
+let currentSession = initCurrentSession();
+
+// Check and evolve session every 30 minutes
+function checkSessionCycle() {
+  const elapsed = Date.now() - currentSession.startTime;
+  if (elapsed >= currentSession.durationMs) {
+    console.log(`[Cycle] 30 minutes elapsed (${elapsed}ms). Advancing to next session...`);
+    advanceToNextSession();
+  }
+}
+
+setInterval(checkSessionCycle, 5000);
+
 function advanceToNextSession(customName, forcedMutation) {
   // Archive current session
   const weatherDist = {};
@@ -495,6 +516,7 @@ function advanceToNextSession(customName, forcedMutation) {
     if (count > maxE) { maxE = count; domEmblem = e; }
   }
 
+  // Select the next topology based on attendee consensus
   let selectedTopoInfo;
   if (typeof forcedMutation === 'number') {
     const topo = TOPOLOGY_CATALOG[forcedMutation % TOPOLOGY_CATALOG.length];
@@ -513,16 +535,15 @@ function advanceToNextSession(customName, forcedMutation) {
     );
   }
 
-  const mutationTopology = selectedTopoInfo.id;
-
   const snapshotFile = `${currentSession.id}.jpg`;
   const snapshotPath = path.join(ARCHIVE_DIR, snapshotFile);
   const snapshotExists = fs.existsSync(snapshotPath);
 
+  // Archive the completed session preserving its actual running topology & sentiment
   const archived = {
     id: currentSession.id,
     sessionNumber: currentSession.sessionNumber,
-    name: currentSession.name,
+    name: currentSession.topologyInfo?.name || currentSession.name,
     timeLabel: currentSession.timeLabel,
     timestamp: currentSession.startTime,
     dominantWeather: domWeather,
@@ -534,31 +555,30 @@ function advanceToNextSession(customName, forcedMutation) {
     locationDistribution: locationDist,
     emblemDistribution: emblemDist,
     totalResponses: currentSession.responses.length,
-    seedVariant: (mutationTopology % 2) + 1,
-    mutationTopology,
-    topologyInfo: selectedTopoInfo,
+    seedVariant: (currentSession.mutationTopology % 2) + 1,
+    mutationTopology: currentSession.mutationTopology,
+    topologyInfo: currentSession.topologyInfo,
     snapshotUrl: snapshotExists ? `/archive/${snapshotFile}?v=${Date.now()}` : null,
     gifUrl: `/api/sessions/${currentSession.id}/artwork.gif`
   };
 
   pastSessions.push(archived);
   savePersistedSessions(pastSessions);
+  console.log(`[Cycle] Archived ${archived.id} (#${archived.sessionNumber}). Total past sessions: ${pastSessions.length}`);
 
-  // Initialize new session
+  // Initialize new session with the newly computed consensus topology and real IST time
   const nextNumber = currentSession.sessionNumber + 1;
-  const startHour = 11 + Math.floor((nextNumber - 4) * 0.5);
-  const startMin = (nextNumber % 2 === 0) ? '00' : '30';
-  const endMin = (nextNumber % 2 === 0) ? '30' : '00';
-  const endHour = (nextNumber % 2 === 0) ? startHour : startHour + 1;
+  const nextId = `session-${String(nextNumber).padStart(2, '0')}`;
+  const now = Date.now();
 
   currentSession = {
-    id: `session-0${nextNumber}`,
+    id: nextId,
     sessionNumber: nextNumber,
     name: customName || selectedTopoInfo.name,
-    timeLabel: `${startHour}:${startMin} - ${endHour}:${endMin} IST`,
-    startTime: Date.now(),
+    timeLabel: formatTimeLabelIST(now, SESSION_DURATION_MS),
+    startTime: now,
     durationMs: SESSION_DURATION_MS,
-    mutationTopology,
+    mutationTopology: selectedTopoInfo.id,
     topologyInfo: {
       ...selectedTopoInfo,
       dataSummary: {
@@ -566,7 +586,7 @@ function advanceToNextSession(customName, forcedMutation) {
         dominantFood: domFood,
         dominantLocation: domLocation,
         dominantEmblem: domEmblem,
-        totalResponses: currentSession.responses.length,
+        totalResponses: 0,
         weatherDist,
         foodDist,
         locationDist,
@@ -576,12 +596,14 @@ function advanceToNextSession(customName, forcedMutation) {
     responses: []
   };
 
+  console.log(`[Cycle] Started ${currentSession.id} (#${currentSession.sessionNumber}) - "${currentSession.name}" (${currentSession.timeLabel})`);
+
   broadcast({
     type: 'CYCLE_ADVANCED',
     currentSession,
     archivedSession: archived,
     pastSessions,
-    mutationTopology,
+    mutationTopology: selectedTopoInfo.id,
     topologyInfo: currentSession.topologyInfo
   });
 }
