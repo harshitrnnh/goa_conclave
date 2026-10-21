@@ -525,6 +525,9 @@ export function getArtworkImpactWriteup(response = {}) {
   const loc = locationMap[lKey] || locationMap.aguada_fort;
   const emb = emblemMap[eKey] || emblemMap.mandovi_boat;
 
+  const line1 = `${w.name} palette enriched with ${f.name} & ${loc.name} accents.`;
+  const line2 = `${w.title.split('&')[0].trim()} flow modulated with ${emb.name} motion.`;
+
   const colorsText = `${w.color}, enriched with ${f.color} and ${loc.color}.`;
   const animationText = `${w.animation}. Modulated by ${emb.name}: ${emb.animation}.`;
   const structureText = `${f.structure}. Layered with ${loc.name} geometry (${loc.structure}).`;
@@ -542,6 +545,8 @@ export function getArtworkImpactWriteup(response = {}) {
     headline: `${w.name} · ${f.name}`,
     summary,
     conciseNote,
+    line1,
+    line2,
     colorsText,
     animationText,
     structureText,

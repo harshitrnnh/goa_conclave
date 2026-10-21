@@ -137,7 +137,7 @@ class ConclaveApp {
         if (this.currentSession) {
           if (!this.currentSession.responses) this.currentSession.responses = [];
           this.currentSession.responses.push(response);
-          this.sentimentEngine.synthesizeSession(this.currentSession);
+          // Preserve active response's colors and animation forces; do not overwrite with session average
         }
 
         this.showToastNotification(response);
@@ -809,41 +809,15 @@ class ConclaveApp {
           Watch the live vertical screen! The particle tapestry is dynamically responding to your choices.
         </p>
 
-        <!-- Dynamic Artwork Transformation Writeup (Detailed, Accurate & Understandable) -->
-        <div class="impact-writeup-card detailed-impact-card">
+        <!-- Dynamic Artwork Transformation Writeup (Max 2 Lines, Concise) -->
+        <div class="impact-writeup-card concise-card">
           <div class="impact-card-header">
-            <span class="impact-card-badge">✨ Live Transformation Applied</span>
+            <span class="impact-card-badge">✨ Live Transformation</span>
             <span class="impact-card-tagline">${impact.headline}</span>
           </div>
-
-          <div class="impact-breakdown-list">
-            <div class="impact-breakdown-row">
-              <div class="impact-breakdown-title">
-                <span class="impact-row-icon">🎨</span>
-                <strong>Colors Added:</strong>
-              </div>
-              <div class="impact-breakdown-desc">${impact.colorsText}</div>
-            </div>
-
-            <div class="impact-breakdown-row">
-              <div class="impact-breakdown-title">
-                <span class="impact-row-icon">⚡</span>
-                <strong>Animation & Flow:</strong>
-              </div>
-              <div class="impact-breakdown-desc">${impact.animationText}</div>
-            </div>
-
-            <div class="impact-breakdown-row">
-              <div class="impact-breakdown-title">
-                <span class="impact-row-icon">🏛️</span>
-                <strong>Structural Changes:</strong>
-              </div>
-              <div class="impact-breakdown-desc">${impact.structureText}</div>
-            </div>
-          </div>
-
-          <div class="impact-base-note">
-            <span>ℹ️ <strong>Base Canvas Form:</strong> Macro spatial topology stays stable and morphs every 30 mins.</span>
+          <div class="impact-two-line-summary">
+            <p class="impact-line"><strong>🎨 Colors:</strong> ${impact.line1}</p>
+            <p class="impact-line"><strong>⚡ Dynamics:</strong> ${impact.line2}</p>
           </div>
         </div>
 

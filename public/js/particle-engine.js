@@ -1719,9 +1719,13 @@ export class GoanArtworkEngine {
       if (eKey === 'sea_turtle') p.turtleSwell = 3.4;
       if (eKey === 'coconut_tree' || eKey === 'coconut_palm') p.frondTendrils = 3.4;
       if (eKey === 'sea_shell') { p.stormVortex = 1.8; p.calmSwell = 1.5; }
+
+      // Persist the attendee's physical & animation forces until next input
+      this.sentimentEngine.targetParameters = JSON.parse(JSON.stringify(p));
+      this.sentimentEngine.isTransitioning = false;
     }
 
-    // 3. Chromatic Dominance
+    // 3. Chromatic Dominance (persists continuously until next input)
     this.recentInput = {
       weather: wKey,
       food: fKey,
@@ -1820,9 +1824,9 @@ export class GoanArtworkEngine {
     const W = this.width;
     const H = this.height;
 
-    // Decay recent input chromatic dominance smoothly
-    if (this.recentInput && this.recentInput.weight > 0) {
-      this.recentInput.weight = Math.max(0, this.recentInput.weight - 0.0028);
+    // Persist recent input chromatic dominance until the next attendee input is given
+    if (this.recentInput) {
+      this.recentInput.weight = 1.0;
     }
 
     // Sync collective theme palette with current sentiment & input burst

@@ -933,6 +933,26 @@
   border: 1px solid rgba(200, 139, 55, 0.3);
 }
 
+.impact-two-line-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.impact-line {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.36;
+  color: #38150D;
+  font-weight: 500;
+}
+
+.impact-line strong {
+  color: #872012;
+  font-weight: 700;
+}
+
 .impact-breakdown-list {
   display: flex;
   flex-direction: column;

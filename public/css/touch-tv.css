@@ -12,9 +12,6 @@
   overflow: hidden;
   background-color: #0b0302;
   box-sizing: border-box;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
   position: relative;
 }
 
@@ -153,6 +150,7 @@
   flex: 0 0 36.5%;
   width: 36.5%;
   height: 100vh;
+  max-height: 100vh;
   background-color: #FAF3E8;
   background-image: 
     radial-gradient(rgba(135, 32, 18, 0.04) 1px, transparent 1px),
@@ -161,12 +159,31 @@
   border-left: 1px solid rgba(135, 32, 18, 0.2);
   display: flex;
   flex-direction: column;
-  padding: 34px 26px 20px 26px;
+  padding: 16px 20px 16px 20px;
   box-sizing: border-box;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
   color: #3B140D;
   position: relative;
+}
+
+.touch-tv-kiosk-side::-webkit-scrollbar {
+  width: 6px;
+}
+
+.touch-tv-kiosk-side::-webkit-scrollbar-track {
+  background: rgba(135, 32, 18, 0.04);
+}
+
+.touch-tv-kiosk-side::-webkit-scrollbar-thumb {
+  background: rgba(135, 32, 18, 0.25);
+  border-radius: 4px;
+}
+
+.touch-tv-kiosk-side::-webkit-scrollbar-thumb:hover {
+  background: rgba(135, 32, 18, 0.45);
 }
 
 /* Header: Artist Info on Left, POAI Logo on Right (Aligned to top) */
@@ -900,6 +917,26 @@
   margin: 4px 0 6px 0;
   line-height: 1.28;
   font-style: italic;
+}
+
+.touch-tv-kiosk-side .impact-two-line-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 4px;
+}
+
+.touch-tv-kiosk-side .impact-line {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.34;
+  color: #38150D;
+  font-weight: 500;
+}
+
+.touch-tv-kiosk-side .impact-line strong {
+  color: #872012;
+  font-weight: 700;
 }
 
 .touch-tv-kiosk-side .impact-breakdown-list {
