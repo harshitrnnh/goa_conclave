@@ -55,39 +55,42 @@ export class TabletApp {
 
     this.container.innerHTML = `
       <div class="tablet-kiosk-wrapper">
-        <!-- Top Ornamental Goan Frieze Border -->
+        <!-- Top Header: Artist & POAI Logo on Top Row, Navigation Tabs on Dedicated Row -->
         <header class="tablet-header">
           <div class="tablet-header-bar">
             <div class="tablet-artist-meta">
-              <span class="conclave-brand">Artwork by Harshit Agrawal <span class="brand-handle">@harshitrnnh</span></span>
+              <div class="tablet-artist-title-row">
+                <span class="conclave-brand">Artwork by Harshit Agrawal</span>
+                <span class="brand-handle">@harshitrnnh</span>
+              </div>
               <div class="tablet-artist-bio">
                 <img src="assets/harshit_agrawal.png" alt="Harshit Agrawal" class="tablet-artist-avatar" />
                 <span class="tablet-artist-tagline">Held India's first solo AI Art Show, Exhibition in 20 countries, 5 TEDx Talks, Google's first Artist Resident in India.</span>
               </div>
             </div>
-            
-            <div class="tablet-header-right-group">
-              <!-- iPad Navigation Tabs -->
-              <nav class="tablet-nav-tabs" role="tablist" aria-label="Kiosk Tabs">
-                <button class="tablet-tab-btn ${this.activeTab === 'vote' ? 'active' : ''}" id="tab-btn-vote" role="tab" aria-selected="${this.activeTab === 'vote'}">
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
-                  </svg>
-                  <span>Vote / Survey</span>
-                </button>
-                <button class="tablet-tab-btn ${this.activeTab === 'past' ? 'active' : ''}" id="tab-btn-past" role="tab" aria-selected="${this.activeTab === 'past'}">
-                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-                  </svg>
-                  <span>Previous Artworks</span>
-                  <span class="tab-badge-pill" id="tablet-past-count">${pastCount}</span>
-                </button>
-              </nav>
 
-              <div class="tablet-poai-badge" id="tablet-poai-badge" title="POAI - Conclave">
-                <img src="assets/poai_official_logo.png" alt="POAI" class="tablet-poai-logo-img" />
-              </div>
+            <div class="tablet-poai-badge" id="tablet-poai-badge" title="POAI - Conclave">
+              <img src="assets/poai_official_logo.png" alt="POAI" class="tablet-poai-logo-img" />
             </div>
+          </div>
+
+          <!-- Dedicated Navigation Row with Clean Spacing -->
+          <div class="tablet-nav-row">
+            <nav class="tablet-nav-tabs" role="tablist" aria-label="Kiosk Tabs">
+              <button class="tablet-tab-btn ${this.activeTab === 'vote' ? 'active' : ''}" id="tab-btn-vote" role="tab" aria-selected="${this.activeTab === 'vote'}">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                </svg>
+                <span>Vote / Survey</span>
+              </button>
+              <button class="tablet-tab-btn ${this.activeTab === 'past' ? 'active' : ''}" id="tab-btn-past" role="tab" aria-selected="${this.activeTab === 'past'}">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+                </svg>
+                <span>Previous Artworks</span>
+                <span class="tab-badge-pill" id="tablet-past-count">${pastCount}</span>
+              </button>
+            </nav>
           </div>
         </header>
 
