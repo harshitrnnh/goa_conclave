@@ -506,7 +506,6 @@ class ConclaveApp {
         <div class="tablet-past-gallery-header" style="margin-bottom: 12px;">
           <div>
             <h2 class="tablet-past-gallery-title">Previous Artworks Archive</h2>
-            <p class="tablet-past-gallery-subtitle">Looping GIFs of 30-min cycles (max 10s loop) · Responding dynamically to Goan sentiment</p>
           </div>
           <button class="tablet-quick-return-btn" id="dual-past-return-vote-btn">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
@@ -1078,7 +1077,7 @@ class ConclaveApp {
         <header class="showcase-past-header">
           <div>
             <h1 class="showcase-past-heading">Previous 30-Minute Artwork Cycles</h1>
-            <p class="showcase-past-subheading">Ultra-lightweight looping GIFs (< 10s loop) generated from 30-minute attendee sentiment convergence.</p>
+            <p class="showcase-past-subheading">Generated from 30-minute attendee sentiment convergence.</p>
           </div>
           <button class="showcase-back-live-btn" id="showcase-return-live-btn">
             ← Return to Live Showcase

@@ -109,7 +109,7 @@ export class TabletApp {
               </div>
               <span class="kiosk-hint">Touch an option to proceed · Tapestry continuously morphs on the vertical screen</span>
             ` : `
-              <span class="kiosk-hint">⏱️ 10-Second Looping GIFs · Tap any artwork to inspect attendee sentiment and generate Swag</span>
+              <span class="kiosk-hint">Tap any artwork to inspect attendee sentiment and generate Swag</span>
               <button class="tablet-quick-return-btn" id="footer-back-to-vote-btn" style="padding: 2px 10px; font-size: 0.72rem;">Back to Vote</button>
             `}
           </div>
@@ -385,7 +385,6 @@ export class TabletApp {
         <div class="tablet-past-gallery-header">
           <div>
             <h2 class="tablet-past-gallery-title">Previous Artworks Archive</h2>
-            <p class="tablet-past-gallery-subtitle">Looping GIFs of 30-min cycles (max 10s loop) · Responding dynamically to Goan sentiment</p>
           </div>
           <button class="tablet-quick-return-btn" id="gallery-return-vote-btn">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
