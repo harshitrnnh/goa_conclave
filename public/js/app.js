@@ -824,12 +824,8 @@ class ConclaveApp {
         </div>
 
         <div class="success-actions">
-          <button class="action-btn-primary go-to-input-btn" id="tv-vote-again-btn" aria-label="Back to Giving Votes">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
-              <line x1="19" y1="12" x2="5" y2="12"></line>
-              <polyline points="12 19 5 12 12 5"></polyline>
-            </svg>
-            <span>Back to Giving Votes (Next Attendee)</span>
+          <button class="action-btn-primary go-to-input-btn" id="tv-vote-again-btn" aria-label="Share Your Sentiment">
+            <span>Share Your Sentiment</span>
           </button>
         </div>
       </section>
