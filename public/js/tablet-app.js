@@ -412,27 +412,14 @@ export class TabletApp {
         <div class="tablet-past-cards-grid">
           ${sessions.map((sess, idx) => {
             const imgSrc = sess.snapshotUrl || sess.gifUrl || `/api/sessions/${sess.id}/artwork.gif`;
-            const isRealSnapshot = !!sess.snapshotUrl;
-            const badgeText = isRealSnapshot ? '🎨 42k Particles' : '⏱️ 9.6s Loop';
-            const topoName = sess.topologyInfo?.name || `Topology #${sess.mutationTopology !== undefined ? sess.mutationTopology + 1 : idx + 1}`;
             const reasoning = sess.topologyInfo?.reasoning || sess.description || 'Generated from 30-min attendee sentiment vector convergence.';
-            const timeRange = sess.timeLabel || '30 Min Session';
-            const count = sess.totalResponses || sess.responsesCount || 0;
 
             return `
               <article class="tablet-art-card" data-session-id="${sess.id}">
                 <div class="tablet-art-thumb-frame" data-session-id="${sess.id}" style="cursor: pointer;">
-                  <img src="${imgSrc}" alt="${sess.name || 'Artwork'}" class="tablet-art-gif" loading="lazy" />
-                  <span class="tablet-art-loop-badge">${badgeText}</span>
-                  <div class="tablet-art-session-tag">Session #${sess.sessionNumber || (idx + 1)}</div>
+                  <img src="${imgSrc}" alt="Artwork" class="tablet-art-gif" loading="lazy" />
                 </div>
                 <div class="tablet-art-card-body">
-                  <div class="tablet-card-time-row">
-                    <span>${timeRange}</span>
-                    <span class="tablet-card-voices-count">${count} voices</span>
-                  </div>
-                  <h3 class="tablet-art-title">${sess.name || 'Many Minds - Collective Artworks'}</h3>
-                  <div class="tablet-art-archetype">${topoName}</div>
                   <p class="tablet-art-reasoning">${reasoning}</p>
                   <div class="tablet-card-sentiment-tags">
                     ${sess.dominantWeather ? `<span class="tablet-tag">☀️ ${this.formatTag(sess.dominantWeather)}</span>` : ''}

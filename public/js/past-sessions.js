@@ -36,19 +36,11 @@ export class PastSessionsManager {
 
     this.sessions.slice(-8).reverse().forEach((sess, index) => {
       const imgSrc = sess.snapshotUrl || sess.gifUrl || `/api/sessions/${sess.id}/artwork.gif`;
-      const isRealSnapshot = !!sess.snapshotUrl;
-      const loopTag = isRealSnapshot ? '🎨 42k Particles' : '⏱️ 9.6s GIF';
 
       html += `
         <div class="past-card" data-session-id="${sess.id}" tabindex="0" title="Click to view details and generate Swag card">
           <div class="past-card-artwork">
-            <img src="${imgSrc}" alt="${sess.name}" class="past-card-gif" loading="lazy" />
-            <span class="past-card-loop-tag">${loopTag}</span>
-            <div class="past-card-badge">Session #${sess.sessionNumber || (index + 1)}</div>
-          </div>
-          <div class="past-card-info">
-            <span class="past-card-time">${sess.timeLabel || '30 Min Session'}</span>
-            <span class="past-card-stats">${sess.totalResponses || 0} voices</span>
+            <img src="${imgSrc}" alt="${sess.name || 'Artwork'}" class="past-card-gif" loading="lazy" />
           </div>
         </div>
       `;
@@ -89,17 +81,14 @@ export class PastSessionsManager {
     modal.innerHTML = `
       <div class="conclave-modal-card">
         <button class="conclave-modal-close" aria-label="Close">&times;</button>
-        <div class="conclave-modal-header">
-          <span class="modal-session-tag">Goa Conclave 2026 · Session #${session.sessionNumber}</span>
-          <h2 class="modal-title">${session.name || 'Conclave Session'}</h2>
-          <p class="modal-subtitle">${session.timeLabel} · ${session.totalResponses} audience responses</p>
+        <div class="conclave-modal-header" style="margin-bottom: 8px;">
+          <h2 class="modal-title" style="margin: 0; font-family: 'Cinzel', serif; font-size: 1.15rem; color: #FAF3E8;">Many Minds - Collective Artworks</h2>
         </div>
 
         <div class="conclave-modal-body">
           <div class="modal-artwork-preview">
             <div class="modal-canvas-frame">
               <img src="${session.snapshotUrl || session.gifUrl || `/api/sessions/${session.id}/artwork.gif`}" alt="${session.name || 'Conclave Artwork'}" class="modal-artwork-gif" />
-              <div class="modal-gif-tag">${session.snapshotUrl ? '🎨 42,000 Particles · Authentic Canvas Render' : '⏱️ 9.6s Loop · 8 Keyframes'}</div>
             </div>
             <div class="modal-download-actions">
               <button class="swag-download-btn" id="generate-swag-btn" title="Download Commemorative Postcard with Authentic Artwork">

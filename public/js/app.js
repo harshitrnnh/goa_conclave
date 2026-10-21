@@ -515,27 +515,14 @@ class ConclaveApp {
         <div class="tablet-past-cards-grid">
           ${sessions.map((sess, idx) => {
             const imgSrc = sess.snapshotUrl || sess.gifUrl || `/archive/${sess.id}.jpg`;
-            const isRealSnapshot = !!sess.snapshotUrl;
-            const badgeText = isRealSnapshot ? '🎨 42k Particles' : '⏱️ 9.6s Loop';
-            const topoName = sess.topologyInfo?.name || `Topology #${sess.mutationTopology !== undefined ? sess.mutationTopology + 1 : idx + 1}`;
             const reasoning = sess.topologyInfo?.reasoning || sess.description || 'Generated from 30-min attendee sentiment vector convergence.';
-            const timeRange = sess.timeLabel || '30 Min Session';
-            const count = sess.totalResponses || sess.responsesCount || 0;
 
             return `
               <article class="tablet-art-card" data-session-id="${sess.id}">
                 <div class="tablet-art-thumb-frame" data-session-id="${sess.id}" style="cursor: pointer;">
-                  <img src="${imgSrc}" alt="${sess.name || 'Artwork'}" class="tablet-art-gif" loading="lazy" />
-                  <span class="tablet-art-loop-badge">${badgeText}</span>
-                  <div class="tablet-art-session-tag">Session #${sess.sessionNumber || (idx + 1)}</div>
+                  <img src="${imgSrc}" alt="Artwork" class="tablet-art-gif" loading="lazy" />
                 </div>
                 <div class="tablet-art-card-body">
-                  <div class="tablet-card-time-row">
-                    <span>${timeRange}</span>
-                    <span class="tablet-card-voices-count">${count} voices</span>
-                  </div>
-                  <h3 class="tablet-art-title">${sess.name || 'Many Minds - Collective Artworks'}</h3>
-                  <div class="tablet-art-archetype">${topoName}</div>
                   <p class="tablet-art-reasoning">${reasoning}</p>
                   <div class="tablet-card-sentiment-tags">
                     ${sess.dominantWeather ? `<span class="tablet-tag">☀️ ${this.formatTag(sess.dominantWeather)}</span>` : ''}
@@ -1018,14 +1005,9 @@ class ConclaveApp {
       const sessionNum = sess.sessionNumber || num;
 
       return `
-        <div class="tv-past-thumb-card" data-session-id="${sess.id}" title="${title} (${time}) · Tap to Inspect & Swag" tabindex="0">
+        <div class="tv-past-thumb-card" data-session-id="${sess.id}" title="Tap to Inspect & Swag" tabindex="0">
           <div class="tv-thumb-img-wrap">
-            <img src="${imgSrc}" alt="${title}" class="tv-thumb-img" onerror="this.onerror=null; this.src='assets/harshit_agrawal.png'; this.style.opacity='0.4';" />
-            <span class="tv-thumb-tag">#${sessionNum}</span>
-          </div>
-          <div class="tv-thumb-meta">
-            <span class="tv-thumb-title">${title}</span>
-            <span class="tv-thumb-time">${time}</span>
+            <img src="${imgSrc}" alt="Artwork" class="tv-thumb-img" onerror="this.onerror=null; this.src='assets/harshit_agrawal.png'; this.style.opacity='0.4';" />
           </div>
         </div>
       `;
@@ -1122,17 +1104,9 @@ class ConclaveApp {
             return `
               <article class="showcase-past-card" data-session-id="${sess.id}">
                 <div class="showcase-past-media" style="cursor: pointer;" data-session-id="${sess.id}">
-                  <img src="${imgSrc}" alt="${sess.name}" class="showcase-past-gif" loading="lazy" />
-                  <div class="showcase-past-loop-tag">${loopTag}</div>
-                  <div class="showcase-past-session-tag">Session #${sess.sessionNumber || (idx + 1)}</div>
+                  <img src="${imgSrc}" alt="Artwork" class="showcase-past-gif" loading="lazy" />
                 </div>
                 <div class="showcase-past-body">
-                  <div class="showcase-past-time-row">
-                    <span>${sess.timeLabel || '30 Min Session'}</span>
-                    <span class="showcase-past-voices">${sess.totalResponses || 0} voices</span>
-                  </div>
-                  <h3 class="showcase-past-title">${sess.name || 'Conclave Artwork'}</h3>
-                  <div class="showcase-past-archetype">${topoName} · ${archetype}</div>
                   <div class="showcase-past-reasoning">
                     <strong>Topology Reasoning:</strong> ${reasoning}
                   </div>

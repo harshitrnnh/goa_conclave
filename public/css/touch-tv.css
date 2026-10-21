@@ -374,7 +374,7 @@
 .tv-thumb-img-wrap {
   position: relative;
   width: 100%;
-  height: 52px;
+  height: 72px;
   background: #140703;
   overflow: hidden;
 }
@@ -384,47 +384,19 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.25s ease;
+}
+
+.tv-past-thumb-card:hover .tv-thumb-img {
+  transform: scale(1.05);
 }
 
 .tv-thumb-tag {
-  position: absolute;
-  top: 3px;
-  left: 4px;
-  background: rgba(15, 5, 2, 0.75);
-  color: #F2C249;
-  font-family: 'Cinzel', serif;
-  font-size: 0.58rem;
-  font-weight: 700;
-  padding: 1px 5px;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
-  backdrop-filter: blur(2px);
-  border: 1px solid rgba(242, 194, 73, 0.3);
+  display: none;
 }
 
 .tv-thumb-meta {
-  padding: 4px 6px;
-  display: flex;
-  flex-direction: column;
-  background: rgba(255, 255, 255, 0.95);
-}
-
-.tv-thumb-title {
-  font-family: 'Marcellus', serif;
-  font-size: 0.67rem;
-  font-weight: 600;
-  color: #2E0F07;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.2;
-}
-
-.tv-thumb-time {
-  font-size: 0.58rem;
-  color: #8C4030;
-  line-height: 1.1;
-  margin-top: 1px;
+  display: none;
 }
 
 /* 3rd Thumbnail: View More Card */
@@ -434,11 +406,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 72px;
 }
 
 .tv-thumb-more-inner {
   height: 100%;
-  min-height: 80px;
+  min-height: 72px;
   display: flex;
   flex-direction: column;
   align-items: center;
