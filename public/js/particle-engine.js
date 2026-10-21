@@ -2051,6 +2051,7 @@ export class GoanArtworkEngine {
         const py = this.py[i];
         for (let sw = 0; sw < this.shockwaves.length; sw++) {
           const wave = this.shockwaves[sw];
+          if (wave.radius <= 0) continue;
           const dx = px - wave.x;
           const dy = py - wave.y;
           const dist = Math.hypot(dx, dy);
@@ -2480,10 +2481,14 @@ export class GoanArtworkEngine {
     if (this.shockwaves.length > 0) {
       for (let sw = 0; sw < this.shockwaves.length; sw++) {
         const wave = this.shockwaves[sw];
+        if (!wave || wave.radius <= 0) continue;
+
+        const r0 = Math.max(0.1, wave.radius - 80);
+        const r1 = Math.max(r0 + 1, wave.radius + 80);
         const rgb = wave.rgb || [255, 215, 0];
         const waveGrad = ctx.createRadialGradient(
-          wave.x, wave.y, Math.max(1, wave.radius - 80),
-          wave.x, wave.y, wave.radius + 80
+          wave.x, wave.y, r0,
+          wave.x, wave.y, r1
         );
         waveGrad.addColorStop(0, 'rgba(0,0,0,0)');
         waveGrad.addColorStop(0.5, `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${0.30 * wave.intensity})`);
@@ -2491,7 +2496,7 @@ export class GoanArtworkEngine {
 
         ctx.fillStyle = waveGrad;
         ctx.beginPath();
-        ctx.arc(wave.x, wave.y, wave.radius + 80, 0, Math.PI * 2);
+        ctx.arc(wave.x, wave.y, r1, 0, Math.PI * 2);
         ctx.fill();
       }
     }
@@ -2511,9 +2516,13 @@ export class GoanArtworkEngine {
 
     const loop = () => {
       if (!this.isRunning) return;
-      this.sentimentEngine.update();
-      this.update();
-      this.render();
+      try {
+        this.sentimentEngine.update();
+        this.update();
+        this.render();
+      } catch (err) {
+        console.error('GoanArtworkEngine render loop error:', err);
+      }
       this.animId = requestAnimationFrame(loop);
     };
 

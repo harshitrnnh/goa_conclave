@@ -1,7 +1,7 @@
 // Main Application Bootstrap for Goa Conclave
 // Integrates Computational Artwork, Tablet Kiosk, Real-Time Sync, and 30-Min Cycles
 
-import { GoanArtworkEngine } from './particle-engine.js';
+import { GoanArtworkEngine } from './particle-engine.js?v=42';
 import { SentimentEngine, getArtworkImpactWriteup, scoreBestTopologyForResponse } from './sentiment-engine.js';
 import { TabletApp } from './tablet-app.js';
 import { SyncManager } from './sync.js';
