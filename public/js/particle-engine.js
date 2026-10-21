@@ -1553,58 +1553,77 @@ export class GoanArtworkEngine {
       const reTheme = THEME_PALETTES.emblem[reKey] || THEME_PALETTES.emblem.mandovi_boat;
 
       const inpPalette = new Float32Array(42);
-      // Start with Weather atmospheric palette
-      for (let i = 0; i < 14; i++) {
-        const rgb = rwTheme.p[i];
-        const base = i * 3;
-        inpPalette[base] = rgb[0];
-        inpPalette[base + 1] = rgb[1];
-        inpPalette[base + 2] = rgb[2];
-      }
 
-      // Weave Food / Flavour signature tones
-      for (const [key, rgb] of Object.entries(rfTheme)) {
-        if (key.startsWith('p')) {
-          const idx = parseInt(key.substring(1), 10);
-          if (idx >= 0 && idx < 14) {
-            const base = idx * 3;
-            inpPalette[base] = rgb[0];
-            inpPalette[base + 1] = rgb[1];
-            inpPalette[base + 2] = rgb[2];
-          }
-        }
-      }
+      // Slots 0, 1, 2: 1. Weather atmospheric tones
+      inpPalette[0] = rwTheme.p[0][0]; inpPalette[1] = rwTheme.p[0][1]; inpPalette[2] = rwTheme.p[0][2];
+      inpPalette[3] = rwTheme.p[1][0]; inpPalette[4] = rwTheme.p[1][1]; inpPalette[5] = rwTheme.p[1][2];
+      inpPalette[6] = rwTheme.p[2][0]; inpPalette[7] = rwTheme.p[2][1]; inpPalette[8] = rwTheme.p[2][2];
 
-      // Weave Landmark regional heritage tones
-      for (const [key, rgb] of Object.entries(rlTheme)) {
-        if (key.startsWith('p')) {
-          const idx = parseInt(key.substring(1), 10);
-          if (idx >= 0 && idx < 14) {
-            const base = idx * 3;
-            inpPalette[base] = rgb[0];
-            inpPalette[base + 1] = rgb[1];
-            inpPalette[base + 2] = rgb[2];
-          }
-        }
-      }
+      // Slots 3, 4, 5: 2. Food / Culinary signature tones
+      const f3 = rfTheme.p3 || rfTheme.accent || [235, 25, 20];
+      const f4 = rfTheme.p4 || [255, 65, 35];
+      const f5 = rfTheme.p5 || [185, 20, 18];
+      inpPalette[9]  = f3[0]; inpPalette[10] = f3[1]; inpPalette[11] = f3[2];
+      inpPalette[12] = f4[0]; inpPalette[13] = f4[1]; inpPalette[14] = f4[2];
+      inpPalette[15] = f5[0]; inpPalette[16] = f5[1]; inpPalette[17] = f5[2];
 
-      // Weave Cultural Emblem kinetic accent tones
-      if (reTheme) {
-        for (const [key, rgb] of Object.entries(reTheme)) {
-          if (key.startsWith('p')) {
-            const idx = parseInt(key.substring(1), 10);
-            if (idx >= 0 && idx < 14) {
-              const base = idx * 3;
-              inpPalette[base] = rgb[0];
-              inpPalette[base + 1] = rgb[1];
-              inpPalette[base + 2] = rgb[2];
-            }
-          }
-        }
-      }
+      // Slots 6, 7, 8: 3. Location / Regional heritage landmark tones
+      const l6 = rlTheme.p6 || rlTheme.accent || [40, 105, 245];
+      const l7 = rlTheme.p7 || [60, 165, 255];
+      const l8 = rlTheme.p8 || [245, 175, 35];
+      inpPalette[18] = l6[0]; inpPalette[19] = l6[1]; inpPalette[20] = l6[2];
+      inpPalette[21] = l7[0]; inpPalette[22] = l7[1]; inpPalette[23] = l7[2];
+      inpPalette[24] = l8[0]; inpPalette[25] = l8[1]; inpPalette[26] = l8[2];
 
-      const inpBg = rwTheme.bg.map(h => this.hexToRgb(h));
-      const inpSun = [...rwTheme.sunHalo];
+      // Slots 9, 10, 11: 4. Cultural Emblem kinetic accents & motifs
+      const e9  = reTheme.p9  || reTheme.accent || [15, 225, 230];
+      const e10 = reTheme.p10 || [25, 115, 245];
+      const e11 = reTheme.p11 || [10, 180, 210];
+      inpPalette[27] = e9[0];  inpPalette[28] = e9[1];  inpPalette[29] = e9[2];
+      inpPalette[30] = e10[0]; inpPalette[31] = e10[1]; inpPalette[32] = e10[2];
+      inpPalette[33] = e11[0]; inpPalette[34] = e11[1]; inpPalette[35] = e11[2];
+
+      // Slot 12: Harmonious Fusion 1 (Weather + Food blend)
+      inpPalette[36] = Math.round(inpPalette[0] * 0.5 + inpPalette[9] * 0.5);
+      inpPalette[37] = Math.round(inpPalette[1] * 0.5 + inpPalette[10] * 0.5);
+      inpPalette[38] = Math.round(inpPalette[2] * 0.5 + inpPalette[11] * 0.5);
+
+      // Slot 13: Harmonious Fusion 2 (Location + Emblem blend)
+      inpPalette[39] = Math.round(inpPalette[18] * 0.5 + inpPalette[27] * 0.5);
+      inpPalette[40] = Math.round(inpPalette[19] * 0.5 + inpPalette[28] * 0.5);
+      inpPalette[41] = Math.round(inpPalette[20] * 0.5 + inpPalette[29] * 0.5);
+
+      // Background incorporates all 4 dimensions:
+      // Stop 0: Weather sky
+      // Stop 1: Food warmth
+      // Stop 2: Location regional earth
+      // Stop 3: Emblem deep shadow
+      const rawWbg = rwTheme.bg.map(h => this.hexToRgb(h));
+      const inpBg = [
+        rawWbg[0],
+        [
+          Math.min(255, Math.round(rawWbg[1][0] * 0.45 + f3[0] * 0.35)),
+          Math.min(255, Math.round(rawWbg[1][1] * 0.45 + f3[1] * 0.25)),
+          Math.min(255, Math.round(rawWbg[1][2] * 0.45 + f3[2] * 0.25))
+        ],
+        [
+          Math.min(255, Math.round(rawWbg[2][0] * 0.45 + l6[0] * 0.35)),
+          Math.min(255, Math.round(rawWbg[2][1] * 0.45 + l6[1] * 0.35)),
+          Math.min(255, Math.round(rawWbg[2][2] * 0.45 + l6[2] * 0.35))
+        ],
+        [
+          Math.min(255, Math.round(rawWbg[3][0] * 0.55 + e9[0] * 0.25)),
+          Math.min(255, Math.round(rawWbg[3][1] * 0.55 + e9[1] * 0.25)),
+          Math.min(255, Math.round(rawWbg[3][2] * 0.55 + e9[2] * 0.25))
+        ]
+      ];
+
+      // Sun halo combines Weather solar radiance (60%) + Food culinary warmth (40%)
+      const inpSun = [
+        Math.min(255, Math.round(rwTheme.sunHalo[0] * 0.6 + f3[0] * 0.4)),
+        Math.min(255, Math.round(rwTheme.sunHalo[1] * 0.6 + f3[1] * 0.4)),
+        Math.min(255, Math.round(rwTheme.sunHalo[2] * 0.6 + f3[2] * 0.4))
+      ];
 
       const w = this.recentInput.weight;
       for (let k = 0; k < 42; k++) {
@@ -1676,7 +1695,7 @@ export class GoanArtworkEngine {
     // It changes exclusively on the 30-minute cycle.
     // Individual attendee inputs dynamically modulate: animation movement, flow physics, and color themes!
 
-    // 1. Tightly couple animation movement and physical forces in sentimentEngine
+    // 1. Tightly couple animation movement and physical forces across ALL 4 dimensions
     if (this.sentimentEngine) {
       if (typeof this.sentimentEngine.addResponse === 'function') {
         this.sentimentEngine.addResponse(response);
@@ -1691,16 +1710,22 @@ export class GoanArtworkEngine {
       p.strataStrength = 0;
       p.chiliSparks = 0;
       p.flourSpeckles = 0;
+      p.flowCurvature = 0;
+      p.convectivePulse = 0;
       p.dudhsagarCascade = 0;
       p.aguadaBeacon = 0;
       p.fontainhasNodes = 0;
       p.palolemCrescent = 0;
+      p.chaporaRidge = 0;
+      p.caboRamaCape = 0;
       p.wakeRipples = 0;
       p.kingfisherDarts = 0;
       p.frondTendrils = 0;
       p.turtleSwell = 0;
+      p.carnivalConfetti = 0;
+      p.susegadDamping = 0;
 
-      // Weather atmospheric physics
+      // 1. Weather atmospheric physics
       if (wKey === 'sunny') {
         p.flowSpeed = 1.7;
         p.turbulence = 0.85;
@@ -1708,70 +1733,74 @@ export class GoanArtworkEngine {
         p.sunPulseSpeed = 2.2;
         p.sunIntensity = 1.7;
       } else if (wKey === 'windy') {
-        p.windSweep = 3.0;
-        p.biasX = 1.3;
+        p.windSweep = 3.2;
+        p.biasX = 1.4;
         p.biasY = -0.4;
-        p.flowSpeed = 2.1;
-        p.turbulence = 1.6;
+        p.flowSpeed = 2.2;
+        p.turbulence = 1.7;
       } else if (wKey === 'rainy') {
-        p.rainGravity = 3.2;
+        p.rainGravity = 3.4;
         p.biasX = 0;
-        p.biasY = 1.8;
+        p.biasY = 2.0;
         p.flowSpeed = 1.9;
         p.turbulence = 0.7;
       } else if (wKey === 'stormy') {
-        p.stormVortex = 3.4;
-        p.turbulence = 3.0;
-        p.flowSpeed = 2.5;
-        p.chiliSparks = 2.8;
+        p.stormVortex = 3.6;
+        p.turbulence = 3.2;
+        p.flowSpeed = 2.6;
       } else if (wKey === 'calm') {
-        p.calmSwell = 3.0;
-        p.susegadDamping = 2.4;
+        p.calmSwell = 3.2;
+        p.susegadDamping = 2.6;
         p.flowSpeed = 0.45;
         p.turbulence = 0.25;
       }
 
-      // Food texture & structure
+      // 2. Food culinary dynamics & texture
       if (fKey === 'bebinca') {
-        p.strataStrength = 3.4;
+        p.strataStrength = 3.5;
         p.particleSizeScale = 1.45;
       } else if (fKey === 'vindaloo') {
-        p.chiliSparks = 3.4;
+        p.chiliSparks = 3.5;
         p.emberDensity = 3.2;
       } else if (fKey === 'poe_bread') {
-        p.flourSpeckles = 3.4;
+        p.flourSpeckles = 3.5;
         p.particleSizeScale = 0.85;
       } else if (fKey === 'fish_curry') {
         p.particleSizeScale = 1.3;
-        p.curlScale = 0.0036;
+        p.curlScale = 0.0038;
+        p.flowCurvature = 2.5;
       } else if (fKey === 'prawn_curry') {
-        p.emberDensity = 2.0;
+        p.emberDensity = 2.2;
+        p.convectivePulse = 2.5;
         p.particleSizeScale = 1.25;
       } else if (fKey === 'xacuti') {
-        p.flourSpeckles = 0.8;
-        p.curlScale = 0.0042;
+        p.flourSpeckles = 1.2;
+        p.curlScale = 0.0044;
       }
 
-      // Location spatial geometry
-      if (lKey === 'dudhsagar') p.dudhsagarCascade = 3.4;
-      if (lKey === 'aguada_fort') p.aguadaBeacon = 3.4;
-      if (lKey === 'fontainhas') p.fontainhasNodes = 3.2;
-      if (lKey === 'palolem_beach') p.palolemCrescent = 3.2;
-      if (lKey === 'chapora_fort') p.chaporaRidge = 3.2;
+      // 3. Location regional landmark harmonics
+      if (lKey === 'dudhsagar') p.dudhsagarCascade = 3.5;
+      if (lKey === 'aguada_fort') p.aguadaBeacon = 3.5;
+      if (lKey === 'fontainhas') p.fontainhasNodes = 3.5;
+      if (lKey === 'palolem_beach') p.palolemCrescent = 3.5;
+      if (lKey === 'chapora_fort') p.chaporaRidge = 3.5;
+      if (lKey === 'cabo_de_rama') p.caboRamaCape = 3.5;
 
-      // Emblem kinetic signatures
-      if (eKey === 'kingfisher') p.kingfisherDarts = 4.0;
-      if (eKey === 'mandovi_boat') p.wakeRipples = 3.6;
-      if (eKey === 'sea_turtle') p.turtleSwell = 3.4;
-      if (eKey === 'coconut_tree' || eKey === 'coconut_palm') p.frondTendrils = 3.4;
-      if (eKey === 'sea_shell') { p.stormVortex = 1.8; p.calmSwell = 1.5; }
+      // 4. Emblem kinetic signatures
+      if (eKey === 'kingfisher') p.kingfisherDarts = 4.2;
+      if (eKey === 'mandovi_boat') p.wakeRipples = 3.8;
+      if (eKey === 'sea_turtle') p.turtleSwell = 3.6;
+      if (eKey === 'coconut_tree' || eKey === 'coconut_palm') p.frondTendrils = 3.6;
+      if (eKey === 'carnival_spirit') p.carnivalConfetti = 3.8;
+      if (eKey === 'susegad') p.susegadDamping = 3.4;
+      if (eKey === 'sea_shell') { p.stormVortex = 1.8; p.calmSwell = 2.0; }
 
       // Persist the attendee's physical & animation forces until next input
       this.sentimentEngine.targetParameters = JSON.parse(JSON.stringify(p));
       this.sentimentEngine.isTransitioning = false;
     }
 
-    // 3. Chromatic Dominance (persists continuously until next input)
+    // 2. Chromatic Dominance for all 4 inputs (persists continuously until next input)
     this.recentInput = {
       weather: wKey,
       food: fKey,
@@ -1781,6 +1810,34 @@ export class GoanArtworkEngine {
     };
     this.paletteDirty = true;
 
+    // 3. Permanently and visibly weave ALL 4 dimensions across the 42,000 particle color indices
+    for (let i = 0; i < this.TOTAL_PARTICLES; i++) {
+      const lyr = this.layer[i];
+      const r = (i * 17 + (i >> 2)) % 100;
+      if (lyr === 0 || lyr === 1) {
+        // Solar Core & Corona: 55% Weather (0, 1), 25% Food (3, 5), 20% Emblem (10)
+        if (r < 55) this.baseColorIdx[i] = (r % 2 === 0) ? 0 : 1;
+        else if (r < 80) this.baseColorIdx[i] = (r % 2 === 0) ? 3 : 5;
+        else this.baseColorIdx[i] = 10;
+      } else if (lyr === 2) {
+        // Main Meander & Oceanic/Laterite currents:
+        // Evenly and prominently alternates all 4 dimensions in micro-bands:
+        const band = (i + Math.floor(this.hy[i] / 28)) % 4;
+        if (band === 0) this.baseColorIdx[i] = (r < 55) ? 0 : 1;       // 1. Weather
+        else if (band === 1) this.baseColorIdx[i] = (r < 55) ? 3 : 4;  // 2. Food
+        else if (band === 2) this.baseColorIdx[i] = (r < 55) ? 6 : 7;  // 3. Location
+        else this.baseColorIdx[i] = (r < 55) ? 9 : 10;                // 4. Emblem
+      } else {
+        // Ambient laterite & background field:
+        const cat = i % 4;
+        if (cat === 0) this.baseColorIdx[i] = (r < 50) ? 1 : 2;       // 1. Weather
+        else if (cat === 1) this.baseColorIdx[i] = (r < 50) ? 4 : 5;  // 2. Food
+        else if (cat === 2) this.baseColorIdx[i] = (r < 50) ? 7 : 8;  // 3. Location
+        else this.baseColorIdx[i] = (r < 50) ? 10 : 11;              // 4. Emblem
+      }
+      this.colorIdx[i] = this.baseColorIdx[i];
+    }
+
     // 4. Custom Thematic Shockwave & Directional Particle Burst
     let burstOriginX = W * 0.5;
     let burstOriginY = H * 0.5;
@@ -1789,15 +1846,27 @@ export class GoanArtworkEngine {
     if (lKey === 'dudhsagar') {
       burstOriginX = W * 0.5;
       burstOriginY = H * 0.06;
-      burstDirection = Math.PI * 0.5; // Downward plunge
+      burstDirection = Math.PI * 0.5; // Downward waterfall plunge
     } else if (lKey === 'aguada_fort') {
       burstOriginX = W * 0.74;
       burstOriginY = H * 0.17;
       burstDirection = Math.random() * Math.PI * 2;
+    } else if (lKey === 'fontainhas') {
+      burstOriginX = W * 0.38;
+      burstOriginY = H * 0.35;
+      burstDirection = -Math.PI * 0.4;
     } else if (lKey === 'palolem_beach') {
       burstOriginX = W * 0.45;
       burstOriginY = H * 0.85;
       burstDirection = -Math.PI * 0.55;
+    } else if (lKey === 'chapora_fort') {
+      burstOriginX = W * 0.75;
+      burstOriginY = H * 0.28;
+      burstDirection = -Math.PI * 0.7;
+    } else if (lKey === 'cabo_de_rama') {
+      burstOriginX = W * 0.5;
+      burstOriginY = H * 0.9;
+      burstDirection = -Math.PI * 0.5;
     } else if (wKey === 'windy') {
       burstOriginX = W * 0.12;
       burstOriginY = H * 0.88;
@@ -1812,46 +1881,41 @@ export class GoanArtworkEngine {
       burstDirection = 0; // Horizontal strata ripple
     }
 
-    // Signature color for the shockwave
-    let signatureColorIdx = 0;
-    let signatureRGB = [255, 215, 0];
-    if (wKey === 'rainy') { signatureColorIdx = 1; signatureRGB = [75, 185, 195]; }
-    else if (wKey === 'stormy' || fKey === 'vindaloo') { signatureColorIdx = 7; signatureRGB = [245, 45, 25]; }
-    else if (fKey === 'bebinca') { signatureColorIdx = 9; signatureRGB = [225, 160, 45]; }
-    else if (fKey === 'prawn_curry') { signatureColorIdx = 10; signatureRGB = [255, 120, 110]; }
-    else if (eKey === 'kingfisher') { signatureColorIdx = 1; signatureRGB = [38, 166, 154]; }
-    else if (lKey === 'dudhsagar') { signatureColorIdx = 8; signatureRGB = [50, 195, 150]; }
-    else if (lKey === 'fontainhas') { signatureColorIdx = 11; signatureRGB = [70, 135, 240]; }
+    const rwTheme = THEME_PALETTES.weather[wKey] || THEME_PALETTES.weather.sunny;
+    const rfTheme = THEME_PALETTES.food[fKey] || THEME_PALETTES.food.fish_curry;
+    const rlTheme = THEME_PALETTES.location[lKey] || THEME_PALETTES.location.aguada_fort;
+    const reTheme = THEME_PALETTES.emblem[eKey] || THEME_PALETTES.emblem.mandovi_boat;
 
-    // Chromatic Shockwave
-    this.shockwaves.push({
-      x: burstOriginX,
-      y: burstOriginY,
-      radius: 0,
-      maxRadius: Math.hypot(W, H) * 1.2,
-      speed: 44,
-      colorIdx: signatureColorIdx,
-      rgb: signatureRGB,
-      thickness: 220,
-      intensity: 1.0
-    });
+    const sigW = (rwTheme.p && rwTheme.p[0]) || [255, 215, 45];
+    const sigF = (rfTheme.p3) || rfTheme.accent || [235, 25, 20];
+    const sigL = (rlTheme.p6) || rlTheme.accent || [40, 105, 245];
+    const sigE = (reTheme.p9) || reTheme.accent || [15, 225, 230];
 
-    // High-energy particles launching in the signature direction
+    // Emit 4 Concentric Harmonic Shockwave Rings representing ALL 4 Questions!
+    this.shockwaves.push(
+      { x: burstOriginX, y: burstOriginY, radius: 0,   maxRadius: Math.hypot(W, H) * 1.25, speed: 46, colorIdx: 0, rgb: sigW, thickness: 160, intensity: 1.0 },
+      { x: burstOriginX, y: burstOriginY, radius: -45, maxRadius: Math.hypot(W, H) * 1.25, speed: 42, colorIdx: 3, rgb: sigF, thickness: 160, intensity: 1.0 },
+      { x: burstOriginX, y: burstOriginY, radius: -90, maxRadius: Math.hypot(W, H) * 1.25, speed: 38, colorIdx: 6, rgb: sigL, thickness: 160, intensity: 1.0 },
+      { x: burstOriginX, y: burstOriginY, radius: -135, maxRadius: Math.hypot(W, H) * 1.25, speed: 34, colorIdx: 9, rgb: sigE, thickness: 160, intensity: 1.0 }
+    );
+
+    // 420 High-energy particles partitioned evenly across the 4 dimensions (105 each)
     let spawned = 0;
     const maxSpawn = 420;
+    const colors = [0, 3, 6, 9]; // Weather, Food, Location, Emblem
     for (let i = 0; i < this.TOTAL_PARTICLES && spawned < maxSpawn; i++) {
       if ((this.layer[i] === 3 || this.layer[i] === 2) && Math.random() < 0.35) {
         this.layer[i] = 4;
         this.px[i] = burstOriginX + (Math.random() - 0.5) * 90;
         this.py[i] = burstOriginY + (Math.random() - 0.5) * 90;
 
-        const angle = burstDirection + (Math.random() - 0.5) * 1.2;
+        const angle = burstDirection + (Math.random() - 0.5) * 1.3;
         const speed = 10.0 + Math.random() * 18.0;
         this.vx[i] = Math.cos(angle) * speed;
         this.vy[i] = Math.sin(angle) * speed;
         this.size[i] = 3.6 + Math.random() * 4.4;
         this.alpha[i] = 1.0;
-        this.colorIdx[i] = signatureColorIdx;
+        this.colorIdx[i] = colors[spawned % 4];
 
         spawned++;
       }
@@ -2049,47 +2113,261 @@ export class GoanArtworkEngine {
       let fx = Math.cos(fieldAngle) * 0.75 * flowSpeed;
       let fy = Math.sin(fieldAngle) * 0.75 * flowSpeed;
 
-      // Weather Waves
-      if (p.windSweep > 0.2) {
-        fx += (Math.sin(this.time * 2.2 + y * 0.003) * 1.4 + 0.6) * p.windSweep;
+      // ----------------------------------------------------
+      // 1. WEATHER PHYSICAL FORCES & CURRENTS (Question 1)
+      // ----------------------------------------------------
+      if (p.windSweep > 0.15) {
+        fx += (Math.sin(this.time * 2.2 + y * 0.003) * 1.5 + 0.8) * p.windSweep;
       }
-      if (p.rainGravity > 0.2) {
-        fy += (Math.sin(this.phase[i] + this.time * 4.0) * 0.8 + 0.9) * p.rainGravity;
+      if (p.rainGravity > 0.15) {
+        fy += (Math.sin(this.phase[i] + this.time * 4.0) * 0.9 + 1.2) * p.rainGravity;
       }
-      if (p.calmSwell > 0.2) {
-        fy += Math.sin(this.time * 1.2 + x * 0.004) * 1.2 * p.calmSwell;
-        fx *= (1.0 - p.calmSwell * 0.25);
+      if (p.stormVortex > 0.15) {
+        const vdx = x - W * 0.5;
+        const vdy = y - H * 0.5;
+        const vdist = Math.hypot(vdx, vdy) || 1;
+        fx += (-vdy / vdist) * 1.8 * p.stormVortex;
+        fy += (vdx / vdist) * 1.8 * p.stormVortex;
       }
-
-      // Location Harmonics
-      if (p.dudhsagarCascade > 0.25) {
-        fy += (Math.sin(x * 0.01 + this.time * 2.5) * 0.6 + 1.1) * p.dudhsagarCascade;
-      }
-      if (p.palolemCrescent > 0.25) {
-        fy += Math.sin(x * 0.006 + this.time * 1.8) * 1.4 * p.palolemCrescent;
-      }
-      if (p.chaporaRidge > 0.25) {
-        fy -= (Math.cos(x * 0.005 + this.time * 1.5) * 0.8 + 0.6) * p.chaporaRidge;
-      }
-      if (p.caboRamaCape > 0.25 || p.basilicaSymmetry > 0.25) {
-        fy -= (Math.sin(x * 0.007 + this.time * 2.2) * 0.6 + 0.8) * (p.caboRamaCape || p.basilicaSymmetry || 0);
+      if (p.calmSwell > 0.15) {
+        fy += Math.sin(this.time * 1.0 + x * 0.004) * 0.9 * p.calmSwell;
+        fx *= (1.0 - Math.min(0.6, p.calmSwell * 0.25));
       }
 
-      // Emblem Kinetics
-      if (p.wakeRipples > 0.25) {
-        fy += Math.sin(x * 0.018 + this.time * 4.0) * 1.2 * p.wakeRipples;
+      // ----------------------------------------------------
+      // 2. FOOD CULINARY KINETICS & FLUID DYNAMICS (Question 2)
+      // ----------------------------------------------------
+      // Bebinca: Horizontal laminar strata shear
+      if (p.strataStrength > 0.2) {
+        fx += Math.sin((this.hy[i] / H) * Math.PI * 7 + this.time * 1.8) * 1.4 * p.strataStrength;
       }
-      if (p.frondTendrils > 0.25) {
-        fx += Math.cos(y * 0.008 + this.time * 2.0) * 1.0 * p.frondTendrils;
+      // Fish Curry: Hydrodynamic orbital curls
+      if (p.flowCurvature > 0.2) {
+        const cAng = Math.sin(x * 0.004) * Math.cos(y * 0.004) * Math.PI * 2;
+        fx += Math.cos(cAng) * 1.1 * p.flowCurvature;
+        fy += Math.sin(cAng) * 1.1 * p.flowCurvature;
       }
-      if (p.kingfisherDarts > 0.35 && Math.random() < 0.002) {
-        this.vx[i] += (Math.random() - 0.4) * 8.0 * p.kingfisherDarts;
+      // Prawn Curry: Convective simmering bubble pulse from bottom-center
+      if (p.convectivePulse > 0.2) {
+        const pcdx = x - W * 0.5;
+        const pcdy = y - H * 0.7;
+        const pcdist = Math.hypot(pcdx, pcdy) || 1;
+        const pcpulse = Math.sin(this.time * 3.0 - pcdist * 0.015) * p.convectivePulse;
+        fx += (pcdx / pcdist) * pcpulse * 0.8;
+        fy += (pcdy / pcdist) * pcpulse * 0.8;
+      }
+      // Poe Bread: Airy buoyant flour lofting
+      if (p.flourSpeckles > 0.2) {
+        fx += Math.sin(this.phase[i] + this.time * 2.5) * 0.6 * p.flourSpeckles;
+        fy -= (0.5 + Math.cos(this.phase[i] + this.time * 2.0) * 0.4) * p.flourSpeckles;
+      }
+
+      // ----------------------------------------------------
+      // 3. LOCATION LANDMARK HARMONICS & VORTICES (Question 3)
+      // ----------------------------------------------------
+      // Dudhsagar: Powerful vertical cataract plunge
+      if (p.dudhsagarCascade > 0.2) {
+        if (Math.abs(x - W * 0.5) < W * 0.32) {
+          fy += (Math.sin(x * 0.015 + this.time * 3.5) * 0.8 + 1.6) * p.dudhsagarCascade;
+        } else {
+          fy += 0.5 * p.dudhsagarCascade;
+        }
+      }
+      // Aguada Fort: Rotating lighthouse sweeping beam
+      if (p.aguadaBeacon > 0.2) {
+        const adx = x - W * 0.74;
+        const ady = y - H * 0.17;
+        const bang = Math.atan2(ady, adx);
+        const bdiff = Math.abs(Math.sin((bang - this.beaconAngle) * 0.5));
+        if (bdiff < 0.14) {
+          const push = (1.0 - bdiff / 0.14) * 2.0 * p.aguadaBeacon;
+          fx += Math.cos(bang) * push;
+          fy += Math.sin(bang) * push;
+        }
+      }
+      // Fontainhas: Portuguese quarter rosette nodes dance
+      if (p.fontainhasNodes > 0.2) {
+        fx += Math.sin(x * 0.008 + this.time * 1.5) * Math.cos(y * 0.008) * 1.2 * p.fontainhasNodes;
+        fy += Math.cos(x * 0.008) * Math.sin(y * 0.008 + this.time * 1.5) * 1.2 * p.fontainhasNodes;
+      }
+      // Palolem Beach: Coastal crescent tidal bay swell
+      if (p.palolemCrescent > 0.2) {
+        fy += Math.sin(x * 0.005 + this.time * 1.8) * 1.3 * p.palolemCrescent;
+        fx += Math.cos(x * 0.004) * 0.7 * p.palolemCrescent;
+      }
+      // Chapora Fort: Clifftop ridge lift
+      if (p.chaporaRidge > 0.2) {
+        fy -= (Math.cos(x * 0.005 + this.time * 1.5) * 0.9 + 0.7) * p.chaporaRidge;
+      }
+      // Cabo de Rama: Dramatic headland thermal updrafts
+      if (p.caboRamaCape > 0.2 || p.basilicaSymmetry > 0.2) {
+        fy -= (Math.sin(x * 0.007 + this.time * 2.2) * 0.7 + 0.9) * (p.caboRamaCape || p.basilicaSymmetry || 0);
+      }
+
+      // ----------------------------------------------------
+      // 4. EMBLEM CULTURAL KINETICS & MOTIFS (Question 4)
+      // ----------------------------------------------------
+      // Mandovi Boat: Oscillating V-wake ripples
+      if (p.wakeRipples > 0.2) {
+        fy += Math.sin(x * 0.018 + this.time * 4.2) * 1.3 * p.wakeRipples;
+        fx += Math.cos(y * 0.012) * 0.6 * p.wakeRipples;
+      }
+      // Coconut Palm: Arching fronds swaying in tropical breeze
+      if (p.frondTendrils > 0.2) {
+        fx += Math.cos(y * 0.008 + this.time * 2.2) * 1.3 * p.frondTendrils;
+        fy += Math.sin(x * 0.006 + this.time * 1.6) * 0.5 * p.frondTendrils;
+      }
+      // Sea Turtle: Deep, slow rhythmic oceanic respiration
+      if (p.turtleSwell > 0.2) {
+        const tBreath = Math.sin(this.time * 0.85);
+        fy += tBreath * 1.2 * p.turtleSwell;
+        fx += Math.cos(this.time * 0.85) * 0.6 * p.turtleSwell;
+      }
+      // Kingfisher: Rapid, agile turquoise dart streaks
+      if (p.kingfisherDarts > 0.25 && Math.random() < 0.003 * p.kingfisherDarts) {
+        this.vx[i] += (Math.random() - 0.4) * 9.5;
+        this.vy[i] += (Math.random() - 0.5) * 6.0;
+        this.colorIdx[i] = 9; // Electric turquoise
+        this.colorExciteTime[i] = 0.8;
+        this.alpha[i] = 1.0;
+      }
+      // Carnival Spirit: Celebratory confetti micro-bursts
+      if (p.carnivalConfetti > 0.25 && Math.random() < 0.003 * p.carnivalConfetti) {
+        this.vx[i] += (Math.random() - 0.5) * 6.0;
+        this.vy[i] -= Math.random() * 6.0;
+        this.colorIdx[i] = (Math.random() < 0.5 ? 9 : 10); // Festive bright
+        this.colorExciteTime[i] = 0.8;
+        this.alpha[i] = 1.0;
+      }
+      // Vindaloo Chili Sparks
+      if (p.chiliSparks > 0.25 && Math.random() < 0.003 * p.chiliSparks) {
+        this.vy[i] -= 5.5;
+        this.vx[i] += (Math.random() - 0.5) * 3.0;
+        this.colorIdx[i] = 3; // Vindaloo chili crimson
+        this.colorExciteTime[i] = 0.8;
         this.alpha[i] = 1.0;
       }
 
+      // ----------------------------------------------------
+      // 5. SUBTLE STRUCTURAL CHANGES (DRIVEN BY ALL 4 DIMENSIONS)
+      // Modulates anchor spring targets subtly (10-25px) without breaking 30-min base topology
+      // ----------------------------------------------------
+      let sox = 0;
+      let soy = 0;
+
+      // 1. Weather Structural Flex:
+      if (p.windSweep > 0.2) {
+        sox += Math.sin(y * 0.003) * 16.0 * (p.windSweep / 3.2);
+      }
+      if (p.rainGravity > 0.2) {
+        soy += Math.sin(x * 0.008) * 16.0 * (p.rainGravity / 3.4);
+      }
+      if (p.stormVortex > 0.2) {
+        const sang = Math.atan2(y - H * 0.5, x - W * 0.5);
+        sox += Math.cos(sang + Math.PI * 0.5) * 18.0 * (p.stormVortex / 3.6);
+        soy += Math.sin(sang + Math.PI * 0.5) * 18.0 * (p.stormVortex / 3.6);
+      }
+      if (p.calmSwell > 0.2) {
+        sox += Math.sin(y * 0.005) * 12.0 * (p.calmSwell / 3.2);
+        soy += Math.cos(x * 0.005) * 8.0 * (p.calmSwell / 3.2);
+      }
+
+      // 2. Food Structural Flex:
+      if (p.strataStrength > 0.2) {
+        // Bebinca 7-layer horizontal strata consolidation
+        soy += Math.sin((this.hy[i] / H) * Math.PI * 7) * 14.0 * (p.strataStrength / 3.5);
+      }
+      if (p.flowCurvature > 0.2) {
+        // Fish curry winding meanders
+        sox += Math.sin(y * 0.007) * 14.0 * (p.flowCurvature / 2.5);
+      }
+      if (p.convectivePulse > 0.2) {
+        // Prawn curry convex thermal swell
+        soy += Math.cos(x * 0.006) * 12.0 * (p.convectivePulse / 2.5);
+      }
+      if (p.flourSpeckles > 0.2) {
+        // Poe bread airy lofting
+        soy -= 10.0 * (p.flourSpeckles / 3.5);
+        sox += Math.sin(this.phase[i]) * 8.0 * (p.flourSpeckles / 3.5);
+      }
+      if (p.chiliSparks > 0.2) {
+        // Vindaloo thermal expansion
+        sox += Math.sin(x * 0.015) * 10.0 * (p.chiliSparks / 3.5);
+        soy -= Math.abs(Math.sin(y * 0.015)) * 10.0 * (p.chiliSparks / 3.5);
+      }
+
+      // 3. Location Structural Flex:
+      if (p.dudhsagarCascade > 0.2) {
+        // Dudhsagar corridor compaction
+        if (Math.abs(x - W * 0.5) < W * 0.35) {
+          sox += (W * 0.5 - x) * 0.08 * (p.dudhsagarCascade / 3.5);
+          soy += 14.0 * (p.dudhsagarCascade / 3.5);
+        }
+      }
+      if (p.aguadaBeacon > 0.2) {
+        // Aguada concentric ring ripple alignment
+        const adx = x - W * 0.74;
+        const ady = y - H * 0.17;
+        const adist = Math.hypot(adx, ady) || 1;
+        const ringSnap = Math.sin(adist * 0.04) * 12.0 * (p.aguadaBeacon / 3.5);
+        sox += (adx / adist) * ringSnap;
+        soy += (ady / adist) * ringSnap;
+      }
+      if (p.fontainhasNodes > 0.2) {
+        // Fontainhas architectural cluster rosette
+        sox += Math.sin(x * 0.01) * Math.cos(y * 0.01) * 14.0 * (p.fontainhasNodes / 3.5);
+        soy += Math.cos(x * 0.01) * Math.sin(y * 0.01) * 14.0 * (p.fontainhasNodes / 3.5);
+      }
+      if (p.chaporaRidge > 0.2) {
+        // Chapora perimeter cliff crest elevation
+        soy -= Math.sin(x * 0.005) * 16.0 * (p.chaporaRidge / 3.5);
+      }
+      if (p.palolemCrescent > 0.2) {
+        // Palolem crescent bay concave warp
+        const cdx = (x - W * 0.45) / W;
+        soy += (cdx * cdx * 120.0) * (p.palolemCrescent / 3.5);
+      }
+      if (p.caboRamaCape > 0.2) {
+        // Cabo de Rama headland convergence
+        if (y > H * 0.45) {
+          sox += Math.sin(y * 0.006) * 16.0 * (p.caboRamaCape / 3.5);
+        }
+      }
+
+      // 4. Emblem Structural Flex:
+      if (p.wakeRipples > 0.2) {
+        // Mandovi boat angled chevron wake
+        sox += Math.sign(x - W * 0.5) * 10.0 * (p.wakeRipples / 3.8);
+        soy += Math.sin(x * 0.016) * 10.0 * (p.wakeRipples / 3.8);
+      }
+      if (p.frondTendrils > 0.2) {
+        // Coconut palm cascading curve
+        soy += Math.sin(x * 0.005) * 12.0 * (p.frondTendrils / 3.6);
+        sox += Math.cos(y * 0.005) * 10.0 * (p.frondTendrils / 3.6);
+      }
+      if (p.turtleSwell > 0.2) {
+        // Sea turtle carapace dome
+        const tdx = (x - W * 0.5);
+        const tdy = (y - H * 0.6);
+        const tdist = Math.hypot(tdx, tdy);
+        if (tdist < W * 0.35) {
+          soy -= (1.0 - tdist / (W * 0.35)) * 14.0 * (p.turtleSwell / 3.6);
+        }
+      }
+      if (p.kingfisherDarts > 0.2) {
+        // Kingfisher aerodynamic directional stream
+        sox += Math.sin(y * 0.009) * 10.0 * (p.kingfisherDarts / 4.2);
+      }
+      if (p.carnivalConfetti > 0.2) {
+        // Carnival festive radial vibration
+        sox += Math.sin(this.phase[i] * 2.5) * 10.0 * (p.carnivalConfetti / 3.8);
+        soy += Math.cos(this.phase[i] * 2.5) * 10.0 * (p.carnivalConfetti / 3.8);
+      }
+
+      // Integrate damping & subtle home anchor spring
       const dampingFactor = 0.88 - ((p.susegadDamping || 0) * 0.06);
-      const ax = (this.hx[i] - x) * 0.055;
-      const ay = (this.hy[i] - y) * 0.055;
+      const ax = ((this.hx[i] + sox) - x) * 0.055;
+      const ay = ((this.hy[i] + soy) - y) * 0.055;
 
       this.vx[i] = (this.vx[i] + fx + ax) * dampingFactor;
       this.vy[i] = (this.vy[i] + fy + ay) * dampingFactor;
@@ -2097,26 +2375,9 @@ export class GoanArtworkEngine {
       this.px[i] += this.vx[i];
       this.py[i] += this.vy[i];
 
-      // Food Stratification Mapping (Bebinca 7-layer Bands & Vindaloo Sparks)
+      // Reset to base color when transient excitation ends
       if (this.colorExciteTime[i] <= 0 && !isMorphing) {
-        if (p.strataStrength > 0.4 && layer === 2) {
-          const bandIndex = Math.floor((this.hy[i] / H) * 7) % 7;
-          if (bandIndex === 0) this.colorIdx[i] = 0;
-          else if (bandIndex === 1) this.colorIdx[i] = 9;
-          else if (bandIndex === 2) this.colorIdx[i] = 4;
-          else if (bandIndex === 3) this.colorIdx[i] = 1;
-          else if (bandIndex === 4) this.colorIdx[i] = 9;
-          else if (bandIndex === 5) this.colorIdx[i] = 2;
-          else this.colorIdx[i] = 5;
-        } else {
-          this.colorIdx[i] = this.baseColorIdx[i];
-        }
-
-        if (p.chiliSparks > 0.3 && Math.random() < 0.0008 * p.chiliSparks) {
-          this.vy[i] -= 5.0;
-          this.colorIdx[i] = 7;
-          this.alpha[i] = 1.0;
-        }
+        this.colorIdx[i] = this.baseColorIdx[i];
       }
 
       this.alpha[i] = 0.35 + Math.sin(this.phase[i] + this.time * 1.5) * 0.32;

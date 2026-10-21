@@ -195,12 +195,12 @@ export class PastSessionsManager {
 
     const downloadDirect = () => {
       const link = document.createElement('a');
-      link.download = `ManyMinds-CollectiveArtworks-Session-${session.sessionNumber || 'Artwork'}-Postcard.png`;
+      link.download = `ManyMinds-CollectiveArtworks-Postcard.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
     };
 
-    const drawCard = (artworkImg) => {
+    const drawCard = (artworkImg, logoImg) => {
       // 1. Rich Museum Background
       const grad = ctx.createLinearGradient(0, 0, 0, 1800);
       grad.addColorStop(0, '#0D0403');
@@ -286,37 +286,30 @@ export class PastSessionsManager {
       ctx.lineWidth = 2;
       ctx.strokeRect(artX, artY, artW, artH);
 
-      // 5. Session & Topology Information (Below Artwork)
+      // 5. Topology Information & Collective Attribution (Below Artwork)
+      // Note: Session number and timing removed per user requirement
       const topoName = session.topologyInfo?.name || 'Collective Computational Tapestry';
       const topoArchetype = session.topologyInfo?.archetype || 'Goan Environmental & Cultural Synthesis';
 
       ctx.fillStyle = '#F8EFE3';
       ctx.font = 'bold 32px Georgia, serif';
-      ctx.fillText(topoName, 600, 1230);
+      ctx.fillText(topoName, 600, 1228);
 
       ctx.fillStyle = '#E5A93C';
       ctx.font = 'italic 20px Georgia, serif';
-      ctx.fillText(topoArchetype, 600, 1268);
+      ctx.fillText(topoArchetype, 600, 1266);
 
-      // Session number badge & timing
-      ctx.fillStyle = '#F8EFE3';
-      ctx.font = '600 24px sans-serif';
-      ctx.fillText(`Session #${session.sessionNumber || '0'}   ·   ${session.timeLabel || '30-Minute Cycle'}`, 600, 1324);
-
-      // Attendees attribution
+      // Attendees attribution without specific participant count
       ctx.fillStyle = '#C99688';
-      ctx.font = 'italic 20px Georgia, serif';
-      const voicesText = session.totalResponses
-        ? `"Woven dynamically from ${session.totalResponses} Conclave attendee voices"`
-        : '"Living computational synthesis of collective attendee sentiment"';
-      ctx.fillText(voicesText, 600, 1362);
+      ctx.font = 'italic 21px Georgia, serif';
+      ctx.fillText('"Weaved with collective inputs from Conclave participants"', 600, 1318);
 
       // Fine separator
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.moveTo(180, 1405);
-      ctx.lineTo(1020, 1405);
+      ctx.moveTo(180, 1362);
+      ctx.lineTo(1020, 1362);
       ctx.stroke();
 
       // 6. Sentiment Synthesis Strip (Dominant choices)
@@ -338,40 +331,62 @@ export class PastSessionsManager {
         const x = startX + idx * colW;
         ctx.fillStyle = '#E5A93C';
         ctx.font = 'bold 13px sans-serif';
-        ctx.fillText(item.label, x + colW / 2, 1450);
+        ctx.fillText(item.label, x + colW / 2, 1406);
 
         ctx.fillStyle = '#F8EFE3';
         ctx.font = '600 16px Georgia, serif';
-        ctx.fillText(item.val, x + colW / 2, 1480);
+        ctx.fillText(item.val, x + colW / 2, 1438);
       });
 
       // 7. Footer Tagline
       ctx.fillStyle = 'rgba(248, 239, 227, 0.45)';
       ctx.font = '14px sans-serif';
-      ctx.fillText('Goa AI Tech Conclave  ·  Live Algorithmic Tapestry  ·  Many Minds - Collective Artworks', 600, 1680);
+      ctx.textAlign = 'center';
+      ctx.fillText('Goa AI Tech Conclave  ·  Live Algorithmic Tapestry  ·  Many Minds - Collective Artworks', 560, 1680);
+
+      // 8. Small POAI Logo in Bottom Right Corner
+      if (logoImg && logoImg.naturalWidth) {
+        ctx.save();
+        const logoW = 76;
+        const logoH = 82;
+        const logoX = 1045;
+        const logoY = 1638;
+        ctx.shadowColor = 'rgba(242, 194, 73, 0.4)';
+        ctx.shadowBlur = 10;
+        ctx.drawImage(logoImg, logoX, logoY, logoW, logoH);
+        ctx.restore();
+      }
 
       downloadDirect();
     };
 
-    // Load actual high-res session artwork image
+    // Helper to safely load images as promises
+    const loadImg = (src) => new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = () => resolve(null);
+      img.src = src;
+    });
+
+    // Load actual high-res session artwork image and POAI logo concurrently
     const rawUrl = session.snapshotUrl || session.gifUrl || `/archive/session-0${session.sessionNumber || 1}.jpg`;
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => drawCard(img);
-    img.onerror = () => {
-      console.warn('Could not load snapshot directly, drawing without image');
-      drawCard(null);
-    };
-    img.src = rawUrl;
+    Promise.all([
+      loadImg(rawUrl),
+      loadImg('assets/poai_white_logo.png').then(img => img || loadImg('assets/poai_official_logo.png'))
+    ]).then(([artworkImg, logoImg]) => {
+      drawCard(artworkImg, logoImg);
+    });
   }
 
   // Direct 1-click download of the raw 42,000 particle high-res artwork image
   downloadRawArtwork(session) {
     const rawUrl = session.snapshotUrl || session.gifUrl || `/archive/session-0${session.sessionNumber || 1}.jpg`;
     const link = document.createElement('a');
-    link.download = `ManyMinds-CollectiveArtworks-Session-${session.sessionNumber || 'Artwork'}-HD.jpg`;
+    link.download = `ManyMinds-CollectiveArtworks-HD.jpg`;
     link.href = rawUrl;
     link.target = '_blank';
     link.click();
+  }
   }
 }

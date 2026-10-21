@@ -588,6 +588,7 @@
 }
 
 .tv-current-art-cycle {
+  display: none !important;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.68rem;
   color: #8C4030;

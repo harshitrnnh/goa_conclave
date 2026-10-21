@@ -463,7 +463,6 @@ class ConclaveApp {
             <div class="tv-current-art-header">
               <span class="tv-live-pulse-dot"></span>
               <span class="tv-current-art-badge">CURRENT LIVE ARTWORK</span>
-              <span class="tv-current-art-cycle" id="tv-current-art-time">${session.timeLabel || 'Live 30-Min Cycle'}</span>
             </div>
           </div>
           <h3 class="tv-current-art-title" id="tv-current-art-title">${session.topologyInfo?.name || session.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h3>
@@ -961,7 +960,7 @@ class ConclaveApp {
       descEl.textContent = session.topologyInfo?.reasoning || session.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.';
     }
     if (timeEl) {
-      timeEl.textContent = session.timeLabel || 'Live 30-Min Cycle';
+      timeEl.remove();
     }
     if (countEl) {
       countEl.textContent = this.pastSessions.length || 55;

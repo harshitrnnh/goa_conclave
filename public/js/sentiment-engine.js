@@ -525,21 +525,21 @@ export function getArtworkImpactWriteup(response = {}) {
   const loc = locationMap[lKey] || locationMap.aguada_fort;
   const emb = emblemMap[eKey] || emblemMap.mandovi_boat;
 
-  const line1 = `${w.name} palette enriched with ${f.name} & ${loc.name} accents.`;
-  const line2 = `${w.title.split('&')[0].trim()} flow modulated with ${emb.name} motion.`;
+  const line1 = `Colors: ${w.name} & ${f.name} fused with ${loc.name} and ${emb.name} hues.`;
+  const line2 = `Motion & Form: ${w.name} flow & ${f.name} texture shaped by ${loc.name} & ${emb.name}.`;
 
-  const colorsText = `${w.color}, enriched with ${f.color} and ${loc.color}.`;
-  const animationText = `${w.animation}. Modulated by ${emb.name}: ${emb.animation}.`;
-  const structureText = `${f.structure}. Layered with ${loc.name} geometry (${loc.structure}).`;
+  const colorsText = `${w.color}, enriched with ${f.color}, ${loc.color}, and ${emb.name} luminous accents.`;
+  const animationText = `${w.animation}. Textured by ${f.animation}, oriented toward ${loc.name}, and propelled by ${emb.animation}.`;
+  const structureText = `Subtle structural tuning: ${w.structure}, stratified by ${f.structure}, anchored through ${loc.structure}, and contoured by ${emb.name} wake geometry.`;
 
   const highlights = [
-    { label: `Colors Added`, text: colorsText },
-    { label: `Animation & Flow`, text: animationText },
-    { label: `Structural Changes`, text: structureText }
+    { label: `All 4 Colors Added`, text: colorsText },
+    { label: `All 4 Animation Dynamics`, text: animationText },
+    { label: `Subtle Structural Tuning`, text: structureText }
   ];
 
-  const summary = `Dynamic flow, color resonance & motion accents woven into the live 42,000 particle tapestry.`;
-  const conciseNote = `${w.name} & ${f.name} palette merged with ${loc.name} geometry and ${emb.name} motion.`;
+  const summary = `Dynamic flow, quad-color resonance & subtle structural tuning from all 4 answers woven into the live 42,000 particle tapestry.`;
+  const conciseNote = `${w.name}, ${f.name}, ${loc.name} & ${emb.name} holistically transformed colors, motion and form.`;
 
   return {
     headline: `${w.name} · ${f.name}`,
