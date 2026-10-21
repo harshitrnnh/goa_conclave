@@ -134,6 +134,26 @@
   font-weight: 500;
 }
 
+.tablet-poai-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin: 0 14px;
+}
+
+.tablet-poai-logo-img {
+  width: 58px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.16));
+  transition: transform 0.2s ease;
+}
+
+.tablet-poai-logo-img:hover {
+  transform: scale(1.05);
+}
+
 .tablet-past-btn {
   background: none;
   border: 1px solid rgba(184, 58, 36, 0.35);

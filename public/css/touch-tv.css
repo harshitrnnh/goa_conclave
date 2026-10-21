@@ -258,6 +258,36 @@
   display: block;
 }
 
+.tv-header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.tv-kiosk-body-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dual mode past gallery archive adaptations */
+.touch-tv-kiosk-side .tablet-past-gallery-scroll {
+  padding-right: 4px;
+}
+
+.touch-tv-kiosk-side .tablet-past-cards-grid {
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)) !important;
+  gap: 14px !important;
+}
+
+.touch-tv-kiosk-side .tablet-art-card {
+  padding: 10px;
+}
+
 /* Action Row / Pill Buttons */
 .tv-action-row {
   display: flex;

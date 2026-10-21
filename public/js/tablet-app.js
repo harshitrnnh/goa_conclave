@@ -66,6 +66,10 @@ export class TabletApp {
               </div>
             </div>
             
+            <div class="tablet-poai-badge" id="tablet-poai-badge" title="POAI - Conclave">
+              <img src="assets/poai_official_logo.png" alt="POAI" class="tablet-poai-logo-img" />
+            </div>
+
             <!-- iPad Navigation Tabs -->
             <nav class="tablet-nav-tabs" role="tablist" aria-label="Kiosk Tabs">
               <button class="tablet-tab-btn ${this.activeTab === 'vote' ? 'active' : ''}" id="tab-btn-vote" role="tab" aria-selected="${this.activeTab === 'vote'}">

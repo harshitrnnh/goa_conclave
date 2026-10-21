@@ -32,6 +32,7 @@ class ConclaveApp {
 
     this.currentMode = this.detectMode();
     this.activeShowcaseTab = 'live'; // 'live' | 'past'
+    this.activeDualTab = 'vote'; // 'vote' | 'past'
     this.currentSession = null;
     this.pastSessions = [];
     this.tabletUrl = window.location.origin + '/';
@@ -340,7 +341,7 @@ class ConclaveApp {
 
         <!-- 2. RIGHT PANEL: Touch-Enabled Tablet Kiosk (~36.5%) -->
         <section class="touch-tv-kiosk-side" aria-label="Audience Sentiment Touch Kiosk" id="tv-kiosk-container">
-          <!-- Header: Artist Credit on Left, POAI Official PNG Logo on Right -->
+          <!-- Header: Artist Credit on Left, Dual Navigation Tabs & POAI Logo on Right -->
           <header class="tv-kiosk-header">
             <div class="tv-artist-block">
               <span class="tv-artist-title">ARTWORK BY HARSHIT AGRAWAL</span>
@@ -350,41 +351,32 @@ class ConclaveApp {
                 <span class="tv-artist-bio-text">Held India's first solo AI Art Show, Exhibition in 20 countries, 5 TEDx Talks, Google's first Artist Resident in India.</span>
               </div>
             </div>
-            <div class="tv-poai-badge" id="tv-poai-badge" title="POAI - Conclave">
-              <img src="assets/poai_official_logo.png" alt="POAI" class="tv-poai-logo-img" />
+
+            <div class="tv-header-right-group">
+              <nav class="tablet-nav-tabs" role="tablist" aria-label="Dual Kiosk Tabs">
+                <button class="tablet-tab-btn ${this.activeDualTab === 'vote' ? 'active' : ''}" id="dual-tab-btn-vote" role="tab" aria-selected="${this.activeDualTab === 'vote'}">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                  </svg>
+                  <span>Vote</span>
+                </button>
+                <button class="tablet-tab-btn ${this.activeDualTab === 'past' ? 'active' : ''}" id="dual-tab-btn-past" role="tab" aria-selected="${this.activeDualTab === 'past'}">
+                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+                  </svg>
+                  <span>Previous Artworks</span>
+                  <span class="tab-badge-pill" id="tv-tab-past-count">${pastCount}</span>
+                </button>
+              </nav>
+
+              <div class="tv-poai-badge" id="tv-poai-badge" title="POAI - Conclave">
+                <img src="assets/poai_official_logo.png" alt="POAI" class="tv-poai-logo-img" />
+              </div>
             </div>
           </header>
 
-          <!-- Previous 2 Artworks Grid with 3rd View More Card (Above Current Artwork Description) -->
-          <div class="tv-past-preview-grid" id="tv-past-preview-grid"></div>
-
-          <!-- Current Live Artwork Information (Title & Brief Description) -->
-          <div class="tv-current-artwork-card" id="tv-current-artwork-card">
-            <div class="tv-current-art-top-row">
-              <div class="tv-current-art-header">
-                <span class="tv-live-pulse-dot"></span>
-                <span class="tv-current-art-badge">CURRENT LIVE ARTWORK</span>
-                <span class="tv-current-art-cycle" id="tv-current-art-time">${featuredSession.timeLabel || 'Live 30-Min Cycle'}</span>
-              </div>
-            </div>
-            <h3 class="tv-current-art-title" id="tv-current-art-title">${featuredSession.topologyInfo?.name || featuredSession.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h3>
-            <p class="tv-current-art-desc" id="tv-current-art-desc">${featuredSession.topologyInfo?.reasoning || featuredSession.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'}</p>
-          </div>
-
-          <!-- Survey Section (Step 1..6 dynamically rendered) -->
-          <div class="tv-survey-section" id="tv-survey-section"></div>
-
-          <!-- Footer / Stepper & Touch Hint -->
-          <footer class="tv-kiosk-footer">
-            <div class="tv-stepper-dots">
-              <span class="tv-step-dot active"></span>
-              <span class="tv-step-dot"></span>
-              <span class="tv-step-dot"></span>
-              <span class="tv-step-dot"></span>
-              <span class="tv-step-dot"></span>
-            </div>
-            <span class="tv-hint-text">Touch an option to proceed · Tapestry continuously morphs on the vertical screen</span>
-          </footer>
+          <!-- Main Kiosk Body: Interactive Survey OR Previous Artworks Archive Grid -->
+          <div id="tv-kiosk-body-container" class="tv-kiosk-body-container"></div>
         </section>
       </main>
 
@@ -397,12 +389,18 @@ class ConclaveApp {
     this.mountQRHelpers();
     this.mountPastSessions();
     this.bindTouchTVEvents(featuredSession);
-    this.renderTVPastPreviewGrid();
-    this.renderTVSurveyStep();
   }
 
   bindTouchTVEvents(featuredSession) {
-    this.renderTVPastPreviewGrid();
+    const voteTab = document.getElementById('dual-tab-btn-vote');
+    if (voteTab) {
+      voteTab.onclick = () => this.switchDualTab('vote');
+    }
+
+    const pastTab = document.getElementById('dual-tab-btn-past');
+    if (pastTab) {
+      pastTab.onclick = () => this.switchDualTab('past');
+    }
 
     // POAI badge tap feedback
     const poaiBadge = document.getElementById('tv-poai-badge');
@@ -414,6 +412,182 @@ class ConclaveApp {
         });
       };
     }
+
+    this.renderDualKioskContent(featuredSession);
+  }
+
+  switchDualTab(tab) {
+    this.activeDualTab = tab;
+    this.renderDualKioskContent();
+  }
+
+  renderDualKioskContent(featuredSession) {
+    const bodyContainer = document.getElementById('tv-kiosk-body-container');
+    if (!bodyContainer) return;
+
+    const voteTab = document.getElementById('dual-tab-btn-vote');
+    const pastTab = document.getElementById('dual-tab-btn-past');
+    if (voteTab) voteTab.classList.toggle('active', this.activeDualTab === 'vote');
+    if (pastTab) pastTab.classList.toggle('active', this.activeDualTab === 'past');
+
+    if (this.activeDualTab === 'past') {
+      bodyContainer.innerHTML = this.renderDualPastGallery();
+      this.bindDualPastGalleryEvents();
+    } else {
+      const session = featuredSession || (this.pastSessions && this.pastSessions.length > 0
+        ? this.pastSessions[this.pastSessions.length - 1]
+        : (this.currentSession || {
+            name: 'Mandovi River Sailboat & Fluvial Wake Currents',
+            timeLabel: 'Live 30-Min Cycle',
+            topologyInfo: {
+              name: 'Mandovi River Sailboat & Fluvial Wake Currents',
+              reasoning: 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'
+            }
+          }));
+
+      bodyContainer.innerHTML = `
+        <!-- Previous 2 Artworks Grid with 3rd View More Card (Above Current Artwork Description) -->
+        <div class="tv-past-preview-grid" id="tv-past-preview-grid"></div>
+
+        <!-- Current Live Artwork Information (Title & Brief Description) -->
+        <div class="tv-current-artwork-card" id="tv-current-artwork-card">
+          <div class="tv-current-art-top-row">
+            <div class="tv-current-art-header">
+              <span class="tv-live-pulse-dot"></span>
+              <span class="tv-current-art-badge">CURRENT LIVE ARTWORK</span>
+              <span class="tv-current-art-cycle" id="tv-current-art-time">${session.timeLabel || 'Live 30-Min Cycle'}</span>
+            </div>
+          </div>
+          <h3 class="tv-current-art-title" id="tv-current-art-title">${session.topologyInfo?.name || session.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h3>
+          <p class="tv-current-art-desc" id="tv-current-art-desc">${session.topologyInfo?.reasoning || session.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'}</p>
+        </div>
+
+        <!-- Survey Section (Step 1..6 dynamically rendered) -->
+        <div class="tv-survey-section" id="tv-survey-section"></div>
+
+        <!-- Footer / Stepper & Touch Hint -->
+        <footer class="tv-kiosk-footer">
+          <div class="tv-stepper-dots">
+            <span class="tv-step-dot active"></span>
+            <span class="tv-step-dot"></span>
+            <span class="tv-step-dot"></span>
+            <span class="tv-step-dot"></span>
+            <span class="tv-step-dot"></span>
+          </div>
+          <span class="tv-hint-text">Touch an option to proceed · Tapestry continuously morphs on the vertical screen</span>
+        </footer>
+      `;
+
+      this.renderTVPastPreviewGrid();
+      this.renderTVSurveyStep();
+    }
+  }
+
+  renderDualPastGallery() {
+    const sessions = (this.pastSessionsManager && this.pastSessionsManager.sessions && this.pastSessionsManager.sessions.length > 0)
+      ? this.pastSessionsManager.sessions
+      : this.pastSessions;
+
+    if (!sessions || sessions.length === 0) {
+      return `
+        <div class="tablet-past-empty-state" style="padding: 40px 20px; text-align: center; color: #7A2818;">
+          <p>No previous artworks recorded yet. Artworks archive every 30 minutes.</p>
+          <button class="tablet-quick-return-btn" id="dual-past-return-vote-btn" style="margin-top: 16px;">Return to Vote</button>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="tablet-past-gallery-scroll" style="height: 100%; overflow-y: auto;">
+        <div class="tablet-past-gallery-header" style="margin-bottom: 12px;">
+          <div>
+            <h2 class="tablet-past-gallery-title">Previous Artworks Archive</h2>
+            <p class="tablet-past-gallery-subtitle">Looping GIFs of 30-min cycles (max 10s loop) · Responding dynamically to Goan sentiment</p>
+          </div>
+          <button class="tablet-quick-return-btn" id="dual-past-return-vote-btn">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+            </svg>
+            <span>Back to Vote</span>
+          </button>
+        </div>
+
+        <div class="tablet-past-cards-grid">
+          ${sessions.map((sess, idx) => {
+            const imgSrc = sess.snapshotUrl || sess.gifUrl || `/archive/${sess.id}.jpg`;
+            const isRealSnapshot = !!sess.snapshotUrl;
+            const badgeText = isRealSnapshot ? '🎨 42k Particles' : '⏱️ 9.6s Loop';
+            const topoName = sess.topologyInfo?.name || `Topology #${sess.mutationTopology !== undefined ? sess.mutationTopology + 1 : idx + 1}`;
+            const reasoning = sess.topologyInfo?.reasoning || sess.description || 'Generated from 30-min attendee sentiment vector convergence.';
+            const timeRange = sess.timeLabel || '30 Min Session';
+            const count = sess.totalResponses || sess.responsesCount || 0;
+
+            return `
+              <article class="tablet-art-card" data-session-id="${sess.id}">
+                <div class="tablet-art-thumb-frame" data-session-id="${sess.id}" style="cursor: pointer;">
+                  <img src="${imgSrc}" alt="${sess.name || 'Artwork'}" class="tablet-art-gif" loading="lazy" />
+                  <span class="tablet-art-loop-badge">${badgeText}</span>
+                  <div class="tablet-art-session-tag">Session #${sess.sessionNumber || (idx + 1)}</div>
+                </div>
+                <div class="tablet-art-card-body">
+                  <div class="tablet-card-time-row">
+                    <span>${timeRange}</span>
+                    <span class="tablet-card-voices-count">${count} voices</span>
+                  </div>
+                  <h3 class="tablet-art-title">${sess.name || 'Many Minds - Collective Artworks'}</h3>
+                  <div class="tablet-art-archetype">${topoName}</div>
+                  <p class="tablet-art-reasoning">${reasoning}</p>
+                  <div class="tablet-card-sentiment-tags">
+                    ${sess.dominantWeather ? `<span class="tablet-tag">☀️ ${this.formatTag(sess.dominantWeather)}</span>` : ''}
+                    ${sess.dominantFood ? `<span class="tablet-tag">🍲 ${this.formatTag(sess.dominantFood)}</span>` : ''}
+                    ${sess.dominantLocation ? `<span class="tablet-tag">📍 ${this.formatTag(sess.dominantLocation)}</span>` : ''}
+                    ${sess.dominantEmblem ? `<span class="tablet-tag">🌴 ${this.formatTag(sess.dominantEmblem)}</span>` : ''}
+                  </div>
+                  <button class="tablet-card-detail-btn" data-session-id="${sess.id}">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                    </svg>
+                    <span>Inspect Sentiment & Swag</span>
+                  </button>
+                </div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+
+        <div style="padding: 16px 0 24px 0; text-align: center;">
+          <button class="tablet-quick-return-btn" id="dual-past-return-vote-bottom-btn" style="padding: 8px 20px; font-size: 0.88rem;">
+            ← Back to Vote / Input View
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  bindDualPastGalleryEvents() {
+    const returnBtn = document.getElementById('dual-past-return-vote-btn');
+    if (returnBtn) {
+      returnBtn.onclick = () => this.switchDualTab('vote');
+    }
+
+    const returnBottomBtn = document.getElementById('dual-past-return-vote-bottom-btn');
+    if (returnBottomBtn) {
+      returnBottomBtn.onclick = () => this.switchDualTab('vote');
+    }
+
+    const bodyContainer = document.getElementById('tv-kiosk-body-container');
+    if (!bodyContainer) return;
+
+    bodyContainer.querySelectorAll('.tablet-card-detail-btn, .tablet-art-thumb-frame').forEach(el => {
+      el.onclick = (e) => {
+        e.stopPropagation();
+        const sid = el.getAttribute('data-session-id');
+        const session = this.pastSessions.find(s => s.id === sid);
+        if (session && this.pastSessionsManager) {
+          this.pastSessionsManager.showSessionModal(session);
+        }
+      };
+    });
   }
 
   // ==========================================================================
@@ -891,12 +1065,7 @@ class ConclaveApp {
     const moreBtn = document.getElementById('tv-open-archive-grid-btn');
     if (moreBtn) {
       moreBtn.onclick = () => {
-        const featured = (this.pastSessions && this.pastSessions.length > 0)
-          ? this.pastSessions[this.pastSessions.length - 1]
-          : this.currentSession;
-        if (this.pastSessionsManager && featured) {
-          this.pastSessionsManager.showSessionModal(featured);
-        }
+        this.switchDualTab('past');
       };
     }
   }
