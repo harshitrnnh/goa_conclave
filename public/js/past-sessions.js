@@ -388,5 +388,4 @@ export class PastSessionsManager {
     link.target = '_blank';
     link.click();
   }
-  }
 }
