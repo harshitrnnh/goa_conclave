@@ -489,10 +489,12 @@ export function getArtworkImpactWriteup(response = {}) {
   ];
 
   const summary = `Dynamic flow, color resonance & motion accents woven into the live 42,000 particle tapestry.`;
+  const conciseNote = `${w.name} & ${f.name} palette merged with ${loc.name} geometry and ${emb.name} motion.`;
 
   return {
     headline: `${w.title} · ${f.title}`,
     summary,
+    conciseNote,
     weatherDetail: w.detail,
     foodDetail: f.detail,
     locationDetail: loc ? loc.detail : null,

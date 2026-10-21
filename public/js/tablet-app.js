@@ -66,26 +66,28 @@ export class TabletApp {
               </div>
             </div>
             
-            <div class="tablet-poai-badge" id="tablet-poai-badge" title="POAI - Conclave">
-              <img src="assets/poai_official_logo.png" alt="POAI" class="tablet-poai-logo-img" />
-            </div>
+            <div class="tablet-header-right-group">
+              <!-- iPad Navigation Tabs -->
+              <nav class="tablet-nav-tabs" role="tablist" aria-label="Kiosk Tabs">
+                <button class="tablet-tab-btn ${this.activeTab === 'vote' ? 'active' : ''}" id="tab-btn-vote" role="tab" aria-selected="${this.activeTab === 'vote'}">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                  </svg>
+                  <span>Vote / Survey</span>
+                </button>
+                <button class="tablet-tab-btn ${this.activeTab === 'past' ? 'active' : ''}" id="tab-btn-past" role="tab" aria-selected="${this.activeTab === 'past'}">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+                  </svg>
+                  <span>Previous Artworks</span>
+                  <span class="tab-badge-pill" id="tablet-past-count">${pastCount}</span>
+                </button>
+              </nav>
 
-            <!-- iPad Navigation Tabs -->
-            <nav class="tablet-nav-tabs" role="tablist" aria-label="Kiosk Tabs">
-              <button class="tablet-tab-btn ${this.activeTab === 'vote' ? 'active' : ''}" id="tab-btn-vote" role="tab" aria-selected="${this.activeTab === 'vote'}">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
-                </svg>
-                <span>Vote / Survey</span>
-              </button>
-              <button class="tablet-tab-btn ${this.activeTab === 'past' ? 'active' : ''}" id="tab-btn-past" role="tab" aria-selected="${this.activeTab === 'past'}">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-                </svg>
-                <span>Previous Artworks</span>
-                <span class="tab-badge-pill" id="tablet-past-count">${pastCount}</span>
-              </button>
-            </nav>
+              <div class="tablet-poai-badge" id="tablet-poai-badge" title="POAI - Conclave">
+                <img src="assets/poai_official_logo.png" alt="POAI" class="tablet-poai-logo-img" />
+              </div>
+            </div>
           </div>
         </header>
 
@@ -307,21 +309,11 @@ export class TabletApp {
           </div>
         </div>
 
-        <form class="reflection-form" id="reflection-form">
-          <div class="form-group">
-            <label for="attendee-name">Your Name or College / Org (Optional)</label>
-            <input type="text" id="attendee-name" maxlength="50" placeholder="e.g. Maria / Goa Univ / BITS Pilani" value="${this.attendeeName}" />
-          </div>
-
-          <div class="form-group">
-            <label for="attendee-note">A word, thought, or takeaway from this session (Optional)</label>
-            <input type="text" id="attendee-note" maxlength="120" placeholder="e.g. Inclusivity first / Inspiring open source debate" value="${this.attendeeNote}" />
-          </div>
-
-          <button type="submit" class="weave-btn" id="submit-weave-btn">
+        <div class="reflection-actions-only" style="margin-top: 28px; width: 100%; max-width: 480px;">
+          <button type="button" class="weave-btn" id="submit-weave-btn" style="width: 100%;">
             <span>Weave Into Live Artwork &rarr;</span>
           </button>
-        </form>
+        </div>
       </section>
     `;
   }
@@ -350,30 +342,24 @@ export class TabletApp {
           Watch the vertical screen! The particle tapestry is dynamically responding to your choices.
         </p>
 
-        <!-- Dynamic Artwork Transformation Writeup -->
-        <div class="impact-writeup-card">
+        <!-- Dynamic Artwork Transformation Writeup (Concise) -->
+        <div class="impact-writeup-card concise-card">
           <div class="impact-card-header">
-            <span class="impact-card-badge">✨ Artwork Transformation</span>
+            <span class="impact-card-badge">✨ Live Transformation</span>
             <span class="impact-card-tagline">${impact.headline}</span>
           </div>
-          <p class="impact-card-summary">${impact.summary}</p>
-          <div class="impact-card-pills">
-            ${impact.highlights.map(h => `
-              <div class="impact-pill-item">
-                <span class="impact-pill-label">${h.label}</span>
-                <span class="impact-pill-text">${h.text}</span>
-              </div>
-            `).join('')}
-          </div>
+          <p class="impact-card-summary" style="margin: 0; font-size: 0.9rem; font-style: normal; color: #4A170B; font-weight: 500; line-height: 1.45;">
+            ${impact.conciseNote}
+          </p>
         </div>
 
         <div class="success-actions">
-          <button class="action-btn-primary go-to-input-btn" id="vote-again-btn" aria-label="Back to Input View">
+          <button class="action-btn-primary go-to-input-btn" id="vote-again-btn" aria-label="Back to Giving Votes">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
-            <span>Back to Input View (Next Attendee)</span>
+            <span>Back to Giving Votes (Next Attendee)</span>
           </button>
           <button class="action-btn-secondary" id="view-past-gallery-btn">
             View Past Artworks Gallery
@@ -531,30 +517,22 @@ export class TabletApp {
       };
     }
 
-    // Form submission
-    const form = this.container.querySelector('#reflection-form');
-    if (form) {
-      form.onsubmit = async (e) => {
+    // Direct submit weave button (no text form inputs required)
+    const weaveBtn = this.container.querySelector('#submit-weave-btn');
+    if (weaveBtn) {
+      weaveBtn.onclick = async (e) => {
         e.preventDefault();
-        const submitBtn = form.querySelector('#submit-weave-btn');
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.style.opacity = '0.7';
-          submitBtn.textContent = 'Weaving into Tapestry...';
-        }
-
-        const nameInput = form.querySelector('#attendee-name');
-        const noteInput = form.querySelector('#attendee-note');
-        this.attendeeName = nameInput ? nameInput.value : '';
-        this.attendeeNote = noteInput ? noteInput.value : '';
+        weaveBtn.disabled = true;
+        weaveBtn.style.opacity = '0.7';
+        weaveBtn.innerHTML = '<span>Weaving into Live Artwork...</span>';
 
         const payload = {
           weather: this.selectedWeather || 'sunny',
           food: this.selectedFood || 'bebinca',
           location: this.selectedLocation || 'aguada_fort',
           emblem: this.selectedEmblem || 'sailboat',
-          author: this.attendeeName,
-          note: this.attendeeNote
+          author: '',
+          note: ''
         };
 
         // Submit all 4 answers to sync manager with fallback
@@ -579,18 +557,6 @@ export class TabletApp {
         }
         this.render();
       };
-
-      const weaveBtn = this.container.querySelector('#submit-weave-btn');
-      if (weaveBtn) {
-        weaveBtn.onclick = (e) => {
-          e.preventDefault();
-          if (typeof form.requestSubmit === 'function') {
-            form.requestSubmit();
-          } else {
-            form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-          }
-        };
-      }
     }
 
     // Past sessions button in header

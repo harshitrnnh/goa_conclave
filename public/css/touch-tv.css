@@ -173,25 +173,35 @@
 .tv-kiosk-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 12px;
+  align-items: center;
+  margin-bottom: 8px;
   flex-shrink: 0;
+  width: 100%;
 }
 
 .tv-artist-block {
   display: flex;
   flex-direction: column;
-  max-width: calc(100% - 150px);
+  max-width: calc(100% - 90px);
+  flex: 1 1 auto;
+}
+
+.tv-artist-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: nowrap;
 }
 
 .tv-artist-title {
   font-family: 'Cinzel', 'Marcellus', serif;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #3B140D;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   line-height: 1.15;
+  white-space: nowrap;
 }
 
 .tv-artist-handle {
@@ -199,33 +209,42 @@
   font-size: 0.8rem;
   color: #872012;
   font-weight: 600;
-  margin-top: 1px;
+  white-space: nowrap;
 }
 
 .tv-artist-bio-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
 .tv-artist-photo {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #D4AF37;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
+  border: 1.5px solid #D4AF37;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   flex-shrink: 0;
 }
 
 .tv-artist-bio-text {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.69rem;
+  font-size: 0.72rem;
   line-height: 1.32;
   color: #5C2216;
   font-weight: 500;
   letter-spacing: -0.01em;
+}
+
+/* Dedicated Navigation Bar Row for 16:9 Display */
+.tv-nav-bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+  width: 100%;
 }
 
 /* POAI Official Logo Badge in Top Right (Aligned to artwork line) */

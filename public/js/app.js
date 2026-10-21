@@ -342,38 +342,42 @@ class ConclaveApp {
         <!-- 2. RIGHT PANEL: Touch-Enabled Tablet Kiosk (~36.5%) -->
         <section class="touch-tv-kiosk-side" aria-label="Audience Sentiment Touch Kiosk" id="tv-kiosk-container">
           <!-- Header: Artist Credit on Left, Dual Navigation Tabs & POAI Logo on Right -->
+          <!-- Header: Artist Credit on Left, POAI Logo on Top Right -->
           <header class="tv-kiosk-header">
             <div class="tv-artist-block">
-              <span class="tv-artist-title">ARTWORK BY HARSHIT AGRAWAL</span>
-              <span class="tv-artist-handle">@harshitrnnh</span>
+              <div class="tv-artist-title-row">
+                <span class="tv-artist-title">Artwork by Harshit Agrawal</span>
+                <span class="tv-artist-handle">@harshitrnnh</span>
+              </div>
               <div class="tv-artist-bio-row">
                 <img src="assets/harshit_agrawal.png" alt="Harshit Agrawal" class="tv-artist-photo" />
                 <span class="tv-artist-bio-text">Held India's first solo AI Art Show, Exhibition in 20 countries, 5 TEDx Talks, Google's first Artist Resident in India.</span>
               </div>
             </div>
 
-            <div class="tv-header-right-group">
-              <nav class="tablet-nav-tabs" role="tablist" aria-label="Dual Kiosk Tabs">
-                <button class="tablet-tab-btn ${this.activeDualTab === 'vote' ? 'active' : ''}" id="dual-tab-btn-vote" role="tab" aria-selected="${this.activeDualTab === 'vote'}">
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
-                  </svg>
-                  <span>Vote</span>
-                </button>
-                <button class="tablet-tab-btn ${this.activeDualTab === 'past' ? 'active' : ''}" id="dual-tab-btn-past" role="tab" aria-selected="${this.activeDualTab === 'past'}">
-                  <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
-                  </svg>
-                  <span>Previous Artworks</span>
-                  <span class="tab-badge-pill" id="tv-tab-past-count">${pastCount}</span>
-                </button>
-              </nav>
-
-              <div class="tv-poai-badge" id="tv-poai-badge" title="POAI - Conclave">
-                <img src="assets/poai_official_logo.png" alt="POAI" class="tv-poai-logo-img" />
-              </div>
+            <div class="tv-poai-badge" id="tv-poai-badge" title="POAI - Conclave">
+              <img src="assets/poai_official_logo.png" alt="POAI" class="tv-poai-logo-img" />
             </div>
           </header>
+
+          <!-- Dedicated Navigation Bar Row for 16:9 Display -->
+          <div class="tv-nav-bar-row">
+            <nav class="tablet-nav-tabs" role="tablist" aria-label="Dual Kiosk Tabs">
+              <button class="tablet-tab-btn ${this.activeDualTab === 'vote' ? 'active' : ''}" id="dual-tab-btn-vote" role="tab" aria-selected="${this.activeDualTab === 'vote'}">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+                </svg>
+                <span>Vote</span>
+              </button>
+              <button class="tablet-tab-btn ${this.activeDualTab === 'past' ? 'active' : ''}" id="dual-tab-btn-past" role="tab" aria-selected="${this.activeDualTab === 'past'}">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
+                </svg>
+                <span>Previous Artworks</span>
+                <span class="tab-badge-pill" id="tv-tab-past-count">${pastCount}</span>
+              </button>
+            </nav>
+          </div>
 
           <!-- Main Kiosk Body: Interactive Survey OR Previous Artworks Archive Grid -->
           <div id="tv-kiosk-body-container" class="tv-kiosk-body-container"></div>
@@ -806,30 +810,24 @@ class ConclaveApp {
           Watch the live vertical screen! The particle tapestry is dynamically responding to your choices.
         </p>
 
-        <!-- Dynamic Artwork Transformation Writeup -->
-        <div class="impact-writeup-card">
+        <!-- Dynamic Artwork Transformation Writeup (Concise) -->
+        <div class="impact-writeup-card concise-card">
           <div class="impact-card-header">
-            <span class="impact-card-badge">✨ Live Artwork Transformation</span>
+            <span class="impact-card-badge">✨ Live Transformation</span>
             <span class="impact-card-tagline">${impact.headline}</span>
           </div>
-          <p class="impact-card-summary">${impact.summary}</p>
-          <div class="impact-card-pills">
-            ${impact.highlights.map(h => `
-              <div class="impact-pill-item">
-                <span class="impact-pill-label">${h.label}</span>
-                <span class="impact-pill-text">${h.text}</span>
-              </div>
-            `).join('')}
-          </div>
+          <p class="impact-card-summary" style="margin: 0; font-size: 0.9rem; font-style: normal; color: #4A170B; font-weight: 500; line-height: 1.45;">
+            ${impact.conciseNote}
+          </p>
         </div>
 
         <div class="success-actions">
-          <button class="action-btn-primary go-to-input-btn" id="tv-vote-again-btn" aria-label="Back to Input View">
+          <button class="action-btn-primary go-to-input-btn" id="tv-vote-again-btn" aria-label="Back to Giving Votes">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;">
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
-            <span>Back to Input View (Next Attendee)</span>
+            <span>Back to Giving Votes (Next Attendee)</span>
           </button>
         </div>
       </section>

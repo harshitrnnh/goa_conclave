@@ -134,12 +134,19 @@
   font-weight: 500;
 }
 
+.tablet-header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
 .tablet-poai-badge {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  margin: 0 14px;
+  margin-left: 6px;
 }
 
 .tablet-poai-logo-img {
