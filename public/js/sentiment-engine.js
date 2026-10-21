@@ -356,27 +356,27 @@ export function getArtworkImpactWriteup(response = {}) {
     sunny: {
       name: 'Sunny & Energetic',
       title: 'Solar Radiance & Corona Acceleration',
-      detail: 'Expands the central solar corona radius, accelerating particle flow velocity and suffusing golden amber highlights throughout the currents.'
+      detail: 'Solar corona expansion, accelerating flow velocity with golden amber highlights.'
     },
     windy: {
       name: 'Windy & Restless',
       title: 'Breeze Vector Sweeps',
-      detail: 'Injects dynamic diagonal wind forces across the river streamlines, sweeping particles into buoyant drifting eddies and airy trails.'
+      detail: 'Breeze vector sweeps across streamlines with buoyant swirling eddies.'
     },
     rainy: {
       name: 'Rainy & Reflective',
       title: 'Monsoon Gravitational Cascades',
-      detail: 'Pulls cascading vertical particle gravity downward, washing the tapestry in deep monsoon slate-blue and cool teal tones.'
+      detail: 'Vertical gravitational cascades washing the canvas in deep slate-blue & teal.'
     },
     stormy: {
       name: 'Stormy & Eclectic',
       title: 'Turbulent Angular Vortices',
-      detail: 'Ignites tight spiral vortices, spiking kinetic turbulence and launching volatile glowing fiery embers across the flow field.'
+      detail: 'Angular vortices spiking kinetic turbulence and volatile fiery embers.'
     },
     calm: {
       name: 'Calm & Serene',
       title: 'Susegad Harmonic Swells',
-      detail: 'Damps chaotic flutter into slow, rhythmic oceanic breathing waves with serene aqua-indigo equilibrium.'
+      detail: 'Slow, rhythmic harmonic ocean breathing waves with serene aqua-indigo balance.'
     }
   };
 
@@ -384,90 +384,90 @@ export function getArtworkImpactWriteup(response = {}) {
     fish_curry: {
       name: 'Fish Curry',
       title: 'Turmeric Ochre & Emerald Tides',
-      detail: 'Enlarges particle scale and weaves deep turmeric ochre with Arabian Sea emerald accents.'
+      detail: 'Deep turmeric ochre with Arabian Sea emerald accents.'
     },
     prawn_curry: {
       name: 'Prawn Curry',
       title: 'Warm Saffron Coral Glow',
-      detail: 'Bathes the fluid currents in a warm coral-terracotta glow, radiating coastal warmth and gentle pulse speed.'
+      detail: 'Warm coral-terracotta glow radiating coastal warmth & gentle pulse.'
     },
     vindaloo: {
       name: 'Vindaloo',
       title: 'Chili Crimson Sparks & Heat',
-      detail: 'Spikes ember particle density, sending crackling fiery crimson shockwaves drifting vigorously through the field.'
+      detail: 'Chili crimson sparks & heat drifting through the flow field.'
     },
     xacuti: {
       name: 'Xacuti',
       title: 'Roasted Masala & Coconut Umber',
-      detail: 'Enriches the tapestry with deep roasted umber tones, coconut cream, and complex multi-spice speckles.'
+      detail: 'Roasted masala umber tones, coconut cream & multi-spice speckles.'
     },
     bebinca: {
       name: 'Bebinca',
       title: '7-Layer Caramelized Strata',
-      detail: 'Forms 7 distinct caramelized horizontal bands in toasted jaggery, nutmeg, and golden ghee hues.'
+      detail: '7 caramelized horizontal strata in toasted jaggery & golden ghee.'
     },
     poe_bread: {
       name: 'Poe Bread',
       title: 'Flour Dust & Rustic Crust',
-      detail: 'Sprinkles delicate flour-white dusting ivory speckles and rustic warm earthen crust undertones.'
+      detail: 'Delicate flour dusting ivory speckles & rustic warm crust.'
     }
   };
 
   const locationMap = {
     dudhsagar: {
       name: 'Dudhsagar Falls',
-      detail: 'Channels powerful vertical waterfall cascades with frothy mist spray down the central corridor.'
+      detail: 'Waterfall cascades with frothy mist spray down the center.'
     },
     aguada_fort: {
-      name: 'Fort Aguada Lighthouse',
-      detail: 'Sweeps dual rotating lighthouse beacon beams continuously across the particle cloud.'
+      name: 'Aguada Lighthouse',
+      detail: 'Dual rotating lighthouse beacon beams sweeping the cloud.'
     },
     fontainhas: {
-      name: 'Fontainhas Latin Quarter',
-      detail: 'Ignites vibrant architectural cluster nodes with Portuguese ochre, cobalt, and terracotta hues.'
+      name: 'Fontainhas Quarter',
+      detail: 'Architectural nodes in Portuguese ochre, cobalt & terracotta.'
     },
     chapora_fort: {
       name: 'Chapora Fort Ridge',
-      detail: 'Sculpts an elevated clifftop perimeter stone ridge along the upper currents with expansive horizon drift.'
+      detail: 'Clifftop perimeter stone ridge with expansive horizon drift.'
     },
     palolem_beach: {
-      name: 'Palolem Beach Crescent',
-      detail: 'Guides particle trajectories into a graceful coastal crescent bay arc with gentle rolling surf.'
+      name: 'Palolem Beach',
+      detail: 'Graceful coastal crescent bay arc with gentle rolling surf.'
     },
     cabo_de_rama: {
       name: 'Cabo de Rama Fort',
-      detail: 'Sculpts a dramatic clifftop promontory over ocean swells and draws warm thermal updrafts.'
+      detail: 'Clifftop promontory over ocean swells with warm thermal updrafts.'
     },
     old_goa_basilica: {
       name: 'Old Goa Basilica',
-      detail: 'Weaves sacred baroque gilded contours and solemn choral resonance into the tapestry.'
+      detail: 'Sacred baroque gilded contours & solemn choral resonance.'
     }
   };
 
   const emblemMap = {
     mandovi_boat: {
       name: 'Mandovi Sailboat',
-      detail: 'Leaves trailing kinetic wake ripples carving smoothly across the river currents.'
+      detail: 'Kinetic wake ripples carving smoothly across currents.'
     },
     coconut_palm: {
       name: 'Coconut Palm',
-      detail: 'Spreads arching frond canopy tendrils gracefully overhead with emerald resilience.'
+      detail: 'Arching frond canopy tendrils overhead with emerald resilience.'
     },
     sea_turtle: {
       name: 'Olive Ridley Turtle',
-      detail: 'Deepens oceanic gliding currents and tranquil hydrodynamic swells.'
+      detail: 'Deep oceanic gliding currents & tranquil hydrodynamic swells.'
     },
     kingfisher: {
       name: 'Goan Kingfisher',
-      detail: 'Streaks agile turquoise-azure dart vectors cutting swiftly through the particle field.'
+      detail: 'Agile turquoise-azure dart streaks cutting swiftly through flow.'
     },
     carnival_spirit: {
       name: 'Viva Carnival Mask',
-      detail: 'Detonates festive micro-bursts of celebratory multi-colored sparks and buoyant rhythm.'
+      detail: 'Festive micro-bursts of multi-colored sparks & buoyant rhythm.'
     },
     susegad: {
       name: 'Susegad Hammock',
-      detail: 'Imparts contemplative stillness, smooth viscosity, and deep harmony across the flow.'
+      detail: 'Contemplative stillness, smooth viscosity & deep harmony.'
     }
   };
 
@@ -488,7 +488,7 @@ export function getArtworkImpactWriteup(response = {}) {
     { label: `Emblem: ${emb.name}`, text: emb.detail }
   ];
 
-  const summary = `${w.detail} Concurrently, ${f.detail.charAt(0).toLowerCase() + f.detail.slice(1)} ${loc.detail} ${emb.detail}`;
+  const summary = `Dynamic flow, color resonance & motion accents woven into the live 42,000 particle tapestry.`;
 
   return {
     headline: `${w.title} · ${f.title}`,

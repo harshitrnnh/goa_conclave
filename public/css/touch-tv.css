@@ -161,7 +161,7 @@
   border-left: 1px solid rgba(135, 32, 18, 0.2);
   display: flex;
   flex-direction: column;
-  padding: 24px 28px 20px 28px;
+  padding: 34px 26px 20px 26px;
   box-sizing: border-box;
   overflow-y: auto;
   overflow-x: hidden;
@@ -304,6 +304,154 @@
   padding: 2px 7px;
   border-radius: 10px;
   line-height: 1;
+}
+
+/* ==========================================================================
+   MINI PREVIEW GRID: Previous 2 Artworks + 3rd View More Card (Above Live Card)
+   ========================================================================== */
+.tv-past-preview-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.tv-past-grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+}
+
+.tv-past-thumb-card {
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(135, 32, 18, 0.18);
+  border-radius: 9px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 2px 8px rgba(135, 32, 18, 0.06);
+}
+
+.tv-past-thumb-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(135, 32, 18, 0.4);
+  box-shadow: 0 4px 14px rgba(135, 32, 18, 0.18);
+}
+
+.tv-thumb-img-wrap {
+  position: relative;
+  width: 100%;
+  height: 52px;
+  background: #140703;
+  overflow: hidden;
+}
+
+.tv-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tv-thumb-tag {
+  position: absolute;
+  top: 3px;
+  left: 4px;
+  background: rgba(15, 5, 2, 0.75);
+  color: #F2C249;
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(242, 194, 73, 0.3);
+}
+
+.tv-thumb-meta {
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.tv-thumb-title {
+  font-family: 'Marcellus', serif;
+  font-size: 0.67rem;
+  font-weight: 600;
+  color: #2E0F07;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.tv-thumb-time {
+  font-size: 0.58rem;
+  color: #8C4030;
+  line-height: 1.1;
+  margin-top: 1px;
+}
+
+/* 3rd Thumbnail: View More Card */
+.tv-past-view-more-card {
+  background: linear-gradient(135deg, rgba(135, 32, 18, 0.08) 0%, rgba(242, 194, 73, 0.18) 100%);
+  border: 1.5px dashed rgba(135, 32, 18, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tv-thumb-more-inner {
+  height: 100%;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 4px;
+  text-align: center;
+}
+
+.tv-thumb-more-icon {
+  color: #872012;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tv-more-text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #872012;
+  letter-spacing: 0.04em;
+}
+
+.tv-more-badge {
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: #5C1D10;
+  background: rgba(135, 32, 18, 0.12);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+
+.tv-thumb-empty-ph {
+  height: 100%;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #8C4030;
+  font-size: 0.65rem;
+  gap: 2px;
 }
 
 /* ==========================================================================
@@ -642,16 +790,16 @@
 
 /* Step 6: Celebration Success */
 .touch-tv-kiosk-side .success-section {
-  padding-top: 8px;
-  margin-top: 4px;
-  padding-bottom: 16px;
+  padding-top: 4px;
+  margin-top: 2px;
+  padding-bottom: 8px;
 }
 
 .touch-tv-kiosk-side .celebration-mandala {
   position: relative;
-  width: 52px;
-  height: 52px;
-  margin-bottom: 6px;
+  width: 38px;
+  height: 38px;
+  margin: 0 auto 4px auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -660,14 +808,14 @@
 .touch-tv-kiosk-side .mandala-outer-ring {
   position: absolute;
   inset: 0;
-  border: 2px dashed #B83A24;
+  border: 1.5px dashed #B83A24;
   border-radius: 50%;
   animation: rotateMandala 16s linear infinite;
 }
 
 .touch-tv-kiosk-side .mandala-core {
-  width: 36px;
-  height: 36px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   background: #B83A24;
   color: #FAF3E8;
@@ -677,39 +825,39 @@
 }
 
 .touch-tv-kiosk-side .mandala-core svg {
-  width: 22px;
-  height: 22px;
+  width: 16px;
+  height: 16px;
 }
 
 .touch-tv-kiosk-side .success-title {
   font-family: 'Marcellus', serif;
-  font-size: 1.12rem;
+  font-size: 1.02rem;
   color: #2E0F07;
-  margin: 0 0 4px 0;
+  margin: 0 0 2px 0;
 }
 
 .touch-tv-kiosk-side .success-subtitle {
-  font-size: 0.74rem;
+  font-size: 0.71rem;
   color: #63271B;
-  margin: 0 0 8px 0;
-  line-height: 1.3;
+  margin: 0 0 6px 0;
+  line-height: 1.25;
 }
 
 .touch-tv-kiosk-side .impact-writeup-card {
   background: rgba(255, 255, 255, 0.85);
   border: 1px solid rgba(135, 32, 18, 0.2);
   border-left: 4px solid #872012;
-  border-radius: 12px;
-  padding: 10px 14px;
-  margin-bottom: 12px;
+  border-radius: 10px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
   text-align: left;
   width: 100%;
   box-sizing: border-box;
-  box-shadow: 0 4px 16px rgba(92, 28, 16, 0.08);
+  box-shadow: 0 4px 14px rgba(92, 28, 16, 0.06);
 }
 
 .touch-tv-kiosk-side .impact-card-badge {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   color: #B83A24;
   text-transform: uppercase;
@@ -718,45 +866,45 @@
 
 .touch-tv-kiosk-side .impact-card-tagline {
   font-family: 'Marcellus', serif;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: #3B140D;
   margin-left: 6px;
 }
 
 .touch-tv-kiosk-side .impact-card-summary {
-  font-size: 0.73rem;
+  font-size: 0.71rem;
   color: #5C2216;
-  margin: 6px 0 8px 0;
-  line-height: 1.34;
+  margin: 4px 0 6px 0;
+  line-height: 1.28;
   font-style: italic;
 }
 
 .touch-tv-kiosk-side .impact-card-pills {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 5px;
 }
 
 .touch-tv-kiosk-side .impact-pill-item {
   display: flex;
   flex-direction: column;
-  padding: 5px 8px;
-  background: rgba(250, 243, 232, 0.85);
-  border-radius: 8px;
+  padding: 4px 7px;
+  background: rgba(250, 243, 232, 0.88);
+  border-radius: 7px;
   border: 1px solid rgba(135, 32, 18, 0.1);
-  font-size: 0.71rem;
-  line-height: 1.3;
+  font-size: 0.69rem;
+  line-height: 1.25;
   color: #3B140D;
 }
 
 .touch-tv-kiosk-side .impact-pill-label {
   font-weight: 700;
   color: #872012;
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   text-transform: uppercase;
   letter-spacing: 0.3px;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
 
 .touch-tv-kiosk-side .impact-pill-text {
@@ -764,8 +912,8 @@
 }
 
 .touch-tv-kiosk-side .success-actions {
-  margin-top: 10px;
-  margin-bottom: 6px;
+  margin-top: 8px;
+  margin-bottom: 2px;
   display: flex;
   justify-content: center;
 }
@@ -775,17 +923,17 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 28px;
+  padding: 10px 26px;
   background: linear-gradient(135deg, #872012 0%, #A02B1A 100%);
   color: #FAF3E8;
   border: 1px solid rgba(255, 230, 180, 0.4);
   border-radius: 28px;
   font-family: 'Marcellus', serif;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 600;
   letter-spacing: 0.3px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(135, 32, 18, 0.35);
+  box-shadow: 0 4px 14px rgba(135, 32, 18, 0.3);
   transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 

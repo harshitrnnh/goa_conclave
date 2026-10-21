@@ -355,6 +355,9 @@ class ConclaveApp {
             </div>
           </header>
 
+          <!-- Previous 2 Artworks Grid with 3rd View More Card (Above Current Artwork Description) -->
+          <div class="tv-past-preview-grid" id="tv-past-preview-grid"></div>
+
           <!-- Current Live Artwork Information (Title & Brief Description) -->
           <div class="tv-current-artwork-card" id="tv-current-artwork-card">
             <div class="tv-current-art-top-row">
@@ -363,10 +366,6 @@ class ConclaveApp {
                 <span class="tv-current-art-badge">CURRENT LIVE ARTWORK</span>
                 <span class="tv-current-art-cycle" id="tv-current-art-time">${featuredSession.timeLabel || 'Live 30-Min Cycle'}</span>
               </div>
-              <button class="tv-past-pill-btn" id="tv-open-archive-modal-btn" title="View & Download Previous 30-Min Artworks">
-                <span>🏛️ Past Artworks</span>
-                <span class="pill-count-badge" id="tv-past-count">${pastCount}</span>
-              </button>
             </div>
             <h3 class="tv-current-art-title" id="tv-current-art-title">${featuredSession.topologyInfo?.name || featuredSession.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h3>
             <p class="tv-current-art-desc" id="tv-current-art-desc">${featuredSession.topologyInfo?.reasoning || featuredSession.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'}</p>
@@ -398,24 +397,14 @@ class ConclaveApp {
     this.mountQRHelpers();
     this.mountPastSessions();
     this.bindTouchTVEvents(featuredSession);
+    this.renderTVPastPreviewGrid();
     this.renderTVSurveyStep();
   }
 
   bindTouchTVEvents(featuredSession) {
-    // 1. Previous Artworks button opens Past Sessions modal
-    const archiveBtn = document.getElementById('tv-open-archive-modal-btn');
-    if (archiveBtn) {
-      archiveBtn.onclick = () => {
-        const featured = (this.pastSessions && this.pastSessions.length > 0)
-          ? this.pastSessions[this.pastSessions.length - 1]
-          : this.currentSession;
-        if (this.pastSessionsManager && featured) {
-          this.pastSessionsManager.showSessionModal(featured);
-        }
-      };
-    }
+    this.renderTVPastPreviewGrid();
 
-    // 2. POAI badge tap feedback
+    // POAI badge tap feedback
     const poaiBadge = document.getElementById('tv-poai-badge');
     if (poaiBadge) {
       poaiBadge.onclick = () => {
@@ -696,6 +685,11 @@ class ConclaveApp {
       }
     });
 
+    const footer = document.querySelector('.tv-kiosk-footer');
+    if (footer) {
+      footer.style.display = (this.tvSurvey.step === 6) ? 'none' : 'flex';
+    }
+
     const hint = document.querySelector('.tv-hint-text');
     if (hint) {
       if (this.tvSurvey.step <= 4) {
@@ -820,6 +814,90 @@ class ConclaveApp {
     }
     if (countEl) {
       countEl.textContent = this.pastSessions.length || 55;
+    }
+
+    this.renderTVPastPreviewGrid();
+  }
+
+  renderTVPastPreviewGrid() {
+    const gridEl = document.getElementById('tv-past-preview-grid');
+    if (!gridEl) return;
+
+    const count = this.pastSessions ? this.pastSessions.length : 0;
+    const p1 = count > 0 ? this.pastSessions[count - 1] : null;
+    const p2 = count > 1 ? this.pastSessions[count - 2] : null;
+
+    const getThumbHtml = (sess, num) => {
+      if (!sess) {
+        return `
+          <div class="tv-past-thumb-card tv-past-empty-card">
+            <div class="tv-thumb-empty-ph">
+              <span class="tv-thumb-empty-icon">🎨</span>
+              <span class="tv-thumb-empty-txt">Upcoming</span>
+            </div>
+          </div>
+        `;
+      }
+      const imgSrc = sess.snapshotUrl || sess.gifUrl || `/archive/${sess.id}.jpg`;
+      const title = sess.topologyInfo?.name || sess.name || `Artwork #${sess.sessionNumber || num}`;
+      const time = sess.timeLabel || 'Previous Cycle';
+      const sessionNum = sess.sessionNumber || num;
+
+      return `
+        <div class="tv-past-thumb-card" data-session-id="${sess.id}" title="${title} (${time}) · Tap to Inspect & Swag" tabindex="0">
+          <div class="tv-thumb-img-wrap">
+            <img src="${imgSrc}" alt="${title}" class="tv-thumb-img" onerror="this.onerror=null; this.src='assets/harshit_agrawal.png'; this.style.opacity='0.4';" />
+            <span class="tv-thumb-tag">#${sessionNum}</span>
+          </div>
+          <div class="tv-thumb-meta">
+            <span class="tv-thumb-title">${title}</span>
+            <span class="tv-thumb-time">${time}</span>
+          </div>
+        </div>
+      `;
+    };
+
+    gridEl.innerHTML = `
+      <div class="tv-past-grid-row">
+        ${getThumbHtml(p1, count)}
+        ${getThumbHtml(p2, count - 1)}
+        <div class="tv-past-thumb-card tv-past-view-more-card" id="tv-open-archive-grid-btn" title="View & Download All Past 30-Min Artworks" tabindex="0">
+          <div class="tv-thumb-more-inner">
+            <div class="tv-thumb-more-icon">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+            </div>
+            <span class="tv-more-text">View More</span>
+            <span class="tv-more-badge">${count > 2 ? `+${count - 2} Artworks &rarr;` : 'All Artworks &rarr;'}</span>
+          </div>
+        </div>
+      </div>
+    `;
+
+    gridEl.querySelectorAll('.tv-past-thumb-card[data-session-id]').forEach(card => {
+      card.onclick = () => {
+        const sid = card.getAttribute('data-session-id');
+        const session = this.pastSessions.find(s => s.id === sid);
+        if (session && this.pastSessionsManager) {
+          this.pastSessionsManager.showSessionModal(session);
+        }
+      };
+    });
+
+    const moreBtn = document.getElementById('tv-open-archive-grid-btn');
+    if (moreBtn) {
+      moreBtn.onclick = () => {
+        const featured = (this.pastSessions && this.pastSessions.length > 0)
+          ? this.pastSessions[this.pastSessions.length - 1]
+          : this.currentSession;
+        if (this.pastSessionsManager && featured) {
+          this.pastSessionsManager.showSessionModal(featured);
+        }
+      };
     }
   }
 
