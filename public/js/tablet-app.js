@@ -110,9 +110,7 @@ export class TabletApp {
                 <span class="step-dot ${this.currentStep === 4 ? 'active' : ''}"></span>
                 <span class="step-dot ${this.currentStep === 5 ? 'active' : ''}"></span>
               </div>
-              <span class="kiosk-hint">Touch an option to proceed · Tapestry continuously morphs on the vertical screen</span>
             ` : `
-              <span class="kiosk-hint">Tap any artwork to inspect attendee sentiment and generate Swag</span>
               <button class="tablet-quick-return-btn" id="footer-back-to-vote-btn" style="padding: 2px 10px; font-size: 0.72rem;">Back to Vote</button>
             `}
           </div>

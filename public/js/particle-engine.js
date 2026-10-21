@@ -125,59 +125,94 @@ export const THEME_PALETTES = {
 
   food: {
     vindaloo: {
-      accent: [225, 25, 20],
-      p0: [255, 45, 25], p1: [240, 30, 30], p2: [190, 18, 22], p7: [255, 15, 10], p9: [205, 25, 30]
+      accent: [235, 25, 20],
+      p3: [235, 25, 20], p4: [255, 65, 35], p5: [185, 20, 18]
     },
     bebinca: {
-      accent: [220, 155, 45],
-      p0: [250, 200, 65], p1: [220, 140, 40], p2: [160, 85, 25], p7: [240, 175, 45], p9: [195, 110, 30]
+      accent: [225, 155, 40],
+      p3: [225, 155, 40], p4: [255, 215, 70], p5: [170, 100, 30]
     },
     fish_curry: {
-      accent: [245, 180, 25],
-      p0: [255, 185, 25], p1: [235, 145, 30], p2: [180, 80, 28], p7: [55, 165, 145], p8: [48, 150, 135]
+      accent: [255, 195, 25],
+      p3: [255, 195, 25], p4: [35, 175, 125], p5: [255, 225, 80]
     },
     prawn_curry: {
-      accent: [255, 110, 100],
-      p0: [255, 150, 135], p1: [248, 125, 115], p2: [215, 90, 85], p7: [255, 115, 105], p10: [255, 140, 125]
+      accent: [255, 120, 110],
+      p3: [255, 120, 110], p4: [240, 145, 130], p5: [255, 185, 175]
     },
     xacuti: {
-      accent: [165, 90, 35],
-      p0: [220, 150, 68], p1: [180, 105, 42], p2: [130, 68, 25], p7: [200, 125, 48], p9: [150, 85, 32]
+      accent: [140, 75, 30],
+      p3: [140, 75, 30], p4: [200, 130, 45], p5: [115, 55, 22]
     },
     poe_bread: {
-      accent: [245, 225, 180],
-      p0: [245, 220, 170], p1: [220, 180, 125], p2: [170, 120, 70], p5: [255, 255, 250], p7: [230, 195, 140]
+      accent: [255, 250, 238],
+      p3: [255, 250, 238], p4: [210, 165, 105], p5: [180, 135, 75]
     }
   },
 
   location: {
     dudhsagar: {
-      accent: [65, 215, 165],
-      p0: [210, 245, 250], p1: [145, 220, 235], p5: [255, 255, 255], p8: [48, 165, 115]
+      accent: [35, 205, 125],
+      p6: [35, 205, 125], p7: [165, 245, 225], p8: [245, 255, 255]
     },
     aguada_fort: {
-      accent: [255, 215, 55],
-      p0: [255, 225, 65], p1: [245, 185, 55], p7: [255, 235, 110]
+      accent: [255, 225, 50],
+      p6: [255, 225, 50], p7: [255, 240, 120], p8: [90, 220, 235]
     },
     fontainhas: {
-      accent: [65, 135, 245],
-      p1: [250, 180, 45], p2: [225, 55, 80], p7: [70, 135, 240], p8: [235, 65, 140], p10: [245, 140, 45]
+      accent: [40, 105, 245],
+      p6: [40, 105, 245], p7: [60, 165, 255], p8: [245, 175, 35]
     },
     chapora_fort: {
-      accent: [205, 45, 35],
-      p1: [240, 100, 52], p2: [185, 42, 32], p8: [45, 105, 200]
+      accent: [215, 60, 40],
+      p6: [215, 60, 40], p7: [245, 150, 50], p8: [170, 50, 30]
     },
     palolem_beach: {
-      accent: [15, 195, 215],
-      p1: [255, 170, 100], p2: [48, 175, 170], p10: [255, 135, 115]
+      accent: [20, 210, 215],
+      p6: [20, 210, 215], p7: [245, 220, 160], p8: [85, 230, 200]
     },
     cabo_de_rama: {
-      accent: [229, 138, 66],
-      p0: [255, 195, 75], p2: [184, 58, 36], p10: [48, 122, 120]
+      accent: [30, 175, 220],
+      p6: [30, 175, 220], p7: [150, 80, 170], p8: [230, 135, 60]
     },
     old_goa_basilica: {
-      accent: [229, 138, 66],
-      p0: [255, 195, 75], p2: [184, 58, 36], p10: [48, 122, 120]
+      accent: [255, 215, 55],
+      p6: [255, 215, 55], p7: [155, 25, 50], p8: [195, 135, 45]
+    }
+  },
+
+  emblem: {
+    kingfisher: {
+      accent: [15, 225, 230],
+      p9: [15, 225, 230], p10: [25, 115, 245], p11: [10, 180, 210]
+    },
+    coconut_palm: {
+      accent: [40, 200, 105],
+      p9: [40, 200, 105], p10: [135, 220, 65], p11: [25, 150, 75]
+    },
+    coconut_tree: {
+      accent: [40, 200, 105],
+      p9: [40, 200, 105], p10: [135, 220, 65], p11: [25, 150, 75]
+    },
+    sea_turtle: {
+      accent: [25, 105, 140],
+      p9: [25, 105, 140], p10: [85, 190, 165], p11: [20, 75, 105]
+    },
+    carnival_spirit: {
+      accent: [245, 40, 140],
+      p9: [245, 40, 140], p10: [175, 60, 235], p11: [255, 225, 35]
+    },
+    susegad: {
+      accent: [175, 160, 220],
+      p9: [175, 160, 220], p10: [115, 210, 225], p11: [240, 245, 245]
+    },
+    mandovi_boat: {
+      accent: [60, 195, 225],
+      p9: [60, 195, 225], p10: [255, 252, 245], p11: [35, 130, 175]
+    },
+    sea_shell: {
+      accent: [245, 185, 195],
+      p9: [245, 185, 195], p10: [255, 240, 225], p11: [200, 145, 160]
     }
   }
 };
@@ -1510,12 +1545,15 @@ export class GoanArtworkEngine {
       const rwKey = this.recentInput.weather || weatherKey;
       const rfKey = this.recentInput.food || foodKey;
       const rlKey = this.recentInput.location || locKey;
+      const reKey = this.recentInput.emblem || 'mandovi_boat';
 
       const rwTheme = THEME_PALETTES.weather[rwKey] || wTheme;
       const rfTheme = THEME_PALETTES.food[rfKey] || fTheme;
       const rlTheme = THEME_PALETTES.location[rlKey] || lTheme;
+      const reTheme = THEME_PALETTES.emblem[reKey] || THEME_PALETTES.emblem.mandovi_boat;
 
       const inpPalette = new Float32Array(42);
+      // Start with Weather atmospheric palette
       for (let i = 0; i < 14; i++) {
         const rgb = rwTheme.p[i];
         const base = i * 3;
@@ -1524,26 +1562,43 @@ export class GoanArtworkEngine {
         inpPalette[base + 2] = rgb[2];
       }
 
+      // Weave Food / Flavour signature tones
       for (const [key, rgb] of Object.entries(rfTheme)) {
         if (key.startsWith('p')) {
           const idx = parseInt(key.substring(1), 10);
           if (idx >= 0 && idx < 14) {
             const base = idx * 3;
-            inpPalette[base] = inpPalette[base] * 0.2 + rgb[0] * 0.8;
-            inpPalette[base + 1] = inpPalette[base + 1] * 0.2 + rgb[1] * 0.8;
-            inpPalette[base + 2] = inpPalette[base + 2] * 0.2 + rgb[2] * 0.8;
+            inpPalette[base] = rgb[0];
+            inpPalette[base + 1] = rgb[1];
+            inpPalette[base + 2] = rgb[2];
           }
         }
       }
 
+      // Weave Landmark regional heritage tones
       for (const [key, rgb] of Object.entries(rlTheme)) {
         if (key.startsWith('p')) {
           const idx = parseInt(key.substring(1), 10);
           if (idx >= 0 && idx < 14) {
             const base = idx * 3;
-            inpPalette[base] = inpPalette[base] * 0.3 + rgb[0] * 0.7;
-            inpPalette[base + 1] = inpPalette[base + 1] * 0.3 + rgb[1] * 0.7;
-            inpPalette[base + 2] = inpPalette[base + 2] * 0.3 + rgb[2] * 0.7;
+            inpPalette[base] = rgb[0];
+            inpPalette[base + 1] = rgb[1];
+            inpPalette[base + 2] = rgb[2];
+          }
+        }
+      }
+
+      // Weave Cultural Emblem kinetic accent tones
+      if (reTheme) {
+        for (const [key, rgb] of Object.entries(reTheme)) {
+          if (key.startsWith('p')) {
+            const idx = parseInt(key.substring(1), 10);
+            if (idx >= 0 && idx < 14) {
+              const base = idx * 3;
+              inpPalette[base] = rgb[0];
+              inpPalette[base + 1] = rgb[1];
+              inpPalette[base + 2] = rgb[2];
+            }
           }
         }
       }
@@ -1575,43 +1630,34 @@ export class GoanArtworkEngine {
         this.targetBg[k] = collBg[k];
       }
       this.targetSunGlow = collSun;
-    }
 
-    // When Topology 1 (Intertwined Marine & Fire Strata) is active:
-    // Faithfully preserve the dual contrast between the Arabian Sea teal/aquamarine current
-    // and the laterite vermilion fire current as seen in the reference painting
-    if (this.currentTopology === 1) {
-      const marineFireOverrides = [
-        [255, 215, 45],  // 0: 24k Sun Gold
-        [228, 48, 22],   // 1: Fiery Vermilion
-        [220, 95, 38],   // 2: Terracotta Ochre
-        [150, 35, 20],   // 3: Deep Laterite Rust
-        [215, 138, 42],  // 4: Spiced Caramel Bebinca
-        [255, 245, 230], // 5: Coconut Ivory
-        [42, 15, 12],    // 6: Roasted Umber Ground
-        [20, 118, 135],  // 7: Deep Marine Teal
-        [46, 188, 208],  // 8: Vibrant Aquamarine
-        [110, 228, 240], // 9: Seafoam Turquoise
-        [232, 252, 255], // 10: Crystal Sea Spray Ivory
-        [14, 54, 68],    // 11: Abyssal Ocean Slate
-        [255, 78, 32],   // 12: Hot Chili Spark
-        [168, 62, 28]    // 13: Burnished Copper
-      ];
-      for (let i = 0; i < 14; i++) {
-        const rgb = marineFireOverrides[i];
-        const base = i * 3;
-        // Blend 82% authentic reference color with 18% crowd sentiment dynamics
-        this.targetPaletteRGB[base] = rgb[0] * 0.82 + this.targetPaletteRGB[base] * 0.18;
-        this.targetPaletteRGB[base + 1] = rgb[1] * 0.82 + this.targetPaletteRGB[base + 1] * 0.18;
-        this.targetPaletteRGB[base + 2] = rgb[2] * 0.82 + this.targetPaletteRGB[base + 2] * 0.18;
+      // When Topology 1 (Intertwined Marine & Fire Strata) is active AND no attendee has voted:
+      // Show default reference painting colors
+      if (this.currentTopology === 1) {
+        const marineFireOverrides = [
+          [255, 215, 45],  // 0: 24k Sun Gold
+          [228, 48, 22],   // 1: Fiery Vermilion
+          [220, 95, 38],   // 2: Terracotta Ochre
+          [150, 35, 20],   // 3: Deep Laterite Rust
+          [215, 138, 42],  // 4: Spiced Caramel Bebinca
+          [255, 245, 230], // 5: Coconut Ivory
+          [42, 15, 12],    // 6: Roasted Umber Ground
+          [20, 118, 135],  // 7: Deep Marine Teal
+          [46, 188, 208],  // 8: Vibrant Aquamarine
+          [110, 228, 240], // 9: Seafoam Turquoise
+          [232, 252, 255], // 10: Crystal Sea Spray Ivory
+          [14, 54, 68],    // 11: Abyssal Ocean Slate
+          [255, 78, 32],   // 12: Hot Chili Spark
+          [168, 62, 28]    // 13: Burnished Copper
+        ];
+        for (let i = 0; i < 14; i++) {
+          const rgb = marineFireOverrides[i];
+          const base = i * 3;
+          this.targetPaletteRGB[base] = rgb[0];
+          this.targetPaletteRGB[base + 1] = rgb[1];
+          this.targetPaletteRGB[base + 2] = rgb[2];
+        }
       }
-      this.targetBg = [
-        [38, 14, 9],     // Upper Right: Warm Laterite Umber around the Sun
-        [18, 30, 38],    // Mid Upper: Interlocking currents
-        [12, 38, 48],    // Mid Lower: Deep Arabian Sea
-        [8, 20, 26]      // Bottom: Abyssal ocean floor
-      ];
-      this.targetSunGlow = [242, 108, 38]; // Terracotta solar disc glow
     }
   }
 

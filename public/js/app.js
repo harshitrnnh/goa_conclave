@@ -469,7 +469,7 @@ class ConclaveApp {
         <!-- Survey Section (Step 1..6 dynamically rendered) -->
         <div class="tv-survey-section" id="tv-survey-section"></div>
 
-        <!-- Footer / Stepper & Touch Hint -->
+        <!-- Footer / Stepper -->
         <footer class="tv-kiosk-footer">
           <div class="tv-stepper-dots">
             <span class="tv-step-dot active"></span>
@@ -478,7 +478,6 @@ class ConclaveApp {
             <span class="tv-step-dot"></span>
             <span class="tv-step-dot"></span>
           </div>
-          <span class="tv-hint-text">Touch an option to proceed · Tapestry continuously morphs on the vertical screen</span>
         </footer>
       `;
 
@@ -847,17 +846,6 @@ class ConclaveApp {
     const footer = document.querySelector('.tv-kiosk-footer');
     if (footer) {
       footer.style.display = (this.tvSurvey.step === 6) ? 'none' : 'flex';
-    }
-
-    const hint = document.querySelector('.tv-hint-text');
-    if (hint) {
-      if (this.tvSurvey.step <= 4) {
-        hint.textContent = 'Touch an option to proceed · Tapestry continuously morphs on the vertical screen';
-      } else if (this.tvSurvey.step === 5) {
-        hint.textContent = 'Review your selections and tap "Weave Into Live Artwork" to submit';
-      } else {
-        hint.textContent = 'Artwork responding dynamically · Tap "Back to Input View" when ready for next attendee';
-      }
     }
   }
 
