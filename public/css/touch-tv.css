@@ -902,6 +902,51 @@
   font-style: italic;
 }
 
+.touch-tv-kiosk-side .impact-breakdown-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.touch-tv-kiosk-side .impact-breakdown-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(250, 243, 232, 0.7);
+  border: 1px solid rgba(135, 32, 18, 0.12);
+  border-radius: 7px;
+  padding: 5px 8px;
+}
+
+.touch-tv-kiosk-side .impact-breakdown-title {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Marcellus', serif;
+  font-size: 0.72rem;
+  color: #872012;
+}
+
+.touch-tv-kiosk-side .impact-row-icon {
+  font-size: 0.8rem;
+}
+
+.touch-tv-kiosk-side .impact-breakdown-desc {
+  font-size: 0.72rem;
+  line-height: 1.32;
+  color: #38150D;
+}
+
+.touch-tv-kiosk-side .impact-base-note {
+  margin-top: 6px;
+  padding-top: 4px;
+  border-top: 1px dashed rgba(184, 58, 36, 0.2);
+  font-size: 0.68rem;
+  color: #7A3528;
+  line-height: 1.25;
+}
+
 .touch-tv-kiosk-side .impact-card-pills {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -356,27 +356,37 @@ export function getArtworkImpactWriteup(response = {}) {
     sunny: {
       name: 'Sunny & Energetic',
       title: 'Solar Radiance & Corona Acceleration',
-      detail: 'Solar corona expansion, accelerating flow velocity with golden amber highlights.'
+      color: '24k Sun gold & molten amber solar palette with golden sun halo',
+      animation: 'Solar corona acceleration (+70% flow speed) & radiant pulse',
+      structure: 'Radial solar wind expanding outward from canvas center'
     },
     windy: {
       name: 'Windy & Restless',
       title: 'Breeze Vector Sweeps',
-      detail: 'Breeze vector sweeps across streamlines with buoyant swirling eddies.'
+      color: 'Windblown sand gold & sunset amber with seafoam mist accents',
+      animation: 'Diagonal wind sweep (+300% wind force) & turbulent eddy swirls',
+      structure: 'Sweeping dune drift streamlines across canvas diagonal'
     },
     rainy: {
       name: 'Rainy & Reflective',
       title: 'Monsoon Gravitational Cascades',
-      detail: 'Vertical gravitational cascades washing the canvas in deep slate-blue & teal.'
+      color: 'Monsoon slate-blue & deep marine aquamarine with droplet highlights',
+      animation: 'Downward gravity cascade (+320% pull) washing vertical streamlines',
+      structure: 'Vertical rainfall cascades plunging through the flow field'
     },
     stormy: {
       name: 'Stormy & Eclectic',
       title: 'Turbulent Angular Vortices',
-      detail: 'Angular vortices spiking kinetic turbulence and volatile fiery embers.'
+      color: 'Tempest volcanic magma red & chili crimson with electric fire halo',
+      animation: 'High-turbulence angular vortex (+340% vortex force, 2.5x speed)',
+      structure: 'Centripetal cyclone eye with volatile kinetic ember flares'
     },
     calm: {
       name: 'Calm & Serene',
       title: 'Susegad Harmonic Swells',
-      detail: 'Slow, rhythmic harmonic ocean breathing waves with serene aqua-indigo balance.'
+      color: 'Susegad champagne gold & mother-of-pearl ivory with jade horizon',
+      animation: 'Harmonic ocean breathing swells with deep viscous damping',
+      structure: 'Tranquil low-frequency horizontal wave strata'
     }
   };
 
@@ -384,121 +394,161 @@ export function getArtworkImpactWriteup(response = {}) {
     fish_curry: {
       name: 'Fish Curry',
       title: 'Turmeric Ochre & Emerald Tides',
-      detail: 'Deep turmeric ochre with Arabian Sea emerald accents.'
+      color: 'Turmeric ochre & Arabian Sea emerald pigments',
+      animation: 'Fluid hydrodynamic curls with rich coastal currents',
+      structure: 'Medium-bodied particle scale (+30%) & organic wave contours'
     },
     prawn_curry: {
       name: 'Prawn Curry',
       title: 'Warm Saffron Coral Glow',
-      detail: 'Warm coral-terracotta glow radiating coastal warmth & gentle pulse.'
+      color: 'Warm saffron coral-pink & roasted terracotta glow',
+      animation: 'Buoyant thermal updrafts with gentle warm pulses',
+      structure: 'Expanded luminous particle radius (+25%) with soft dispersion'
     },
     vindaloo: {
       name: 'Vindaloo',
       title: 'Chili Crimson Sparks & Heat',
-      detail: 'Chili crimson sparks & heat drifting through the flow field.'
+      color: 'Fiery chili-crimson sparks & roasted red pepper accents',
+      animation: 'Energetic spark bursts darting through the flow field',
+      structure: 'High-density burning chili ember particles (+320% density)'
     },
     xacuti: {
       name: 'Xacuti',
       title: 'Roasted Masala & Coconut Umber',
-      detail: 'Roasted masala umber tones, coconut cream & multi-spice speckles.'
+      color: 'Toasted coconut umber & dark roasted masala tones',
+      animation: 'Multi-speed spice drift with complex curl scale',
+      structure: 'Layered spice-particulate speckles & clustered nodes'
     },
     bebinca: {
       name: 'Bebinca',
       title: '7-Layer Caramelized Strata',
-      detail: '7 caramelized horizontal strata in toasted jaggery & golden ghee.'
+      color: 'Caramelized jaggery amber & golden ghee tones',
+      animation: 'Slow viscous horizontal strata glide',
+      structure: '7 distinct caramelized horizontal strata bands (+45% particle size)'
     },
     poe_bread: {
       name: 'Poe Bread',
       title: 'Flour Dust & Rustic Crust',
-      detail: 'Delicate flour dusting ivory speckles & rustic warm crust.'
+      color: 'Warm rustic wheat crust & delicate ivory dusting',
+      animation: 'Gentle flour suspension floating on ambient currents',
+      structure: 'Fine micro-flour dusting speckles (+340%) with compact micro-particles'
     }
   };
 
   const locationMap = {
     dudhsagar: {
       name: 'Dudhsagar Falls',
-      detail: 'Waterfall cascades with frothy mist spray down the center.'
+      color: 'frothy waterfall emerald & mist spray',
+      animation: 'High-velocity downward plunge shockwave from top crest',
+      structure: 'Dense central vertical waterfall cascade channel'
     },
     aguada_fort: {
       name: 'Aguada Lighthouse',
-      detail: 'Dual rotating lighthouse beacon beams sweeping the cloud.'
+      color: 'historic lighthouse beacon gold & ocean foam',
+      animation: '360° sweeping radial beacon shockwave expanding from tower',
+      structure: 'Concentric dual-ring orbital light shells'
     },
     fontainhas: {
       name: 'Fontainhas Quarter',
-      detail: 'Architectural nodes in Portuguese ochre, cobalt & terracotta.'
+      color: 'Portuguese colonial cobalt blue & terracotta wash',
+      animation: 'Multicolored nodal pulse rippling through quarters',
+      structure: 'Interconnected heritage architectural node clusters'
     },
     chapora_fort: {
       name: 'Chapora Fort Ridge',
-      detail: 'Clifftop perimeter stone ridge with expansive horizon drift.'
+      color: 'laterite clifftop ochre & red earth horizon tint',
+      animation: 'Broad clifftop perimeter horizon shockwave sweeping outward',
+      structure: 'Elevated ridge perimeter contour line'
     },
     palolem_beach: {
       name: 'Palolem Beach',
-      detail: 'Graceful coastal crescent bay arc with gentle rolling surf.'
+      color: 'tropical turquoise surf & crescent sand gold',
+      animation: 'Crescent bay shockwave rolling upward from southern coast',
+      structure: 'Smooth sweeping crescent shoreline arc'
     },
     cabo_de_rama: {
       name: 'Cabo de Rama Fort',
-      detail: 'Clifftop promontory over ocean swells with warm thermal updrafts.'
+      color: 'clifftop ocean cyan & sunset amber cliffside glow',
+      animation: 'Elevated promontory shockwave with thermal updrafts',
+      structure: 'Promontory cliff edge meeting open-sea swells'
     },
     old_goa_basilica: {
       name: 'Old Goa Basilica',
-      detail: 'Sacred baroque gilded contours & solemn choral resonance.'
+      color: 'sacred baroque gilded gold & deep ceremonial crimson',
+      animation: 'Resonant harmonic shockwave echoing through canvas',
+      structure: 'Symmetrical baroque arched contours & gilded strata'
     }
   };
 
   const emblemMap = {
     mandovi_boat: {
       name: 'Mandovi Sailboat',
-      detail: 'Kinetic wake ripples carving smoothly across currents.'
+      animation: 'Fluid kinetic wake ripples (+360% wake force) carving wave trails behind currents'
     },
     coconut_palm: {
       name: 'Coconut Palm',
-      detail: 'Arching frond canopy tendrils overhead with emerald resilience.'
+      animation: 'Arching canopy frond tendrils swaying rhythmically across overhead currents'
+    },
+    coconut_tree: {
+      name: 'Coconut Palm',
+      animation: 'Arching canopy frond tendrils swaying rhythmically across overhead currents'
     },
     sea_turtle: {
       name: 'Olive Ridley Turtle',
-      detail: 'Deep oceanic gliding currents & tranquil hydrodynamic swells.'
+      animation: 'Deep ocean hydrodynamic gliding swells (+340% turtle swell) with peaceful fluid drift'
     },
     kingfisher: {
       name: 'Goan Kingfisher',
-      detail: 'Agile turquoise-azure dart streaks cutting swiftly through flow.'
+      animation: 'Agile turquoise-azure dart streaks (+400% dart velocity) slicing swiftly across the flow'
     },
     carnival_spirit: {
       name: 'Viva Carnival Mask',
-      detail: 'Festive micro-bursts of multi-colored sparks & buoyant rhythm.'
+      animation: 'Festive celebratory micro-bursts of multi-colored sparks & rhythmic buoyant pulses'
     },
     susegad: {
       name: 'Susegad Hammock',
-      detail: 'Contemplative stillness, smooth viscosity & deep harmony.'
+      animation: 'Peaceful wave damping (+300% damping) & meditative viscous stillness'
+    },
+    sea_shell: {
+      name: 'Goan Sea Shell',
+      animation: 'Harmonic spiral resonance & gentle ocean tide swells'
     }
   };
 
   const wKey = (response.weather || 'sunny').toLowerCase();
   const fKey = (response.food || 'fish_curry').toLowerCase();
-  const lKey = (response.location || '').toLowerCase();
-  const eKey = (response.emblem || '').toLowerCase();
+  const lKey = (response.location || 'aguada_fort').toLowerCase();
+  const eKey = (response.emblem || 'mandovi_boat').toLowerCase();
 
   const w = weatherMap[wKey] || weatherMap.sunny;
   const f = foodMap[fKey] || foodMap.fish_curry;
   const loc = locationMap[lKey] || locationMap.aguada_fort;
   const emb = emblemMap[eKey] || emblemMap.mandovi_boat;
 
+  const colorsText = `${w.color}, enriched with ${f.color} and ${loc.color}.`;
+  const animationText = `${w.animation}. Modulated by ${emb.name}: ${emb.animation}.`;
+  const structureText = `${f.structure}. Layered with ${loc.name} geometry (${loc.structure}).`;
+
   const highlights = [
-    { label: `Weather: ${w.name}`, text: w.detail },
-    { label: `Flavour: ${f.name}`, text: f.detail },
-    { label: `Landmark: ${loc.name}`, text: loc.detail },
-    { label: `Emblem: ${emb.name}`, text: emb.detail }
+    { label: `Colors Added`, text: colorsText },
+    { label: `Animation & Flow`, text: animationText },
+    { label: `Structural Changes`, text: structureText }
   ];
 
   const summary = `Dynamic flow, color resonance & motion accents woven into the live 42,000 particle tapestry.`;
   const conciseNote = `${w.name} & ${f.name} palette merged with ${loc.name} geometry and ${emb.name} motion.`;
 
   return {
-    headline: `${w.title} · ${f.title}`,
+    headline: `${w.name} · ${f.name}`,
     summary,
     conciseNote,
-    weatherDetail: w.detail,
-    foodDetail: f.detail,
-    locationDetail: loc ? loc.detail : null,
-    emblemDetail: emb ? emb.detail : null,
+    colorsText,
+    animationText,
+    structureText,
+    weatherDetail: w.animation,
+    foodDetail: f.color,
+    locationDetail: loc ? loc.structure : null,
+    emblemDetail: emb ? emb.animation : null,
     highlights
   };
 }

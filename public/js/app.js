@@ -809,15 +809,42 @@ class ConclaveApp {
           Watch the live vertical screen! The particle tapestry is dynamically responding to your choices.
         </p>
 
-        <!-- Dynamic Artwork Transformation Writeup (Concise) -->
-        <div class="impact-writeup-card concise-card">
+        <!-- Dynamic Artwork Transformation Writeup (Detailed, Accurate & Understandable) -->
+        <div class="impact-writeup-card detailed-impact-card">
           <div class="impact-card-header">
-            <span class="impact-card-badge">✨ Live Transformation</span>
+            <span class="impact-card-badge">✨ Live Transformation Applied</span>
             <span class="impact-card-tagline">${impact.headline}</span>
           </div>
-          <p class="impact-card-summary" style="margin: 0; font-size: 0.9rem; font-style: normal; color: #4A170B; font-weight: 500; line-height: 1.45;">
-            ${impact.conciseNote}
-          </p>
+
+          <div class="impact-breakdown-list">
+            <div class="impact-breakdown-row">
+              <div class="impact-breakdown-title">
+                <span class="impact-row-icon">🎨</span>
+                <strong>Colors Added:</strong>
+              </div>
+              <div class="impact-breakdown-desc">${impact.colorsText}</div>
+            </div>
+
+            <div class="impact-breakdown-row">
+              <div class="impact-breakdown-title">
+                <span class="impact-row-icon">⚡</span>
+                <strong>Animation & Flow:</strong>
+              </div>
+              <div class="impact-breakdown-desc">${impact.animationText}</div>
+            </div>
+
+            <div class="impact-breakdown-row">
+              <div class="impact-breakdown-title">
+                <span class="impact-row-icon">🏛️</span>
+                <strong>Structural Changes:</strong>
+              </div>
+              <div class="impact-breakdown-desc">${impact.structureText}</div>
+            </div>
+          </div>
+
+          <div class="impact-base-note">
+            <span>ℹ️ <strong>Base Canvas Form:</strong> Macro spatial topology stays stable and morphs every 30 mins.</span>
+          </div>
         </div>
 
         <div class="success-actions">
