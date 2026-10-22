@@ -179,18 +179,18 @@ export class SentimentEngine {
     // 1. WEATHER MAPPINGS (Physics, Flow & Solar)
     // ==========================================
     // Flow Speed & Turbulence
-    target.flowSpeed = 0.5 + (wDist.sunny * 0.9) + (wDist.windy * 2.8) + (wDist.stormy * 2.0) - (wDist.calm * 0.3);
-    target.turbulence = 0.3 + (wDist.stormy * 2.2) + (wDist.windy * 1.8) - (wDist.calm * 0.25);
-    target.curlScale = 0.0018 + (wDist.stormy * 0.0035) + (wDist.windy * 0.0028);
+    target.flowSpeed = 0.5 + (wDist.sunny * 0.9) + (wDist.windy * 1.0) + (wDist.stormy * 1.8) - (wDist.calm * 0.3);
+    target.turbulence = 0.3 + (wDist.stormy * 2.0) + (wDist.windy * 0.6) - (wDist.calm * 0.25);
+    target.curlScale = 0.0018 + (wDist.stormy * 0.0035) + (wDist.windy * 0.0010);
 
     // Directional Biases & Physical Forces
-    target.windSweep = wDist.windy * 4.2;
+    target.windSweep = wDist.windy * 1.8;
     target.rainGravity = wDist.rainy * 2.2;
     target.stormVortex = wDist.stormy * 2.5;
     target.calmSwell = wDist.calm * 1.8;
 
-    target.biasX = (wDist.windy * 3.6) + (wDist.sunny * 0.2) - (wDist.rainy * 0.3);
-    target.biasY = (wDist.rainy * 2.0) - (wDist.windy * 0.9) - (wDist.sunny * 0.1);
+    target.biasX = (wDist.windy * 0.6) + (wDist.sunny * 0.2) - (wDist.rainy * 0.3);
+    target.biasY = (wDist.rainy * 2.0) - (wDist.windy * 0.2) - (wDist.sunny * 0.1);
 
     // Solar Center & Corona
     target.sunRadius = 130 + (wDist.sunny * 140) + (lDist.aguada_fort * 60) - (wDist.rainy * 40);

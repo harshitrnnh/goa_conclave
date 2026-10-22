@@ -1742,11 +1742,11 @@ export class GoanArtworkEngine {
         p.sunPulseSpeed = 1.20;
         p.sunIntensity = 1.40;
       } else if (wKey === 'windy') {
-        p.windSweep = 3.80;
-        p.biasX = 2.80;
-        p.biasY = -0.80;
-        p.flowSpeed = 2.50;
-        p.turbulence = 1.80;
+        p.windSweep = 1.80;
+        p.biasX = 0.50;
+        p.biasY = -0.15;
+        p.flowSpeed = 1.25;
+        p.turbulence = 0.75;
       } else if (wKey === 'rainy') {
         p.rainGravity = 1.80;
         p.biasX = 0;
@@ -2111,9 +2111,9 @@ export class GoanArtworkEngine {
         let targetY = sunY + Math.sin(curAngle) * dynamicRad;
 
         if (p.windSweep > 0.2) {
-          const windDrift = (dist / (sunRad * 1.5)) * 46.0 * (p.windSweep / 2.5);
-          targetX += Math.sin(this.time * 2.2 + curAngle) * 14.0 + windDrift;
-          targetY -= Math.cos(this.time * 2.0 + curAngle) * 10.0 + windDrift * 0.35;
+          const windDrift = (dist / (sunRad * 2.0)) * 8.0 * (p.windSweep / 2.0);
+          targetX += Math.sin(this.time * 1.8 + curAngle) * 5.0 + windDrift;
+          targetY -= Math.cos(this.time * 1.6 + curAngle) * 4.0;
         }
 
         this.px[i] += (targetX - this.px[i]) * 0.035;
@@ -2141,14 +2141,12 @@ export class GoanArtworkEngine {
       // 1. WEATHER PHYSICAL FORCES & CURRENTS (Question 1)
       // ----------------------------------------------------
       if (p.windSweep > 0.15) {
-        // Dramatic multi-harmonic wind surges & sweeping gusts
-        const gustCycle = Math.sin(this.time * 2.2 + (x * 0.002 + y * 0.004));
-        const gustSurge = (gustCycle * 1.6 + Math.sin(this.time * 4.2 + y * 0.008) * 0.9 + 1.8);
-        fx += gustSurge * 1.8 * p.windSweep;
-        // Thermal coastal lift & eddy flutter
-        fy -= (Math.cos(this.time * 2.0 + x * 0.003) * 0.75 + 0.5) * p.windSweep;
-        // Aerodynamic ripple oscillation
-        fx += Math.sin(this.time * 5.4 + (y + this.phase[i]) * 0.012) * 0.85 * p.windSweep;
+        // Zero-centered dynamic wind waves & breezy flutter along the artwork's contours
+        const windGust = Math.sin(this.time * 2.4 + (x * 0.003 + y * 0.005)) * 0.85 * p.windSweep;
+        const windFlutter = Math.sin(this.time * 4.6 + (y + this.phase[i]) * 0.015) * 0.45 * p.windSweep;
+        fx += windGust + windFlutter;
+        // Subtle vertical breathing thermal wave
+        fy += Math.cos(this.time * 2.0 + x * 0.004) * 0.35 * p.windSweep;
       }
       if (p.rainGravity > 0.15) {
         fy += (Math.sin(this.phase[i] + this.time * 2.6) * 0.6 + 0.9) * p.rainGravity;
@@ -2288,10 +2286,9 @@ export class GoanArtworkEngine {
 
       // 1. Weather Structural Flex:
       if (p.windSweep > 0.2) {
-        const windPower = Math.min(4.0, p.windSweep);
-        // Dramatic rolling sweep & elastic dune sway
-        sox += (Math.sin(y * 0.0032 + this.time * 2.2) * 58.0 + Math.sin(y * 0.0012 + this.time * 1.0) * 42.0) * (windPower / 2.2);
-        soy += (Math.cos(x * 0.003 + this.time * 1.8) * 24.0 - 18.0) * (windPower / 2.2);
+        // Subtle, graceful coastal breeze sway that preserves full shape clarity
+        sox += Math.sin(y * 0.003 + this.time * 1.5) * 12.0 * (p.windSweep / 2.0);
+        soy += Math.cos(x * 0.003 + this.time * 1.2) * 6.0 * (p.windSweep / 2.0);
       }
       if (p.rainGravity > 0.2) {
         soy += Math.sin(x * 0.008) * 16.0 * (p.rainGravity / 3.4);
