@@ -19,44 +19,42 @@
    LEFT PANEL: Computational Artwork Canvas (Uncropped 9:16 / 16:9 Vertical Ratio)
    ========================================================================== */
 .touch-tv-screen-side {
-  flex: 0 0 63.5%;
-  width: 63.5%;
+  flex: 0 0 50vw;
+  width: 50vw;
   height: 100vh;
   position: relative;
-  background: radial-gradient(circle at 50% 30%, #1e0905 0%, #0d0403 70%, #050201 100%);
+  background: #050201;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 16px;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
+  border-right: 2px solid rgba(135, 32, 18, 0.35);
+  box-shadow: 6px 0 35px rgba(0, 0, 0, 0.9);
 }
 
 .tv-vertical-screen-frame {
   position: relative;
-  height: calc(100vh - 36px);
-  max-height: 96vh;
-  width: calc((100vh - 36px) * 9 / 16);
-  aspect-ratio: 9 / 16;
-  max-width: calc(63.5vw - 32px);
+  height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100vh;
   background-color: #050201;
-  border-radius: 16px;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 
-    0 25px 60px rgba(0, 0, 0, 0.95),
-    0 0 40px rgba(221, 104, 41, 0.22),
-    inset 0 0 25px rgba(0, 0, 0, 0.9);
-  border: 1px solid rgba(242, 194, 73, 0.35);
+  box-shadow: none;
+  border: none;
   display: flex;
   flex-direction: column;
-  flex-shrink: 0;
 }
 
 .tv-vertical-screen-frame .computational-artwork-canvas {
   width: 100%;
   height: 100%;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   background-color: #0b0302;
 }
 
@@ -138,11 +136,11 @@
 }
 
 /* ==========================================================================
-   RIGHT PANEL: Touch Tablet Kiosk (~36.5% width)
+   RIGHT PANEL: Touch Tablet Kiosk (50% width)
    ========================================================================== */
 .touch-tv-kiosk-side {
-  flex: 0 0 36.5%;
-  width: 36.5%;
+  flex: 0 0 50vw;
+  width: 50vw;
   height: 100vh;
   max-height: 100vh;
   background-color: #FAF3E8;
@@ -150,10 +148,10 @@
     radial-gradient(rgba(135, 32, 18, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, #FAF3E8 0%, #F5EAE0 100%);
   background-size: 20px 20px, 100% 100%;
-  border-left: 1px solid rgba(135, 32, 18, 0.2);
+  border-left: none;
   display: flex;
   flex-direction: column;
-  padding: 16px 20px 16px 20px;
+  padding: 10px 14px 10px 14px;
   box-sizing: border-box;
   overflow-y: auto !important;
   overflow-x: hidden !important;
@@ -185,7 +183,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
   flex-shrink: 0;
   width: 100%;
 }
@@ -231,8 +229,8 @@
 }
 
 .tv-artist-photo {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   object-fit: cover;
   border: 1.5px solid #D4AF37;
@@ -242,8 +240,8 @@
 
 .tv-artist-bio-text {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.72rem;
-  line-height: 1.32;
+  font-size: 0.70rem;
+  line-height: 1.30;
   color: #5C2216;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -253,7 +251,7 @@
 .tv-nav-bar-row {
   display: flex;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   flex-shrink: 0;
   width: 100%;
 }
@@ -1171,3 +1169,403 @@ body:has(.touch-tv-layout) .influx-toast-container,
   width: 100%;
   margin-top: 8px;
 }
+
+/* ==========================================================================
+   1-SCREEN ALL-IN-ONE VOTING INTERFACE
+   ========================================================================== */
+.tv-1screen-vote-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  height: auto;
+}
+
+.tv-current-artwork-card.compact-live-card {
+  padding: 4px 10px;
+  margin-bottom: 0px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(135, 32, 18, 0.2);
+  border-radius: 8px;
+}
+
+.tv-current-artwork-card.compact-live-card .tv-current-art-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1px;
+}
+
+.tv-current-artwork-card.compact-live-card .tv-current-art-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #872012;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.tv-current-artwork-card.compact-live-card .tv-current-art-desc {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  color: #5A2016;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 4 Categories on 1 Screen */
+.tv-1screen-choices-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1 1 auto;
+}
+
+.tv-choice-category {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(135, 32, 18, 0.16);
+  border-radius: 8px;
+  padding: 4px 6px 5px;
+  box-shadow: 0 1px 3px rgba(135, 32, 18, 0.04);
+}
+
+.tv-choice-cat-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 3px;
+}
+
+.tv-cat-badge {
+  width: 16px;
+  height: 16px;
+  background: #872012;
+  color: #FAF3E8;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.tv-cat-title {
+  font-family: 'Cinzel', 'Marcellus', serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #3B140D;
+  letter-spacing: 0.03em;
+}
+
+.tv-cat-sub {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.68rem;
+  color: #8C584C;
+}
+
+/* Grids in 1-screen view */
+.tv-choice-options-grid {
+  display: grid !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.tv-choice-options-grid.weather-grid {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 6px !important;
+}
+
+.tv-choice-options-grid.food-grid,
+.tv-choice-options-grid.location-grid,
+.tv-choice-options-grid.emblem-grid {
+  display: grid !important;
+  grid-template-columns: repeat(6, 1fr) !important;
+  gap: 5px !important;
+}
+
+.tv-choice-category {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(135, 32, 18, 0.16);
+  border-radius: 9px;
+  padding: 5px 8px 6px;
+  box-shadow: 0 1px 4px rgba(135, 32, 18, 0.04);
+}
+
+.tv-choice-category .sentiment-card.tv-option-btn {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 4px 2px !important;
+  border-radius: 8px !important;
+  transition: all 0.18s ease;
+  background: transparent !important;
+  border: 1.5px solid transparent !important;
+  cursor: pointer;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.tv-choice-category .sentiment-card.tv-option-btn:hover {
+  background: rgba(135, 32, 18, 0.06) !important;
+  transform: translateY(-1px);
+}
+
+.tv-choice-category .sentiment-card.tv-option-btn.selected {
+  background: rgba(135, 32, 18, 0.12) !important;
+  border-color: rgba(135, 32, 18, 0.55) !important;
+  box-shadow: 0 2px 8px rgba(135, 32, 18, 0.15) !important;
+}
+
+.tv-choice-category .sentiment-icon-circle {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50%;
+  background: #C4432B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF8EE;
+  margin: 0 auto 2px auto !important;
+  box-shadow: 0 2px 5px rgba(135, 32, 18, 0.22);
+  transition: all 0.2s ease;
+}
+
+.tv-choice-category .sentiment-card.tv-option-btn.selected .sentiment-icon-circle {
+  background: #872012 !important;
+  box-shadow: 0 0 0 2px #F2C249, 0 3px 8px rgba(135, 32, 18, 0.45) !important;
+  transform: scale(1.05);
+}
+
+.tv-choice-category .sentiment-icon-circle svg {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.tv-choice-category .sentiment-card-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.tv-choice-category .label-primary {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  color: #3B140D !important;
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+}
+
+.tv-choice-category .label-secondary {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.54rem !important;
+  color: #8C584C !important;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-align: center;
+}
+
+/* Bottom Action Bar */
+.tv-bottom-action-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  margin-top: 5px;
+  padding-top: 6px;
+  border-top: 1.5px solid rgba(135, 32, 18, 0.18);
+  flex-shrink: 0;
+}
+
+.tv-action-qr-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1.5px solid rgba(135, 32, 18, 0.24);
+  border-radius: 8px;
+  padding: 3px 8px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(135, 32, 18, 0.08);
+}
+
+.tv-action-qr-box {
+  width: 44px;
+  height: 44px;
+  background: #FAF3E8;
+  border-radius: 5px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.tv-action-qr-box .qr-code-wrapper,
+.tv-action-qr-box .qr-link,
+.tv-action-qr-box .qr-image {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  object-fit: contain;
+}
+
+.tv-action-qr-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tv-action-qr-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.70rem;
+  font-weight: 700;
+  color: #7A2818;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.tv-action-qr-desc {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.58rem;
+  color: #8C584C;
+  line-height: 1.15;
+}
+
+.tv-action-submit-card {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tv-submit-weave-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #9C2A1B 0%, #7A2014 100%);
+  color: #FFF8EE;
+  border: 2px solid #F2C249;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  box-shadow: 0 3px 12px rgba(135, 32, 18, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.tv-submit-weave-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(135, 32, 18, 0.5);
+  background: linear-gradient(135deg, #AF3221 0%, #872012 100%);
+}
+
+.tv-submit-weave-btn:active {
+  transform: translateY(0);
+}
+
+.tv-weave-btn-icon {
+  font-size: 1rem;
+  color: #FFD54F;
+  filter: drop-shadow(0 0 4px #F2C249);
+}
+
+.tv-submit-toast {
+  background: #2E120D;
+  color: #F2C249;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid rgba(242, 194, 73, 0.4);
+  animation: fadeInToast 0.25s ease-out;
+}
+
+/* Perfect fit for 768p and smaller vertical spaces */
+@media (max-height: 850px) {
+  .touch-tv-kiosk-side {
+    padding: 8px 12px 6px 12px !important;
+  }
+  .tv-artist-bio-row {
+    display: none !important;
+  }
+  .tv-kiosk-header {
+    margin-bottom: 3px !important;
+  }
+  .tv-nav-bar-row {
+    margin-bottom: 4px !important;
+  }
+  .tv-1screen-vote-layout {
+    gap: 4px !important;
+  }
+  .tv-1screen-choices-wrap {
+    gap: 4px !important;
+  }
+  .tv-choice-category {
+    padding: 3px 5px 3px !important;
+  }
+  .tv-choice-cat-header {
+    margin-bottom: 2px !important;
+  }
+  .tv-choice-category .sentiment-icon-circle {
+    width: 26px !important;
+    height: 26px !important;
+    margin: 0 auto 1px auto !important;
+  }
+  .tv-choice-category .sentiment-icon-circle svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+  .tv-choice-category .label-primary {
+    font-size: 0.60rem !important;
+  }
+  .tv-choice-category .label-secondary {
+    font-size: 0.50rem !important;
+  }
+  .tv-bottom-action-bar {
+    margin-top: 3px !important;
+    padding-top: 3px !important;
+  }
+}
+
+.tv-weave-btn-icon {
+  font-size: 1.1rem;
+  color: #FFD54F;
+  filter: drop-shadow(0 0 4px #F2C249);
+}
+
+.tv-submit-toast {
+  background: #2E120D;
+  color: #F2C249;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  text-align: center;
+  border: 1px solid rgba(242, 194, 73, 0.4);
+  animation: fadeInToast 0.25s ease-out;
+}
+

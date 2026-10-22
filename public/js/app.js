@@ -20,11 +20,11 @@ class ConclaveApp {
     this.qrHelper = null;
 
     this.tvSurvey = {
-      step: 1, // 1: Weather, 2: Food, 3: Location, 4: Emblem, 5: Reflection/Submit, 6: Success
-      weather: null,
-      food: null,
-      location: null,
-      emblem: null,
+      step: 1,
+      weather: 'sunny',
+      food: 'fish_curry',
+      location: 'aguada_fort',
+      emblem: 'mandovi_boat',
       author: '',
       note: '',
       resetTimer: null
@@ -334,17 +334,11 @@ class ConclaveApp {
 
     this.root.innerHTML = `
       <main class="touch-tv-layout" id="touch-tv-root">
-        <!-- 1. LEFT PANEL: Full-Height Computational Artwork (Uncropped 16-9 Vertical Screen Ratio) -->
+        <!-- 1. LEFT PANEL: Full-Height Computational Artwork (Uncropped Edge-to-Edge Canvas) -->
         <section class="touch-tv-screen-side" aria-label="Conference Sentiment Computational Artwork">
           <div class="tv-vertical-screen-frame" id="vertical-frame">
             <canvas id="artwork-canvas" class="computational-artwork-canvas"></canvas>
           </div>
-
-          <!-- Outside QR code on left of vertical artwork screen -->
-          <aside class="tv-outside-qr-card" aria-label="Scan to Participate">
-            <span class="tv-outside-qr-title">Scan to Participate</span>
-            <div class="tv-outside-qr-box" id="screen-qr-container"></div>
-          </aside>
         </section>
 
         <!-- 2. RIGHT PANEL: Touch-Enabled Tablet Kiosk (~36.5%) -->
@@ -458,38 +452,43 @@ class ConclaveApp {
           }));
 
       bodyContainer.innerHTML = `
-        <!-- Previous 2 Artworks Grid with 3rd View More Card (Above Current Artwork Description) -->
-        <div class="tv-past-preview-grid" id="tv-past-preview-grid"></div>
-
-        <!-- Current Live Artwork Information (Title & Brief Description) -->
-        <div class="tv-current-artwork-card" id="tv-current-artwork-card">
-          <div class="tv-current-art-top-row">
-            <div class="tv-current-art-header">
+        <div class="tv-1screen-vote-layout">
+          <!-- Current Live Artwork Information (Title & Brief Description) -->
+          <div class="tv-current-artwork-card compact-live-card" id="tv-current-artwork-card">
+            <div class="tv-current-art-top-row">
               <span class="tv-live-pulse-dot"></span>
               <span class="tv-current-art-badge">CURRENT LIVE ARTWORK</span>
+              <h3 class="tv-current-art-title" id="tv-current-art-title">${session.topologyInfo?.name || session.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h3>
             </div>
+            <p class="tv-current-art-desc" id="tv-current-art-desc">${session.topologyInfo?.reasoning || session.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'}</p>
           </div>
-          <h3 class="tv-current-art-title" id="tv-current-art-title">${session.topologyInfo?.name || session.name || 'Mandovi River Sailboat & Fluvial Wake Currents'}</h3>
-          <p class="tv-current-art-desc" id="tv-current-art-desc">${session.topologyInfo?.reasoning || session.description || 'Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.'}</p>
+
+          <!-- 4 Question Categories on 1 Screen -->
+          ${this.getTVAllChoicesHtml()}
+
+          <!-- Bottom Action Bar: QR Card + Weave Submit Button -->
+          <footer class="tv-bottom-action-bar">
+            <div class="tv-action-qr-card" aria-label="Mobile Scan">
+              <div class="tv-action-qr-box" id="screen-qr-container"></div>
+              <div class="tv-action-qr-info">
+                <span class="tv-action-qr-title">Mobile Scan</span>
+                <span class="tv-action-qr-desc">Scan to vote on phone</span>
+              </div>
+            </div>
+
+            <div class="tv-action-submit-card">
+              <button type="button" class="tv-submit-weave-btn" id="tv-submit-weave-btn">
+                <span class="tv-weave-btn-icon">✦</span>
+                <span>Weave Choices into Artwork</span>
+              </button>
+              <div id="tv-submit-status"></div>
+            </div>
+          </footer>
         </div>
-
-        <!-- Survey Section (Step 1..6 dynamically rendered) -->
-        <div class="tv-survey-section" id="tv-survey-section"></div>
-
-        <!-- Footer / Stepper -->
-        <footer class="tv-kiosk-footer">
-          <div class="tv-stepper-dots">
-            <span class="tv-step-dot active"></span>
-            <span class="tv-step-dot"></span>
-            <span class="tv-step-dot"></span>
-            <span class="tv-step-dot"></span>
-            <span class="tv-step-dot"></span>
-          </div>
-        </footer>
       `;
 
-      this.renderTVPastPreviewGrid();
-      this.renderTVSurveyStep();
+      this.bindTV1ScreenEvents();
+      this.mountQRHelpers();
     }
   }
 
@@ -589,47 +588,8 @@ class ConclaveApp {
   // ==========================================================================
   // TOUCH TV INTERACTIVE MULTI-STEP SURVEY (Matches Tablet Behavior)
   // ==========================================================================
-  renderTVSurveyStep() {
-    const container = document.getElementById('tv-survey-section');
-    if (!container) return;
-
-    if (this.tvSurvey.resetTimer) {
-      clearInterval(this.tvSurvey.resetTimer);
-      this.tvSurvey.resetTimer = null;
-    }
-
-    let stepHtml = '';
-    switch (this.tvSurvey.step) {
-      case 1:
-        stepHtml = this.getTVSurveyWeatherHtml();
-        break;
-      case 2:
-        stepHtml = this.getTVSurveyFoodHtml();
-        break;
-      case 3:
-        stepHtml = this.getTVSurveyLocationHtml();
-        break;
-      case 4:
-        stepHtml = this.getTVSurveyEmblemHtml();
-        break;
-      case 5:
-        stepHtml = this.getTVSurveyReflectionHtml();
-        break;
-      case 6:
-        stepHtml = this.getTVSurveySuccessHtml();
-        break;
-      default:
-        this.tvSurvey.step = 1;
-        stepHtml = this.getTVSurveyWeatherHtml();
-    }
-
-    container.innerHTML = stepHtml;
-    this.updateTVStepper();
-    this.bindTVSurveyEvents();
-  }
-
-  getTVSurveyWeatherHtml() {
-    const options = [
+  getTVAllChoicesHtml() {
+    const weatherOptions = [
       { id: 'sunny', label: 'Sunny', sub: '& Energetic', icon: WEATHER_ICONS.sunny },
       { id: 'windy', label: 'Windy', sub: '& Restless', icon: WEATHER_ICONS.windy },
       { id: 'rainy', label: 'Rainy', sub: '& Reflective', icon: WEATHER_ICONS.rainy },
@@ -637,224 +597,120 @@ class ConclaveApp {
       { id: 'calm', label: 'Calm', sub: '& Serene', icon: WEATHER_ICONS.calm }
     ];
 
-    return `
-      <section class="question-section" aria-label="Question 1: Weather of Goa">
-        <h2 class="question-title">What did the previous session of the Conclave feel like in terms of the weather of Goa?</h2>
-        <div class="sentiment-grid weather-grid" id="tv-weather-options">
-          ${options.map(opt => `
-            <button class="sentiment-card tv-option-btn ${this.tvSurvey.weather === opt.id ? 'selected' : ''}" data-type="weather" data-value="${opt.id}" title="${opt.label}">
-              <div class="sentiment-icon-circle">
-                ${opt.icon}
-              </div>
-              <div class="sentiment-card-label">
-                <span class="label-primary">${opt.label}</span>
-                <span class="label-secondary">${opt.sub}</span>
-              </div>
-            </button>
-          `).join('')}
-        </div>
-      </section>
-    `;
-  }
+    const foodOptions = [
+      { id: 'fish_curry', label: 'Fish Curry', sub: '(Bold)', icon: FOOD_ICONS.fish_curry },
+      { id: 'prawn_curry', label: 'Prawn Curry', sub: '(Warm)', icon: FOOD_ICONS.prawn_curry },
+      { id: 'vindaloo', label: 'Vindaloo', sub: '(Spicy)', icon: FOOD_ICONS.vindaloo },
+      { id: 'xacuti', label: 'Xacuti', sub: '(Layered)', icon: FOOD_ICONS.xacuti },
+      { id: 'bebinca', label: 'Bebinca', sub: '(Sweet)', icon: FOOD_ICONS.bebinca },
+      { id: 'poe_bread', label: 'Poe Bread', sub: '(Comfort)', icon: FOOD_ICONS.poe_bread }
+    ];
 
-  getTVSurveyFoodHtml() {
-    const options = [
-      { id: 'fish_curry', label: 'Fish Curry', sub: '(Bold & Transformative)', icon: FOOD_ICONS.fish_curry },
-      { id: 'prawn_curry', label: 'Prawn Curry', sub: '(Warm & Exciting)', icon: FOOD_ICONS.prawn_curry },
-      { id: 'vindaloo', label: 'Vindaloo', sub: '(Spicy & Intense)', icon: FOOD_ICONS.vindaloo },
-      { id: 'xacuti', label: 'Xacuti', sub: '(Rich & Layered)', icon: FOOD_ICONS.xacuti },
-      { id: 'bebinca', label: 'Bebinca', sub: '(Sweet & Optimistic)', icon: FOOD_ICONS.bebinca },
-      { id: 'poe_bread', label: 'Poe Bread', sub: '(Simple & Comforting)', icon: FOOD_ICONS.poe_bread }
+    const locationOptions = [
+      { id: 'dudhsagar', label: 'Dudhsagar', sub: '(Cascading)', icon: LOCATION_ICONS.dudhsagar },
+      { id: 'aguada_fort', label: 'Aguada Fort', sub: '(Steadfast)', icon: LOCATION_ICONS.aguada_fort },
+      { id: 'fontainhas', label: 'Fontainhas', sub: '(Heritage)', icon: LOCATION_ICONS.fontainhas },
+      { id: 'chapora_fort', label: 'Chapora Fort', sub: '(Expansive)', icon: LOCATION_ICONS.chapora_fort },
+      { id: 'palolem_beach', label: 'Palolem', sub: '(Harmonious)', icon: LOCATION_ICONS.palolem_beach },
+      { id: 'cabo_de_rama', label: 'Cabo de Rama', sub: '(Wild Clifftop)', icon: LOCATION_ICONS.cabo_de_rama }
+    ];
+
+    const emblemOptions = [
+      { id: 'mandovi_boat', label: 'Sailboat', sub: '(Horizons)', icon: EMBLEM_ICONS.mandovi_boat },
+      { id: 'coconut_palm', label: 'Coconut Palm', sub: '(Resilient)', icon: EMBLEM_ICONS.coconut_palm },
+      { id: 'sea_turtle', label: 'Sea Turtle', sub: '(Sustainable)', icon: EMBLEM_ICONS.sea_turtle },
+      { id: 'kingfisher', label: 'Kingfisher', sub: '(Insightful)', icon: EMBLEM_ICONS.kingfisher },
+      { id: 'carnival_spirit', label: 'Carnival', sub: '(Creative)', icon: EMBLEM_ICONS.carnival_spirit },
+      { id: 'susegad', label: 'Susegad', sub: '(Serenity)', icon: EMBLEM_ICONS.susegad }
     ];
 
     return `
-      <section class="question-section" aria-label="Question 2: Goan Food">
-        <div class="question-nav-back">
-          <button class="back-link-btn" id="tv-step-back-btn">&larr; Back to Weather</button>
+      <div class="tv-1screen-choices-wrap">
+        <!-- 1. Weather of Goa -->
+        <div class="tv-choice-category">
+          <div class="tv-choice-cat-header">
+            <span class="tv-cat-badge">1</span>
+            <span class="tv-cat-title">Weather of Goa</span>
+            <span class="tv-cat-sub">&mdash; Energy & Climate</span>
+          </div>
+          <div class="tv-choice-options-grid weather-grid" id="tv-weather-options">
+            ${weatherOptions.map(opt => `
+              <button class="sentiment-card tv-option-btn ${this.tvSurvey.weather === opt.id ? 'selected' : ''}" data-type="weather" data-value="${opt.id}" title="${opt.label}">
+                <div class="sentiment-icon-circle">${opt.icon}</div>
+                <div class="sentiment-card-label">
+                  <span class="label-primary">${opt.label}</span>
+                  <span class="label-secondary">${opt.sub}</span>
+                </div>
+              </button>
+            `).join('')}
+          </div>
         </div>
-        <h2 class="question-title">How do you feel about AI in terms of Goan foods?</h2>
-        <div class="sentiment-grid food-grid" id="tv-food-options">
-          ${options.map(opt => `
-            <button class="sentiment-card tv-option-btn ${this.tvSurvey.food === opt.id ? 'selected' : ''}" data-type="food" data-value="${opt.id}" title="${opt.label}">
-              <div class="sentiment-icon-circle">
-                ${opt.icon}
-              </div>
-              <div class="sentiment-card-label">
-                <span class="label-primary">${opt.label}</span>
-                <span class="label-secondary">${opt.sub}</span>
-              </div>
-            </button>
-          `).join('')}
+
+        <!-- 2. Goan Food -->
+        <div class="tv-choice-category">
+          <div class="tv-choice-cat-header">
+            <span class="tv-cat-badge">2</span>
+            <span class="tv-cat-title">Goan Flavour</span>
+            <span class="tv-cat-sub">&mdash; Taste & Culinary Spirit</span>
+          </div>
+          <div class="tv-choice-options-grid food-grid" id="tv-food-options">
+            ${foodOptions.map(opt => `
+              <button class="sentiment-card tv-option-btn ${this.tvSurvey.food === opt.id ? 'selected' : ''}" data-type="food" data-value="${opt.id}" title="${opt.label}">
+                <div class="sentiment-icon-circle">${opt.icon}</div>
+                <div class="sentiment-card-label">
+                  <span class="label-primary">${opt.label}</span>
+                  <span class="label-secondary">${opt.sub}</span>
+                </div>
+              </button>
+            `).join('')}
+          </div>
         </div>
-      </section>
+
+        <!-- 3. Goa Landmark -->
+        <div class="tv-choice-category">
+          <div class="tv-choice-cat-header">
+            <span class="tv-cat-badge">3</span>
+            <span class="tv-cat-title">Goan Landmark</span>
+            <span class="tv-cat-sub">&mdash; Geography & Power</span>
+          </div>
+          <div class="tv-choice-options-grid location-grid" id="tv-location-options">
+            ${locationOptions.map(opt => `
+              <button class="sentiment-card tv-option-btn ${this.tvSurvey.location === opt.id ? 'selected' : ''}" data-type="location" data-value="${opt.id}" title="${opt.label}">
+                <div class="sentiment-icon-circle">${opt.icon}</div>
+                <div class="sentiment-card-label">
+                  <span class="label-primary">${opt.label}</span>
+                  <span class="label-secondary">${opt.sub}</span>
+                </div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- 4. Cultural Spirit -->
+        <div class="tv-choice-category">
+          <div class="tv-choice-cat-header">
+            <span class="tv-cat-badge">4</span>
+            <span class="tv-cat-title">Cultural Spirit</span>
+            <span class="tv-cat-sub">&mdash; Emblem & Harmony</span>
+          </div>
+          <div class="tv-choice-options-grid emblem-grid" id="tv-emblem-options">
+            ${emblemOptions.map(opt => `
+              <button class="sentiment-card tv-option-btn ${this.tvSurvey.emblem === opt.id ? 'selected' : ''}" data-type="emblem" data-value="${opt.id}" title="${opt.label}">
+                <div class="sentiment-icon-circle">${opt.icon}</div>
+                <div class="sentiment-card-label">
+                  <span class="label-primary">${opt.label}</span>
+                  <span class="label-secondary">${opt.sub}</span>
+                </div>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      </div>
     `;
   }
 
-  getTVSurveyLocationHtml() {
-    const options = [
-      { id: 'dudhsagar', label: 'Dudhsagar Falls', sub: '(Cascading Power)', icon: LOCATION_ICONS.dudhsagar },
-      { id: 'aguada_fort', label: 'Aguada Lighthouse', sub: '(Steadfast & Visionary)', icon: LOCATION_ICONS.aguada_fort },
-      { id: 'fontainhas', label: 'Fontainhas Quarter', sub: '(Vibrant Heritage)', icon: LOCATION_ICONS.fontainhas },
-      { id: 'chapora_fort', label: 'Chapora Fort', sub: '(Expansive Spirit)', icon: LOCATION_ICONS.chapora_fort },
-      { id: 'palolem_beach', label: 'Palolem Beach', sub: '(Harmonious Peace)', icon: LOCATION_ICONS.palolem_beach },
-      { id: 'cabo_de_rama', label: 'Cabo de Rama Fort', sub: '(Wild Clifftop Horizon)', icon: LOCATION_ICONS.cabo_de_rama }
-    ];
-
-    return `
-      <section class="question-section" aria-label="Question 3: Goa Locations">
-        <div class="question-nav-back">
-          <button class="back-link-btn" id="tv-step-back-btn">&larr; Back to Food</button>
-        </div>
-        <h2 class="question-title">How did the previous session feel in terms of top Goa locations?</h2>
-        <div class="sentiment-grid location-grid" id="tv-location-options">
-          ${options.map(opt => `
-            <button class="sentiment-card tv-option-btn ${this.tvSurvey.location === opt.id ? 'selected' : ''}" data-type="location" data-value="${opt.id}" title="${opt.label}">
-              <div class="sentiment-icon-circle">
-                ${opt.icon}
-              </div>
-              <div class="sentiment-card-label">
-                <span class="label-primary">${opt.label}</span>
-                <span class="label-secondary">${opt.sub}</span>
-              </div>
-            </button>
-          `).join('')}
-        </div>
-      </section>
-    `;
-  }
-
-  getTVSurveyEmblemHtml() {
-    const options = [
-      { id: 'mandovi_boat', label: 'Mandovi Sailboat', sub: '(Navigating Horizons)', icon: EMBLEM_ICONS.mandovi_boat },
-      { id: 'coconut_palm', label: 'Coconut Palm', sub: '(Resilient & Grounded)', icon: EMBLEM_ICONS.coconut_palm },
-      { id: 'sea_turtle', label: 'Olive Ridley Turtle', sub: '(Sustainable Wisdom)', icon: EMBLEM_ICONS.sea_turtle },
-      { id: 'kingfisher', label: 'Goan Kingfisher', sub: '(Agile & Insightful)', icon: EMBLEM_ICONS.kingfisher },
-      { id: 'carnival_spirit', label: 'Viva Carnival Mask', sub: '(Bold Creative Energy)', icon: EMBLEM_ICONS.carnival_spirit },
-      { id: 'susegad', label: 'Susegad Hammock', sub: '(Unhurried Serenity)', icon: EMBLEM_ICONS.susegad }
-    ];
-
-    return `
-      <section class="question-section" aria-label="Question 4: Goan Cultural Emblem">
-        <div class="question-nav-back">
-          <button class="back-link-btn" id="tv-step-back-btn">&larr; Back to Locations</button>
-        </div>
-        <h2 class="question-title">Which Goan cultural spirit or emblem captures the essence of this session?</h2>
-        <div class="sentiment-grid emblem-grid" id="tv-emblem-options">
-          ${options.map(opt => `
-            <button class="sentiment-card tv-option-btn ${this.tvSurvey.emblem === opt.id ? 'selected' : ''}" data-type="emblem" data-value="${opt.id}" title="${opt.label}">
-              <div class="sentiment-icon-circle">
-                ${opt.icon}
-              </div>
-              <div class="sentiment-card-label">
-                <span class="label-primary">${opt.label}</span>
-                <span class="label-secondary">${opt.sub}</span>
-              </div>
-            </button>
-          `).join('')}
-        </div>
-      </section>
-    `;
-  }
-
-  getTVSurveyReflectionHtml() {
-    return `
-      <section class="question-section reflection-section" aria-label="Confirm & Submit">
-        <div class="question-nav-back">
-          <button class="back-link-btn" id="tv-step-back-btn">&larr; Change selections</button>
-        </div>
-        <h2 class="question-title">Leave your mark on this 30-minute tapestry</h2>
-        
-        <div class="selections-recap">
-          <div class="recap-badge">
-            <span class="recap-label">Weather:</span>
-            <strong>${(this.tvSurvey.weather || 'SUNNY').replace(/_/g, ' ').toUpperCase()}</strong>
-          </div>
-          <div class="recap-badge">
-            <span class="recap-label">Flavour:</span>
-            <strong>${(this.tvSurvey.food || 'FISH CURRY').replace(/_/g, ' ').toUpperCase()}</strong>
-          </div>
-          <div class="recap-badge">
-            <span class="recap-label">Landmark:</span>
-            <strong>${(this.tvSurvey.location || 'AGUADA').replace(/_/g, ' ').toUpperCase()}</strong>
-          </div>
-          <div class="recap-badge">
-            <span class="recap-label">Emblem:</span>
-            <strong>${(this.tvSurvey.emblem || 'SAILBOAT').replace(/_/g, ' ').toUpperCase()}</strong>
-          </div>
-        </div>
-
-        <div class="tv-submit-action-wrap">
-          <button type="button" class="weave-btn" id="tv-submit-weave-btn">
-            <span>Weave Into Live Artwork &rarr;</span>
-          </button>
-        </div>
-      </section>
-    `;
-  }
-
-  getTVSurveySuccessHtml() {
-    const icon = EMBLEM_ICONS[this.tvSurvey.emblem] || LOCATION_ICONS[this.tvSurvey.location] || WEATHER_ICONS[this.tvSurvey.weather] || WEATHER_ICONS.sunny;
-    const impact = getArtworkImpactWriteup({
-      weather: this.tvSurvey.weather,
-      food: this.tvSurvey.food,
-      location: this.tvSurvey.location,
-      emblem: this.tvSurvey.emblem
-    });
-
-    return `
-      <section class="question-section success-section" aria-label="Thank You">
-        <div class="celebration-mandala">
-          <div class="mandala-outer-ring"></div>
-          <div class="mandala-core">
-            ${icon}
-          </div>
-        </div>
-
-        <h2 class="success-title">Your voice is now woven into the artwork</h2>
-        <p class="success-subtitle">
-          Watch the live vertical screen! The particle tapestry is dynamically responding to your choices.
-        </p>
-
-        <!-- Dynamic Artwork Transformation Writeup (Max 2 Lines, Concise) -->
-        <div class="impact-writeup-card concise-card">
-          <div class="impact-card-header">
-            <span class="impact-card-badge">✨ Live Transformation</span>
-            <span class="impact-card-tagline">${impact.headline}</span>
-          </div>
-          <div class="impact-two-line-summary">
-            <p class="impact-line"><strong>🎨 Colors:</strong> ${impact.line1}</p>
-            <p class="impact-line"><strong>⚡ Dynamics:</strong> ${impact.line2}</p>
-          </div>
-        </div>
-
-        <div class="success-actions">
-          <button class="action-btn-primary go-to-input-btn" id="tv-vote-again-btn" aria-label="Share Your Sentiment">
-            <span>Share Your Sentiment</span>
-          </button>
-        </div>
-      </section>
-    `;
-  }
-
-  updateTVStepper() {
-    const dots = document.querySelectorAll('.tv-stepper-dots .tv-step-dot');
-    dots.forEach((dot, idx) => {
-      if (idx + 1 === this.tvSurvey.step || (this.tvSurvey.step === 6 && idx === 4)) {
-        dot.classList.add('active');
-      } else {
-        dot.classList.remove('active');
-      }
-    });
-
-    const footer = document.querySelector('.tv-kiosk-footer');
-    if (footer) {
-      footer.style.display = (this.tvSurvey.step === 6) ? 'none' : 'flex';
-    }
-  }
-
-  bindTVSurveyEvents() {
-    // 1. Option selection -> advance to next step (artwork does not change on individual clicks)
-    const optionBtns = document.querySelectorAll('.tv-option-btn');
+  bindTV1ScreenEvents() {
+    const optionBtns = document.querySelectorAll('.tv-1screen-choices-wrap .tv-option-btn');
     optionBtns.forEach(btn => {
       btn.onclick = () => {
         const type = btn.getAttribute('data-type');
@@ -862,37 +718,28 @@ class ConclaveApp {
         if (!type || !value) return;
 
         this.tvSurvey[type] = value;
-        btn.classList.add('selected');
 
-        setTimeout(() => {
-          this.tvSurvey.step += 1;
-          this.renderTVSurveyStep();
-        }, 120);
+        // Deselect siblings in the same category
+        const parentGrid = btn.closest('.tv-choice-options-grid');
+        if (parentGrid) {
+          parentGrid.querySelectorAll('.tv-option-btn').forEach(b => b.classList.remove('selected'));
+        }
+        btn.classList.add('selected');
       };
     });
 
-    // 2. Back button
-    const backBtn = document.getElementById('tv-step-back-btn');
-    if (backBtn) {
-      backBtn.onclick = () => {
-        if (this.tvSurvey.step > 1) {
-          this.tvSurvey.step -= 1;
-          this.renderTVSurveyStep();
-        }
-      };
-    }
-
-    // 3. Direct submit weave button
     const submitBtn = document.getElementById('tv-submit-weave-btn');
+    const statusContainer = document.getElementById('tv-submit-status');
+
     if (submitBtn) {
       submitBtn.onclick = () => {
         const fullResponse = {
           weather: this.tvSurvey.weather || 'sunny',
-          food: this.tvSurvey.food || 'bebinca',
+          food: this.tvSurvey.food || 'fish_curry',
           location: this.tvSurvey.location || 'aguada_fort',
           emblem: this.tvSurvey.emblem || 'mandovi_boat',
-          author: 'TV Attendee',
-          note: 'Touch TV Attendee Vote'
+          author: 'Conclave Attendee',
+          note: '1-Screen Selection'
         };
 
         if (this.syncManager) {
@@ -903,26 +750,17 @@ class ConclaveApp {
           this.artworkEngine.addResponseBurst(fullResponse);
         }
 
-        // Clean up any residual timer - do NOT auto-reset back to input mode
-        if (this.tvSurvey.resetTimer) {
-          clearInterval(this.tvSurvey.resetTimer);
-          this.tvSurvey.resetTimer = null;
+        if (statusContainer) {
+          statusContainer.innerHTML = '<div class="tv-submit-toast">✨ Choices woven into live artwork!</div>';
+          setTimeout(() => {
+            if (statusContainer) statusContainer.innerHTML = '';
+          }, 3000);
         }
 
-        this.tvSurvey.step = 6;
-        this.renderTVSurveyStep();
-      };
-    }
-
-    // 4. Reset / Next Attendee button (Manual return to Input View)
-    const voteAgainBtn = document.getElementById('tv-vote-again-btn');
-    if (voteAgainBtn) {
-      voteAgainBtn.onclick = () => {
-        if (this.tvSurvey.resetTimer) {
-          clearInterval(this.tvSurvey.resetTimer);
-          this.tvSurvey.resetTimer = null;
-        }
-        this.resetTVSurvey();
+        submitBtn.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          submitBtn.style.transform = '';
+        }, 150);
       };
     }
   }
@@ -930,15 +768,15 @@ class ConclaveApp {
   resetTVSurvey() {
     this.tvSurvey = {
       step: 1,
-      weather: null,
-      food: null,
-      location: null,
-      emblem: null,
+      weather: 'sunny',
+      food: 'fish_curry',
+      location: 'aguada_fort',
+      emblem: 'mandovi_boat',
       author: '',
       note: '',
       resetTimer: null
     };
-    this.renderTVSurveyStep();
+    this.renderDualKioskContent();
   }
 
   updateTVArchiveCard() {

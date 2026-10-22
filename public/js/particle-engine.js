@@ -224,9 +224,9 @@ export class GoanArtworkEngine {
     this.sentimentEngine = sentimentEngine;
     this.options = options;
 
-    // High-performance Low-Power mode for slower processors
+    // High-performance Low-Power mode for slower processors (10,500 particles)
     this.isLP = !!options.isLP;
-    this.particleStep = this.isLP ? (options.step || 2) : 1;
+    this.particleStep = this.isLP ? (options.step || 4) : 1;
     this.targetFps = this.isLP ? (options.fps || 30) : 60;
 
     // Logical resolution (9:16 vertical ratio)
@@ -2463,7 +2463,7 @@ export class GoanArtworkEngine {
     const sprites = this.dotSprites;
     const scale = p.particleSizeScale || 1.0;
     const step = this.particleStep || 1;
-    const lpScale = this.isLP ? 1.38 : 1.0;
+    const lpScale = this.isLP ? 1.85 : 1.0;
     const totalScale = scale * lpScale;
 
     let lastAlpha = -1;
@@ -2478,7 +2478,7 @@ export class GoanArtworkEngine {
       if (a <= 0.05) continue;
 
       if (this.isLP) {
-        a = Math.min(1.0, a * 1.2);
+        a = Math.min(1.0, a * 1.35);
       }
 
       const quantAlpha = Math.round(a * 10) / 10;
