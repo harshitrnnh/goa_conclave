@@ -47,7 +47,7 @@ class ConclaveApp {
     if (mode === 'simulate') {
       return 'simulate';
     }
-    if (mode === 'dual' || mode === 'wall' || mode === 'lp') {
+    if (mode === 'dual' || mode === 'wall' || mode === 'lp' || mode === 'lp1') {
       return 'dual';
     }
     if (mode === 'screen') {
@@ -61,7 +61,7 @@ class ConclaveApp {
     const params = new URLSearchParams(window.location.search);
     const m = (params.get('mode') || '').toLowerCase();
     const lpParam = (params.get('lp') || '').toLowerCase();
-    return m === 'lp' || m === 'lowpower' || lpParam === '1' || lpParam === 'true';
+    return m === 'lp' || m === 'lp1' || m === 'lowpower' || lpParam === '1' || lpParam === 'true';
   }
 
   async init() {
@@ -378,6 +378,12 @@ class ConclaveApp {
                 <span>Previous Artworks</span>
                 <span class="tab-badge-pill" id="tv-tab-past-count">${pastCount}</span>
               </button>
+              <button class="tablet-tab-btn tv-simulate-btn" id="tv-simulate-cycle-btn" title="Simulate 30 min of votes and advance cycle">
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                  <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                </svg>
+                <span>Simulate 30 Min</span>
+              </button>
             </nav>
           </div>
 
@@ -406,6 +412,41 @@ class ConclaveApp {
     const pastTab = document.getElementById('dual-tab-btn-past');
     if (pastTab) {
       pastTab.onclick = () => this.switchDualTab('past');
+    }
+
+    // Simulate 30-min cycle button
+    const simBtn = document.getElementById('tv-simulate-cycle-btn');
+    if (simBtn) {
+      simBtn.onclick = async () => {
+        simBtn.disabled = true;
+        simBtn.classList.add('loading');
+        simBtn.innerHTML = `
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" class="spin-icon">
+            <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
+          </svg>
+          <span>Simulating...</span>
+        `;
+        try {
+          await this.syncManager.simulateCycleAndAdvance();
+          this.showToastNotification({
+            author: 'Cycle Advanced',
+            note: '⚡ 30-min votes simulated & new mutation topology generated!'
+          });
+        } finally {
+          setTimeout(() => {
+            if (simBtn) {
+              simBtn.disabled = false;
+              simBtn.classList.remove('loading');
+              simBtn.innerHTML = `
+                <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
+                  <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                </svg>
+                <span>Simulate 30 Min</span>
+              `;
+            }
+          }, 900);
+        }
+      };
     }
 
     // POAI badge tap feedback
