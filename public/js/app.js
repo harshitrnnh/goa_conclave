@@ -333,13 +333,10 @@ class ConclaveApp {
             <canvas id="artwork-canvas" class="computational-artwork-canvas"></canvas>
           </div>
 
-          <!-- Outside QR code at bottom-left with instructions -->
-          <aside class="tv-outside-qr-card" aria-label="Scan to Participate and Download">
+          <!-- Outside QR code on left of vertical artwork screen -->
+          <aside class="tv-outside-qr-card" aria-label="Scan to Participate">
+            <span class="tv-outside-qr-title">Scan to Participate</span>
             <div class="tv-outside-qr-box" id="screen-qr-container"></div>
-            <div class="tv-outside-qr-info">
-              <span class="tv-outside-qr-title">Scan to Participate</span>
-              <p class="tv-outside-qr-desc">You can give your inputs that will change the artwork and download previous artworks.</p>
-            </div>
           </aside>
         </section>
 

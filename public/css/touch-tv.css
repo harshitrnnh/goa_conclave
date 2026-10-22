@@ -66,39 +66,54 @@
 }
 
 /* ==========================================================================
-   OUTSIDE QR CARD (Bottom-Left outside vertical artwork screen)
+   OUTSIDE QR CARD (Left area outside vertical artwork screen)
    ========================================================================== */
 .tv-outside-qr-card {
   position: absolute;
-  bottom: 16px;
-  left: 16px;
+  left: 20px;
+  right: calc(50% + ((100vh - 36px) * 9 / 32) + 20px);
+  bottom: 28px;
   z-index: 25;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  background: rgba(20, 6, 4, 0.88);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(242, 194, 73, 0.35);
-  border-radius: 10px;
-  padding: 6px 10px;
-  max-width: 195px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  gap: 10px;
+  background: rgba(20, 6, 4, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(242, 194, 73, 0.4);
+  border-radius: 14px;
+  padding: 14px 14px 16px;
+  box-sizing: border-box;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85);
+  max-width: 320px;
+}
+
+.tv-outside-qr-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #F2C249;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  line-height: 1.25;
 }
 
 .tv-outside-qr-box {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   background: #FAF3E8;
-  border-radius: 6px;
-  padding: 2px;
+  border-radius: 10px;
+  padding: 8px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(242, 194, 73, 0.3);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(242, 194, 73, 0.35);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
 }
 
 .tv-outside-qr-box .qr-code-wrapper,
@@ -113,34 +128,13 @@
 .tv-outside-qr-box .qr-image {
   width: 100% !important;
   height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   display: block;
   background: transparent !important;
   padding: 0 !important;
-}
-
-.tv-outside-qr-info {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.tv-outside-qr-title {
-  font-family: 'Cinzel', serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #F2C249;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.tv-outside-qr-desc {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.6rem;
-  line-height: 1.25;
-  color: #FAF3E8;
-  margin: 0;
-  opacity: 0.95;
+  border-radius: 4px;
 }
 
 /* ==========================================================================

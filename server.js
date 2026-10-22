@@ -693,7 +693,7 @@ app.get('/api/qr', async (req, res) => {
         dark: '#4A170B',
         light: '#F8EFE3'
       },
-      width: 320
+      width: 512
     });
     res.json({ dataUrl: qrDataUrl, targetUrl: url });
   } catch (err) {
