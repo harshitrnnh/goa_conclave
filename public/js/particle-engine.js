@@ -1734,34 +1734,34 @@ export class GoanArtworkEngine {
       p.carnivalConfetti = 0;
       p.susegadDamping = 0;
 
-      // 1. Weather atmospheric physics (toned down, gentle and serene)
+      // 1. Weather atmospheric physics (expressive dynamics, especially for windy & stormy)
       if (wKey === 'sunny') {
-        p.flowSpeed = 0.50;
-        p.turbulence = 0.35;
-        p.sunRadius = 1.25;
-        p.sunPulseSpeed = 0.70;
-        p.sunIntensity = 1.25;
+        p.flowSpeed = 0.85;
+        p.turbulence = 0.55;
+        p.sunRadius = 1.40;
+        p.sunPulseSpeed = 1.20;
+        p.sunIntensity = 1.40;
       } else if (wKey === 'windy') {
-        p.windSweep = 0.90;
-        p.biasX = 0.45;
-        p.biasY = -0.15;
-        p.flowSpeed = 0.65;
-        p.turbulence = 0.50;
+        p.windSweep = 2.20;
+        p.biasX = 1.10;
+        p.biasY = -0.30;
+        p.flowSpeed = 1.40;
+        p.turbulence = 1.05;
       } else if (wKey === 'rainy') {
-        p.rainGravity = 0.90;
+        p.rainGravity = 1.80;
         p.biasX = 0;
-        p.biasY = 0.55;
-        p.flowSpeed = 0.55;
-        p.turbulence = 0.30;
+        p.biasY = 1.20;
+        p.flowSpeed = 0.95;
+        p.turbulence = 0.45;
       } else if (wKey === 'stormy') {
-        p.stormVortex = 1.10;
-        p.turbulence = 0.80;
-        p.flowSpeed = 0.75;
+        p.stormVortex = 2.60;
+        p.turbulence = 1.80;
+        p.flowSpeed = 1.60;
       } else if (wKey === 'calm') {
-        p.calmSwell = 0.80;
-        p.susegadDamping = 2.6;
-        p.flowSpeed = 0.22;
-        p.turbulence = 0.12;
+        p.calmSwell = 1.10;
+        p.susegadDamping = 2.4;
+        p.flowSpeed = 0.38;
+        p.turbulence = 0.18;
       }
 
       // 2. Food culinary dynamics & texture
@@ -1940,7 +1940,7 @@ export class GoanArtworkEngine {
 
   // Physics, shockwaves, morphing and color excitation update
   update() {
-    const dt = this.isLP ? 0.010 : 0.009;
+    const dt = this.isLP ? 0.018 : 0.016;
     this.time += dt;
     const p = this.sentimentEngine.currentParameters;
     const W = this.width;
@@ -2014,13 +2014,13 @@ export class GoanArtworkEngine {
       }
     }
 
-    const flowSpeed = p.flowSpeed || 0.45;
-    const turbulence = p.turbulence || 0.35;
+    const flowSpeed = p.flowSpeed || 0.80;
+    const turbulence = p.turbulence || 0.60;
     const sunX = (this.currentTopology === 1) ? W * 0.82 : W * (p.sunX || 0.72);
     const sunY = (this.currentTopology === 1) ? H * 0.11 : H * (p.sunY || 0.18);
-    const sunPulse = Math.sin(this.time * 0.5 * (p.sunPulseSpeed || 1.0)) * 0.03 + 1.0;
+    const sunPulse = Math.sin(this.time * 1.0 * (p.sunPulseSpeed || 1.0)) * 0.07 + 1.0;
 
-    this.beaconAngle += (this.isLP ? 0.015 : 0.010) * (p.aguadaBeacon > 0.2 ? 1.0 : 0.4);
+    this.beaconAngle += (this.isLP ? 0.030 : 0.020) * (p.aguadaBeacon > 0.2 ? 1.0 : 0.4);
 
     const N = this.TOTAL_PARTICLES;
     const hasWaves = this.shockwaves.length > 0;
@@ -2122,32 +2122,32 @@ export class GoanArtworkEngine {
       const x = this.px[i];
       const y = this.py[i];
 
-      // Organic Curl Noise Flow (gentle, hypnotic drift)
-      const nx = x * (p.curlScale || 0.0022) + this.time * 0.02 * flowSpeed;
-      const ny = y * ((p.curlScale || 0.0022) * 0.75) + this.time * 0.015 * flowSpeed;
+      // Organic Curl Noise Flow (expressive, living fluid current)
+      const nx = x * (p.curlScale || 0.0022) + this.time * 0.045 * flowSpeed;
+      const ny = y * ((p.curlScale || 0.0022) * 0.75) + this.time * 0.035 * flowSpeed;
       const fieldAngle = Math.sin(nx * 2.8) * Math.cos(ny * 2.2) * Math.PI * 2 * turbulence;
 
-      let fx = Math.cos(fieldAngle) * 0.22 * flowSpeed;
-      let fy = Math.sin(fieldAngle) * 0.22 * flowSpeed;
+      let fx = Math.cos(fieldAngle) * 0.48 * flowSpeed;
+      let fy = Math.sin(fieldAngle) * 0.48 * flowSpeed;
 
       // ----------------------------------------------------
       // 1. WEATHER PHYSICAL FORCES & CURRENTS (Question 1)
       // ----------------------------------------------------
       if (p.windSweep > 0.15) {
-        fx += (Math.sin(this.time * 1.1 + y * 0.003) * 0.7 + 0.35) * p.windSweep;
+        fx += (Math.sin(this.time * 1.6 + y * 0.003) * 1.1 + 0.6) * p.windSweep;
       }
       if (p.rainGravity > 0.15) {
-        fy += (Math.sin(this.phase[i] + this.time * 1.8) * 0.4 + 0.6) * p.rainGravity;
+        fy += (Math.sin(this.phase[i] + this.time * 2.6) * 0.6 + 0.9) * p.rainGravity;
       }
       if (p.stormVortex > 0.15) {
         const vdx = x - W * 0.5;
         const vdy = y - H * 0.5;
         const vdist = Math.hypot(vdx, vdy) || 1;
-        fx += (-vdy / vdist) * 0.8 * p.stormVortex;
-        fy += (vdx / vdist) * 0.8 * p.stormVortex;
+        fx += (-vdy / vdist) * 1.4 * p.stormVortex;
+        fy += (vdx / vdist) * 1.4 * p.stormVortex;
       }
       if (p.calmSwell > 0.15) {
-        fy += Math.sin(this.time * 0.5 + x * 0.004) * 0.45 * p.calmSwell;
+        fy += Math.sin(this.time * 0.7 + x * 0.004) * 0.65 * p.calmSwell;
         fx *= (1.0 - Math.min(0.6, p.calmSwell * 0.25));
       }
 
@@ -2381,10 +2381,10 @@ export class GoanArtworkEngine {
         soy += Math.cos(this.phase[i] * 2.5) * 10.0 * (p.carnivalConfetti / 3.8);
       }
 
-      // Integrate damping & subtle home anchor spring (smooth, serene, meditative)
-      const dampingFactor = 0.80 - ((p.susegadDamping || 0) * 0.03);
-      const ax = ((this.hx[i] + sox) - x) * 0.026;
-      const ay = ((this.hy[i] + soy) - y) * 0.026;
+      // Integrate damping & expressive home anchor spring
+      const dampingFactor = 0.86 - ((p.susegadDamping || 0) * 0.04);
+      const ax = ((this.hx[i] + sox) - x) * 0.042;
+      const ay = ((this.hy[i] + soy) - y) * 0.042;
 
       this.vx[i] = (this.vx[i] + fx + ax) * dampingFactor;
       this.vy[i] = (this.vy[i] + fy + ay) * dampingFactor;
