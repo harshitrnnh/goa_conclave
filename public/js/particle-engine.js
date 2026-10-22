@@ -2019,6 +2019,7 @@ export class GoanArtworkEngine {
     const sunX = (this.currentTopology === 1) ? W * 0.82 : W * (p.sunX || 0.72);
     const sunY = (this.currentTopology === 1) ? H * 0.11 : H * (p.sunY || 0.18);
     const sunPulse = Math.sin(this.time * 1.0 * (p.sunPulseSpeed || 1.0)) * 0.07 + 1.0;
+    const sunRad = p.sunRadius || 180;
 
     this.beaconAngle += (this.isLP ? 0.030 : 0.020) * (p.aguadaBeacon > 0.2 ? 1.0 : 0.4);
 
