@@ -218,10 +218,16 @@ export const THEME_PALETTES = {
 };
 
 export class GoanArtworkEngine {
-  constructor(canvas, sentimentEngine) {
+  constructor(canvas, sentimentEngine, options = {}) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d', { alpha: false });
     this.sentimentEngine = sentimentEngine;
+    this.options = options;
+
+    // High-performance Low-Power mode for slower processors
+    this.isLP = !!options.isLP;
+    this.particleStep = this.isLP ? (options.step || 2) : 1;
+    this.targetFps = this.isLP ? (options.fps || 30) : 60;
 
     // Logical resolution (9:16 vertical ratio)
     this.width = 1080;
@@ -1811,7 +1817,8 @@ export class GoanArtworkEngine {
     this.paletteDirty = true;
 
     // 3. Permanently and visibly weave ALL 4 dimensions across the 42,000 particle color indices
-    for (let i = 0; i < this.TOTAL_PARTICLES; i++) {
+    const colorStep = this.particleStep || 1;
+    for (let i = 0; i < this.TOTAL_PARTICLES; i += colorStep) {
       const lyr = this.layer[i];
       const r = (i * 17 + (i >> 2)) % 100;
       if (lyr === 0 || lyr === 1) {
@@ -1899,11 +1906,12 @@ export class GoanArtworkEngine {
       { x: burstOriginX, y: burstOriginY, radius: -135, maxRadius: Math.hypot(W, H) * 1.25, speed: 34, colorIdx: 9, rgb: sigE, thickness: 160, intensity: 1.0 }
     );
 
-    // 420 High-energy particles partitioned evenly across the 4 dimensions (105 each)
+    // High-energy particles partitioned evenly across the 4 dimensions
     let spawned = 0;
-    const maxSpawn = 420;
+    const maxSpawn = this.isLP ? 210 : 420;
     const colors = [0, 3, 6, 9]; // Weather, Food, Location, Emblem
-    for (let i = 0; i < this.TOTAL_PARTICLES && spawned < maxSpawn; i++) {
+    const spawnStep = this.particleStep || 1;
+    for (let i = 0; i < this.TOTAL_PARTICLES && spawned < maxSpawn; i += spawnStep) {
       if ((this.layer[i] === 3 || this.layer[i] === 2) && Math.random() < 0.35) {
         this.layer[i] = 4;
         this.px[i] = burstOriginX + (Math.random() - 0.5) * 90;
@@ -1929,7 +1937,8 @@ export class GoanArtworkEngine {
 
   // Physics, shockwaves, morphing and color excitation update
   update() {
-    this.time += 0.016;
+    const dt = this.isLP ? 0.032 : 0.016;
+    this.time += dt;
     const p = this.sentimentEngine.currentParameters;
     const W = this.width;
     const H = this.height;
@@ -1944,7 +1953,8 @@ export class GoanArtworkEngine {
 
     // Smoothly glide active palette RGBs toward target
     let maxDelta = 0;
-    const lerpSpeed = (this.recentInput && this.recentInput.weight > 0.5) ? 0.12 : 0.07;
+    const baseLerp = (this.recentInput && this.recentInput.weight > 0.5) ? 0.12 : 0.07;
+    const lerpSpeed = this.isLP ? Math.min(0.24, baseLerp * 1.8) : baseLerp;
     for (let k = 0; k < 42; k++) {
       const diff = this.targetPaletteRGB[k] - this.currentPaletteRGB[k];
       this.currentPaletteRGB[k] += diff * lerpSpeed;
@@ -1953,13 +1963,14 @@ export class GoanArtworkEngine {
     }
 
     // Smoothly glide background stops & sun glow
+    const bgLerp = this.isLP ? 0.095 : 0.05;
     for (let k = 0; k < 4; k++) {
       for (let c = 0; c < 3; c++) {
-        this.currentBg[k][c] += (this.targetBg[k][c] - this.currentBg[k][c]) * 0.05;
+        this.currentBg[k][c] += (this.targetBg[k][c] - this.currentBg[k][c]) * bgLerp;
       }
     }
     for (let c = 0; c < 3; c++) {
-      this.currentSunGlow[c] += (this.targetSunGlow[c] - this.currentSunGlow[c]) * 0.05;
+      this.currentSunGlow[c] += (this.targetSunGlow[c] - this.currentSunGlow[c]) * bgLerp;
     }
 
     if (maxDelta > 0.8 || this.paletteDirty) {
@@ -1968,10 +1979,11 @@ export class GoanArtworkEngine {
     }
 
     // Advance chromatic shockwaves
+    const waveStep = this.isLP ? 2 : 1;
     for (let sw = this.shockwaves.length - 1; sw >= 0; sw--) {
       const wave = this.shockwaves[sw];
-      wave.radius += wave.speed;
-      wave.intensity *= 0.985;
+      wave.radius += wave.speed * waveStep;
+      wave.intensity *= Math.pow(0.985, waveStep);
       if (wave.radius > wave.maxRadius || wave.intensity < 0.04) {
         this.shockwaves.splice(sw, 1);
       }
@@ -1981,7 +1993,7 @@ export class GoanArtworkEngine {
     let morphT = 1.0;
     let isMorphing = this.isMorphing;
     if (isMorphing) {
-      this.morphProgress += 0.016 / this.morphDuration;
+      this.morphProgress += dt / this.morphDuration;
       morphT = this.easeInOutCubic(Math.min(1.0, this.morphProgress));
       if (this.morphProgress >= 1.0) {
         this.isMorphing = false;
@@ -2005,12 +2017,13 @@ export class GoanArtworkEngine {
     const sunY = (this.currentTopology === 1) ? H * 0.11 : H * (p.sunY || 0.18);
     const sunPulse = Math.sin(this.time * 2.2 * (p.sunPulseSpeed || 1.0)) * 0.15 + 1.0;
 
-    this.beaconAngle += 0.025 * (p.aguadaBeacon > 0.2 ? 1.0 : 0.4);
+    this.beaconAngle += (this.isLP ? 0.05 : 0.025) * (p.aguadaBeacon > 0.2 ? 1.0 : 0.4);
 
     const N = this.TOTAL_PARTICLES;
     const hasWaves = this.shockwaves.length > 0;
+    const step = this.particleStep || 1;
 
-    for (let i = 0; i < N; i++) {
+    for (let i = 0; i < N; i += step) {
       const layer = this.layer[i];
 
       // Update morphing anchor target if actively morphing between 30-min cycles
@@ -2070,7 +2083,7 @@ export class GoanArtworkEngine {
 
       // Decay transient color excitation back to base color
       if (this.colorExciteTime[i] > 0) {
-        this.colorExciteTime[i] -= 0.014;
+        this.colorExciteTime[i] -= (this.isLP ? 0.028 : 0.014);
         if (this.colorExciteTime[i] <= 0) {
           this.colorExciteTime[i] = 0;
           this.colorIdx[i] = this.baseColorIdx[i];
@@ -2373,8 +2386,9 @@ export class GoanArtworkEngine {
       this.vx[i] = (this.vx[i] + fx + ax) * dampingFactor;
       this.vy[i] = (this.vy[i] + fy + ay) * dampingFactor;
 
-      this.px[i] += this.vx[i];
-      this.py[i] += this.vy[i];
+      const posStep = this.isLP ? 1.6 : 1.0;
+      this.px[i] += this.vx[i] * posStep;
+      this.py[i] += this.vy[i] * posStep;
 
       // Reset to base color when transient excitation ends
       if (this.colorExciteTime[i] <= 0 && !isMorphing) {
@@ -2437,7 +2451,7 @@ export class GoanArtworkEngine {
       ctx.restore();
     }
 
-    // 4. Render 42,000 Points using high-performance cached sprites
+    // 4. Render Points using high-performance cached sprites
     ctx.globalCompositeOperation = 'lighter';
 
     const N = this.TOTAL_PARTICLES;
@@ -2448,21 +2462,35 @@ export class GoanArtworkEngine {
     const colorIdx = this.colorIdx;
     const sprites = this.dotSprites;
     const scale = p.particleSizeScale || 1.0;
+    const step = this.particleStep || 1;
+    const lpScale = this.isLP ? 1.38 : 1.0;
+    const totalScale = scale * lpScale;
 
-    for (let i = 0; i < N; i++) {
+    let lastAlpha = -1;
+
+    for (let i = 0; i < N; i += step) {
       const x = px[i];
       const y = py[i];
 
       if (x < -20 || x > W + 20 || y < -20 || y > H + 20) continue;
 
-      const a = alpha[i];
+      let a = alpha[i];
       if (a <= 0.05) continue;
 
-      ctx.globalAlpha = Math.min(1.0, a);
+      if (this.isLP) {
+        a = Math.min(1.0, a * 1.2);
+      }
+
+      const quantAlpha = Math.round(a * 10) / 10;
+      if (quantAlpha !== lastAlpha) {
+        ctx.globalAlpha = quantAlpha;
+        lastAlpha = quantAlpha;
+      }
+
       const cIdx = colorIdx[i] % 14;
       const spriteSet = sprites[cIdx] || sprites[0];
 
-      const s = size[i] * scale;
+      const s = size[i] * totalScale;
       let sBracket = 1;
       if (s < 1.4) sBracket = 0;
       else if (s < 2.2) sBracket = 1;
@@ -2514,12 +2542,19 @@ export class GoanArtworkEngine {
     if (this.isRunning) return;
     this.isRunning = true;
 
-    const loop = () => {
+    let lastTime = performance.now();
+    const frameInterval = this.isLP ? (1000 / this.targetFps) : 0;
+
+    const loop = (currentTime) => {
       if (!this.isRunning) return;
       try {
-        this.sentimentEngine.update();
-        this.update();
-        this.render();
+        const delta = currentTime - lastTime;
+        if (!frameInterval || delta >= frameInterval) {
+          lastTime = frameInterval ? (currentTime - (delta % frameInterval)) : currentTime;
+          this.sentimentEngine.update();
+          this.update();
+          this.render();
+        }
       } catch (err) {
         console.error('GoanArtworkEngine render loop error:', err);
       }

@@ -937,5 +937,7 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`  -> http://${LOCAL_IP}:${PORT}/?mode=tablet`);
   console.log(`  Dual Presentation Mode (Screen + Tablet Side-by-Side):`);
   console.log(`  -> http://localhost:${PORT}/?mode=dual`);
+  console.log(`  Fast Low-Power Mode (Optimized for Slower Processors):`);
+  console.log(`  -> http://localhost:${PORT}/?mode=lp`);
   console.log(`======================================================`);
 });
