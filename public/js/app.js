@@ -466,20 +466,21 @@ class ConclaveApp {
           <!-- 4 Question Categories on 1 Screen -->
           ${this.getTVAllChoicesHtml()}
 
-          <!-- Bottom Action Bar: QR Card + Weave Submit Button -->
+          <!-- Bottom Action Bar: Prominent Mobile Scan QR Card + Weave Submit Button -->
           <footer class="tv-bottom-action-bar">
-            <div class="tv-action-qr-card" aria-label="Mobile Scan">
+            <div class="tv-action-qr-card prominent-qr-card" aria-label="Scan to Participate">
               <div class="tv-action-qr-box" id="screen-qr-container"></div>
               <div class="tv-action-qr-info">
-                <span class="tv-action-qr-title">Mobile Scan</span>
-                <span class="tv-action-qr-desc">Scan to vote on phone</span>
+                <span class="tv-action-qr-badge">📱 Scan with Phone</span>
+                <h4 class="tv-action-qr-title">Scan to Participate</h4>
+                <p class="tv-action-qr-desc">Point your phone camera to submit choices or explore live stats from your seat</p>
               </div>
             </div>
 
             <div class="tv-action-submit-card">
               <button type="button" class="tv-submit-weave-btn" id="tv-submit-weave-btn">
                 <span class="tv-weave-btn-icon">✦</span>
-                <span>Weave Choices into Artwork</span>
+                <span class="tv-weave-btn-text">Weave Choices into Live Artwork</span>
               </button>
               <div id="tv-submit-status"></div>
             </div>
