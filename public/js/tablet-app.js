@@ -88,7 +88,6 @@ export class TabletApp {
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
                 </svg>
                 <span>Previous Artworks</span>
-                <span class="tab-badge-pill" id="tablet-past-count">${pastCount}</span>
               </button>
             </nav>
           </div>

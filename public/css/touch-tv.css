@@ -1444,6 +1444,12 @@ body:has(.touch-tv-layout) .influx-toast-container,
   to { transform: rotate(360deg); }
 }
 
+/* Hide number badge next to previous artworks */
+.tab-badge-pill,
+.showcase-nav-badge {
+  display: none !important;
+}
+
 .tv-choice-category .sentiment-card-label {
   display: flex;
   flex-direction: column;

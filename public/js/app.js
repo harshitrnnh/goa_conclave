@@ -376,7 +376,6 @@ class ConclaveApp {
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/>
                 </svg>
                 <span>Previous Artworks</span>
-                <span class="tab-badge-pill" id="tv-tab-past-count">${pastCount}</span>
               </button>
               <button class="tablet-tab-btn tv-simulate-btn" id="tv-simulate-cycle-btn" title="Advance to next artwork">
                 <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor">
@@ -941,7 +940,6 @@ class ConclaveApp {
             <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
           </svg>
           <span>🏛️ Previous Artworks</span>
-          <span class="showcase-nav-badge" id="showcase-past-badge">${this.pastSessions.length}</span>
         </button>
       </nav>
 
