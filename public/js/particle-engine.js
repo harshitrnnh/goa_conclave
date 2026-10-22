@@ -229,10 +229,10 @@ export class GoanArtworkEngine {
     this.particleStep = this.isLP ? (options.step || 4) : 1;
     this.targetFps = this.isLP ? (options.fps || 30) : 60;
 
-    // Logical resolution (9:16 vertical ratio)
+    // Logical resolution (default 1:1 square ratio, perfectly matching 55vw widescreen TV section)
     this.width = 1080;
-    this.height = 1920;
-    this.aspectRatio = 9 / 16;
+    this.height = 1080;
+    this.aspectRatio = 1.0;
 
     // 42,000 Particles representing collective Goan conclave consciousness
     this.TOTAL_PARTICLES = 42000;
@@ -270,10 +270,10 @@ export class GoanArtworkEngine {
     this.morphProgress = 1.0;
     this.morphDuration = 3.4;
 
+    this.resize();
     this.initBuffers();
     this.initPalette();
     this.createDotSprites();
-    this.resize();
   }
 
   initBuffers() {
@@ -419,13 +419,13 @@ export class GoanArtworkEngine {
     const W = this.width;
     const H = this.height;
     const sunX = W * 0.74;
-    const sunY = H * 0.17;
+    const sunY = H * 0.20;
     let idx = 0;
 
     // 1. Solar Center & Concentric Rings (9,000)
     for (let i = 0; i < 9000; i++) {
       if (i < 2400) {
-        const r = Math.pow(Math.random(), 0.5) * 65;
+        const r = Math.pow(Math.random(), 0.5) * (Math.min(W, H) * 0.07);
         const angle = Math.random() * Math.PI * 2;
         outX[idx] = sunX + Math.cos(angle) * r;
         outY[idx] = sunY + Math.sin(angle) * r;
@@ -434,7 +434,7 @@ export class GoanArtworkEngine {
         outLayer[idx] = 0;
       } else if (i < 6500) {
         const ringIdx = Math.floor(Math.random() * 6);
-        const radius = 75 + ringIdx * 26 + (Math.random() - 0.5) * 8;
+        const radius = 45 + ringIdx * 18 + (Math.random() - 0.5) * 6;
         const angle = Math.random() * Math.PI * 2;
         outX[idx] = sunX + Math.cos(angle) * radius;
         outY[idx] = sunY + Math.sin(angle) * radius;
@@ -444,10 +444,10 @@ export class GoanArtworkEngine {
       } else {
         const arm = Math.floor(Math.random() * 16);
         const baseAngle = (arm / 16) * Math.PI * 2;
-        const dist = 220 + Math.pow(Math.random(), 0.8) * 240;
-        const spiralAngle = baseAngle + (dist / 240) * 0.65;
-        outX[idx] = sunX + Math.cos(spiralAngle) * dist + (Math.random() - 0.5) * 18;
-        outY[idx] = sunY + Math.sin(spiralAngle) * dist + (Math.random() - 0.5) * 18;
+        const dist = 140 + Math.pow(Math.random(), 0.8) * 150;
+        const spiralAngle = baseAngle + (dist / 150) * 0.65;
+        outX[idx] = sunX + Math.cos(spiralAngle) * dist + (Math.random() - 0.5) * 14;
+        outY[idx] = sunY + Math.sin(spiralAngle) * dist + (Math.random() - 0.5) * 14;
         outSize[idx] = 1.4 + Math.random() * 2.2;
         outColor[idx] = (Math.random() > 0.5) ? 1 : (Math.random() > 0.5 ? 3 : 0);
         outLayer[idx] = 1;
@@ -458,18 +458,18 @@ export class GoanArtworkEngine {
     // 2. Flowing S-Curves & River Strata (24,000)
     for (let i = 0; i < 24000; i++) {
       const progress = Math.random();
-      const baseY = progress * H;
-      const wave1 = Math.sin(progress * Math.PI * 3.4 + 0.3) * 290;
-      const wave2 = Math.cos(progress * Math.PI * 1.6 - 0.2) * 160;
-      const baseX = W * 0.52 + wave1 + wave2;
+      const baseY = H * 0.06 + progress * (H * 0.88);
+      const wave1 = Math.sin(progress * Math.PI * 3.2 + 0.3) * (W * 0.20);
+      const wave2 = Math.cos(progress * Math.PI * 1.6 - 0.2) * (W * 0.09);
+      const baseX = W * 0.50 + wave1 + wave2;
 
-      const spread = (Math.random() - 0.5) * 380 * (1.1 - progress * 0.25);
-      outX[idx] = baseX + spread;
-      outY[idx] = baseY + (Math.random() - 0.5) * 45;
+      const spread = (Math.random() - 0.5) * (W * 0.22);
+      outX[idx] = Math.max(16, Math.min(W - 16, baseX + spread));
+      outY[idx] = baseY + (Math.random() - 0.5) * 35;
       outSize[idx] = 1.3 + Math.random() * 2.8;
       outLayer[idx] = 2;
 
-      const band = Math.floor(Math.abs(spread) / 36) % 7;
+      const band = Math.floor(Math.abs(spread) / 28) % 7;
       let cVal = 0;
       if (band === 0) cVal = 0;
       else if (band === 1) cVal = 5;
@@ -510,18 +510,18 @@ export class GoanArtworkEngine {
     const N = this.TOTAL_PARTICLES;
     const W = this.width;
     const H = this.height;
-    const sunX = W * 0.82;
-    const sunY = H * 0.11;
+    const sunX = W * 0.80;
+    const sunY = H * 0.16;
     let idx = 0;
 
     // 1. Terracotta Sun Disc & Halo (4,500)
     for (let i = 0; i < 4500; i++) {
-      const r = Math.pow(Math.random(), 0.5) * 85;
+      const r = Math.pow(Math.random(), 0.5) * (Math.min(W, H) * 0.08);
       const angle = Math.random() * Math.PI * 2;
       outX[idx] = sunX + Math.cos(angle) * r;
       outY[idx] = sunY + Math.sin(angle) * r;
       outSize[idx] = (Math.random() < 0.25) ? 4.5 + Math.random() * 4.0 : 1.8 + Math.random() * 2.2;
-      outColor[idx] = (Math.random() < 0.6) ? 1 : (Math.random() < 0.5 ? 0 : 3); // Amber, Gold, Terracotta
+      outColor[idx] = (Math.random() < 0.6) ? 1 : (Math.random() < 0.5 ? 0 : 3);
       outLayer[idx] = 0;
       idx++;
     }
@@ -530,32 +530,32 @@ export class GoanArtworkEngine {
     // Sweeps from upper right down across center to lower left in deep teal & silver foam
     for (let i = 0; i < 16000; i++) {
       const progress = Math.random();
-      const baseY = progress * H;
-      const wave = Math.sin(progress * Math.PI * 2.8 + 0.2) * 320 + Math.cos(progress * Math.PI * 1.4) * 160;
-      const baseX = W * 0.48 + wave;
+      const baseY = H * 0.06 + progress * (H * 0.88);
+      const wave = Math.sin(progress * Math.PI * 2.8 + 0.2) * (W * 0.21) + Math.cos(progress * Math.PI * 1.4) * (W * 0.08);
+      const baseX = W * 0.50 + wave;
 
-      const spread = (Math.random() - 0.5) * 340;
-      outX[idx] = baseX + spread;
-      outY[idx] = baseY + (Math.random() - 0.5) * 55;
+      const spread = (Math.random() - 0.5) * (W * 0.20);
+      outX[idx] = Math.max(16, Math.min(W - 16, baseX + spread));
+      outY[idx] = baseY + (Math.random() - 0.5) * 35;
       outLayer[idx] = 2;
 
       // Variable dot scales matching the reference painting: bold drops vs fine stipples
       const rScale = Math.random();
       if (rScale < 0.14) {
-        outSize[idx] = 7.5 + Math.random() * 6.5; // Bold painterly drop!
+        outSize[idx] = 7.5 + Math.random() * 6.5;
       } else if (rScale < 0.48) {
-        outSize[idx] = 3.6 + Math.random() * 3.2; // Medium dot
+        outSize[idx] = 3.6 + Math.random() * 3.2;
       } else {
-        outSize[idx] = 1.4 + Math.random() * 1.8; // Fine spray
+        outSize[idx] = 1.4 + Math.random() * 1.8;
       }
 
       // Alternating oceanic teal, aquamarine, silver foam, and deep slate
-      const band = Math.floor(Math.abs(spread) / 40) % 5;
-      if (band === 0) outColor[idx] = 8;       // Vibrant Aquamarine
-      else if (band === 1) outColor[idx] = 10; // Crystal Sea Spray
-      else if (band === 2) outColor[idx] = 7;  // Deep Marine Teal
-      else if (band === 3) outColor[idx] = 9;  // Seafoam Turquoise
-      else outColor[idx] = 11;                 // Abyssal Slate
+      const band = Math.floor(Math.abs(spread) / 36) % 5;
+      if (band === 0) outColor[idx] = 8;
+      else if (band === 1) outColor[idx] = 10;
+      else if (band === 2) outColor[idx] = 7;
+      else if (band === 3) outColor[idx] = 9;
+      else outColor[idx] = 11;
       idx++;
     }
 
@@ -563,18 +563,18 @@ export class GoanArtworkEngine {
     // Intertwines from upper left through center to lower right in fiery crimson & marigold
     for (let i = 0; i < 15000; i++) {
       const progress = Math.random();
-      const baseY = progress * H;
-      const wave = -Math.sin(progress * Math.PI * 2.9 + 0.4) * 310 - Math.cos(progress * Math.PI * 1.5 - 0.3) * 150;
-      const baseX = W * 0.52 + wave;
+      const baseY = H * 0.06 + progress * (H * 0.88);
+      const wave = -Math.sin(progress * Math.PI * 2.8 + 0.4) * (W * 0.21) - Math.cos(progress * Math.PI * 1.4 - 0.3) * (W * 0.08);
+      const baseX = W * 0.50 + wave;
 
-      const spread = (Math.random() - 0.5) * 340;
-      outX[idx] = baseX + spread;
-      outY[idx] = baseY + (Math.random() - 0.5) * 55;
+      const spread = (Math.random() - 0.5) * (W * 0.20);
+      outX[idx] = Math.max(16, Math.min(W - 16, baseX + spread));
+      outY[idx] = baseY + (Math.random() - 0.5) * 35;
       outLayer[idx] = 2;
 
       const rScale = Math.random();
       if (rScale < 0.14) {
-        outSize[idx] = 8.0 + Math.random() * 7.0; // Bold fiery drop!
+        outSize[idx] = 8.0 + Math.random() * 7.0;
       } else if (rScale < 0.48) {
         outSize[idx] = 3.6 + Math.random() * 3.4;
       } else {
@@ -582,23 +582,22 @@ export class GoanArtworkEngine {
       }
 
       // Fiery vermilion, kashmiri chili, marigold, terracotta, and caramel
-      const band = Math.floor(Math.abs(spread) / 40) % 5;
-      if (band === 0) outColor[idx] = 1;       // Fiery Vermilion
-      else if (band === 1) outColor[idx] = 0;  // 24k Sun Gold
-      else if (band === 2) outColor[idx] = 2;  // Terracotta Ochre
-      else if (band === 3) outColor[idx] = 12; // Hot Chili Spark
-      else outColor[idx] = 4;                  // Spiced Caramel
+      const band = Math.floor(Math.abs(spread) / 36) % 5;
+      if (band === 0) outColor[idx] = 1;
+      else if (band === 1) outColor[idx] = 0;
+      else if (band === 2) outColor[idx] = 2;
+      else if (band === 3) outColor[idx] = 12;
+      else outColor[idx] = 4;
       idx++;
     }
 
     // 4. Concentric Swirling Eddy Vortices (remaining particles)
-    // Recreates the circular concentric ripples in upper-left and lower-right
     while (idx < N) {
       const isUpper = (idx % 2 === 0);
-      const vcx = isUpper ? W * 0.18 : W * 0.84;
-      const vcy = isUpper ? H * 0.22 : H * 0.82;
+      const vcx = isUpper ? W * 0.20 : W * 0.80;
+      const vcy = isUpper ? H * 0.22 : H * 0.78;
       const ring = Math.floor(Math.random() * 8);
-      const r = 40 + ring * 32 + (Math.random() - 0.5) * 14;
+      const r = 25 + ring * (Math.min(W, H) * 0.02) + (Math.random() - 0.5) * 10;
       const angle = Math.random() * Math.PI * 2;
 
       outX[idx] = vcx + Math.cos(angle) * r;
@@ -2573,8 +2572,34 @@ export class GoanArtworkEngine {
   }
 
   resize() {
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
+    const oldW = this.width || 1080;
+    const oldH = this.height || 1080;
+    const rect = this.canvas ? this.canvas.getBoundingClientRect() : null;
+    if (rect && rect.width > 0 && rect.height > 0) {
+      this.width = Math.round(rect.width);
+      this.height = Math.round(rect.height);
+    } else {
+      this.width = 1080;
+      this.height = 1080;
+    }
+    if (this.canvas) {
+      this.canvas.width = this.width;
+      this.canvas.height = this.height;
+    }
+    this.aspectRatio = this.width / this.height;
+
+    // Rescale buffers if dimensions changed and coordinates exist
+    if (this.px && (oldW !== this.width || oldH !== this.height)) {
+      const scaleX = this.width / oldW;
+      const scaleY = this.height / oldH;
+      const N = this.TOTAL_PARTICLES;
+      for (let i = 0; i < N; i++) {
+        this.px[i] *= scaleX;
+        this.py[i] *= scaleY;
+        this.hx[i] *= scaleX;
+        this.hy[i] *= scaleY;
+      }
+    }
   }
 
   // Capture current canvas frame at high resolution as base64 JPEG
