@@ -19,8 +19,8 @@
    LEFT PANEL: Computational Artwork Canvas (Uncropped 9:16 / 16:9 Vertical Ratio)
    ========================================================================== */
 .touch-tv-screen-side {
-  flex: 0 0 50vw;
-  width: 50vw;
+  flex: 0 0 55vw;
+  width: 55vw;
   height: 100vh;
   position: relative;
   background: #050201;
@@ -139,8 +139,8 @@
    RIGHT PANEL: Touch Tablet Kiosk (50% width)
    ========================================================================== */
 .touch-tv-kiosk-side {
-  flex: 0 0 50vw;
-  width: 50vw;
+  flex: 0 0 45vw;
+  width: 45vw;
   height: 100vh;
   max-height: 100vh;
   background-color: #FAF3E8;
