@@ -1734,34 +1734,34 @@ export class GoanArtworkEngine {
       p.carnivalConfetti = 0;
       p.susegadDamping = 0;
 
-      // 1. Weather atmospheric physics
+      // 1. Weather atmospheric physics (subtle, calm, elegant flow)
       if (wKey === 'sunny') {
-        p.flowSpeed = 1.7;
-        p.turbulence = 0.85;
-        p.sunRadius = 1.6;
-        p.sunPulseSpeed = 2.2;
-        p.sunIntensity = 1.7;
+        p.flowSpeed = 0.75;
+        p.turbulence = 0.45;
+        p.sunRadius = 1.3;
+        p.sunPulseSpeed = 0.9;
+        p.sunIntensity = 1.3;
       } else if (wKey === 'windy') {
-        p.windSweep = 3.2;
-        p.biasX = 1.4;
-        p.biasY = -0.4;
-        p.flowSpeed = 2.2;
-        p.turbulence = 1.7;
+        p.windSweep = 1.4;
+        p.biasX = 0.6;
+        p.biasY = -0.2;
+        p.flowSpeed = 0.95;
+        p.turbulence = 0.75;
       } else if (wKey === 'rainy') {
-        p.rainGravity = 3.4;
+        p.rainGravity = 1.4;
         p.biasX = 0;
-        p.biasY = 2.0;
-        p.flowSpeed = 1.9;
-        p.turbulence = 0.7;
+        p.biasY = 0.8;
+        p.flowSpeed = 0.85;
+        p.turbulence = 0.4;
       } else if (wKey === 'stormy') {
-        p.stormVortex = 3.6;
-        p.turbulence = 3.2;
-        p.flowSpeed = 2.6;
+        p.stormVortex = 1.6;
+        p.turbulence = 1.3;
+        p.flowSpeed = 1.05;
       } else if (wKey === 'calm') {
-        p.calmSwell = 3.2;
+        p.calmSwell = 1.2;
         p.susegadDamping = 2.6;
-        p.flowSpeed = 0.45;
-        p.turbulence = 0.25;
+        p.flowSpeed = 0.35;
+        p.turbulence = 0.18;
       }
 
       // 2. Food culinary dynamics & texture
@@ -2014,13 +2014,13 @@ export class GoanArtworkEngine {
       }
     }
 
-    const flowSpeed = p.flowSpeed || 1.1;
-    const turbulence = p.turbulence || 1.0;
+    const flowSpeed = p.flowSpeed || 0.7;
+    const turbulence = p.turbulence || 0.5;
     const sunX = (this.currentTopology === 1) ? W * 0.82 : W * (p.sunX || 0.72);
     const sunY = (this.currentTopology === 1) ? H * 0.11 : H * (p.sunY || 0.18);
-    const sunPulse = Math.sin(this.time * 2.2 * (p.sunPulseSpeed || 1.0)) * 0.15 + 1.0;
+    const sunPulse = Math.sin(this.time * 0.9 * (p.sunPulseSpeed || 1.0)) * 0.06 + 1.0;
 
-    this.beaconAngle += (this.isLP ? 0.05 : 0.025) * (p.aguadaBeacon > 0.2 ? 1.0 : 0.4);
+    this.beaconAngle += (this.isLP ? 0.025 : 0.015) * (p.aguadaBeacon > 0.2 ? 1.0 : 0.4);
 
     const N = this.TOTAL_PARTICLES;
     const hasWaves = this.shockwaves.length > 0;
@@ -2031,8 +2031,8 @@ export class GoanArtworkEngine {
 
       // Update morphing anchor target if actively morphing between 30-min cycles
       if (isMorphing) {
-        const swirlX = Math.sin(this.phase[i] + this.time * 2.6) * Math.sin(morphT * Math.PI) * 45.0;
-        const swirlY = Math.cos(this.phase[i] + this.time * 2.2) * Math.sin(morphT * Math.PI) * 45.0;
+        const swirlX = Math.sin(this.phase[i] + this.time * 1.2) * Math.sin(morphT * Math.PI) * 20.0;
+        const swirlY = Math.cos(this.phase[i] + this.time * 1.0) * Math.sin(morphT * Math.PI) * 20.0;
         this.hx[i] = this.morphStartX[i] * (1 - morphT) + this.morphTargetX[i] * morphT + swirlX;
         this.hy[i] = this.morphStartY[i] * (1 - morphT) + this.morphTargetY[i] * morphT + swirlY;
         this.size[i] = this.morphStartSize[i] * (1 - morphT) + this.morphTargetSize[i] * morphT;
@@ -2102,17 +2102,17 @@ export class GoanArtworkEngine {
         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
 
         const baseAngle = Math.atan2(dy, dx);
-        const orbitOffset = (this.time * 0.18 * flowSpeed + this.phase[i]) * 0.05;
+        const orbitOffset = (this.time * 0.06 * flowSpeed + this.phase[i]) * 0.03;
         const curAngle = baseAngle + orbitOffset;
 
-        const dynamicRad = dist * sunPulse + Math.sin(this.time * 1.5 + this.phase[i]) * 6.0;
+        const dynamicRad = dist * sunPulse + Math.sin(this.time * 0.7 + this.phase[i]) * 2.5;
         const targetX = sunX + Math.cos(curAngle) * dynamicRad;
         const targetY = sunY + Math.sin(curAngle) * dynamicRad;
 
-        this.px[i] += (targetX - this.px[i]) * 0.08;
-        this.py[i] += (targetY - this.py[i]) * 0.08;
+        this.px[i] += (targetX - this.px[i]) * 0.05;
+        this.py[i] += (targetY - this.py[i]) * 0.05;
 
-        this.alpha[i] = 0.55 + Math.sin(this.phase[i] + this.time * 3.0 * (p.sunPulseSpeed || 1.0)) * 0.35;
+        this.alpha[i] = 0.65 + Math.sin(this.phase[i] + this.time * 1.1 * (p.sunPulseSpeed || 1.0)) * 0.20;
         continue;
       }
 
@@ -2122,32 +2122,32 @@ export class GoanArtworkEngine {
       const x = this.px[i];
       const y = this.py[i];
 
-      // Organic Curl Noise Flow
-      const nx = x * (p.curlScale || 0.0022) + this.time * 0.08 * flowSpeed;
-      const ny = y * ((p.curlScale || 0.0022) * 0.75) + this.time * 0.06 * flowSpeed;
+      // Organic Curl Noise Flow (gentle, hypnotic drift)
+      const nx = x * (p.curlScale || 0.0022) + this.time * 0.035 * flowSpeed;
+      const ny = y * ((p.curlScale || 0.0022) * 0.75) + this.time * 0.025 * flowSpeed;
       const fieldAngle = Math.sin(nx * 2.8) * Math.cos(ny * 2.2) * Math.PI * 2 * turbulence;
 
-      let fx = Math.cos(fieldAngle) * 0.75 * flowSpeed;
-      let fy = Math.sin(fieldAngle) * 0.75 * flowSpeed;
+      let fx = Math.cos(fieldAngle) * 0.35 * flowSpeed;
+      let fy = Math.sin(fieldAngle) * 0.35 * flowSpeed;
 
       // ----------------------------------------------------
       // 1. WEATHER PHYSICAL FORCES & CURRENTS (Question 1)
       // ----------------------------------------------------
       if (p.windSweep > 0.15) {
-        fx += (Math.sin(this.time * 2.2 + y * 0.003) * 1.5 + 0.8) * p.windSweep;
+        fx += (Math.sin(this.time * 1.1 + y * 0.003) * 0.7 + 0.35) * p.windSweep;
       }
       if (p.rainGravity > 0.15) {
-        fy += (Math.sin(this.phase[i] + this.time * 4.0) * 0.9 + 1.2) * p.rainGravity;
+        fy += (Math.sin(this.phase[i] + this.time * 1.8) * 0.4 + 0.6) * p.rainGravity;
       }
       if (p.stormVortex > 0.15) {
         const vdx = x - W * 0.5;
         const vdy = y - H * 0.5;
         const vdist = Math.hypot(vdx, vdy) || 1;
-        fx += (-vdy / vdist) * 1.8 * p.stormVortex;
-        fy += (vdx / vdist) * 1.8 * p.stormVortex;
+        fx += (-vdy / vdist) * 0.8 * p.stormVortex;
+        fy += (vdx / vdist) * 0.8 * p.stormVortex;
       }
       if (p.calmSwell > 0.15) {
-        fy += Math.sin(this.time * 1.0 + x * 0.004) * 0.9 * p.calmSwell;
+        fy += Math.sin(this.time * 0.5 + x * 0.004) * 0.45 * p.calmSwell;
         fx *= (1.0 - Math.min(0.6, p.calmSwell * 0.25));
       }
 
@@ -2156,27 +2156,27 @@ export class GoanArtworkEngine {
       // ----------------------------------------------------
       // Bebinca: Horizontal laminar strata shear
       if (p.strataStrength > 0.2) {
-        fx += Math.sin((this.hy[i] / H) * Math.PI * 7 + this.time * 1.8) * 1.4 * p.strataStrength;
+        fx += Math.sin((this.hy[i] / H) * Math.PI * 7 + this.time * 0.9) * 0.6 * p.strataStrength;
       }
       // Fish Curry: Hydrodynamic orbital curls
       if (p.flowCurvature > 0.2) {
         const cAng = Math.sin(x * 0.004) * Math.cos(y * 0.004) * Math.PI * 2;
-        fx += Math.cos(cAng) * 1.1 * p.flowCurvature;
-        fy += Math.sin(cAng) * 1.1 * p.flowCurvature;
+        fx += Math.cos(cAng) * 0.5 * p.flowCurvature;
+        fy += Math.sin(cAng) * 0.5 * p.flowCurvature;
       }
       // Prawn Curry: Convective simmering bubble pulse from bottom-center
       if (p.convectivePulse > 0.2) {
         const pcdx = x - W * 0.5;
         const pcdy = y - H * 0.7;
         const pcdist = Math.hypot(pcdx, pcdy) || 1;
-        const pcpulse = Math.sin(this.time * 3.0 - pcdist * 0.015) * p.convectivePulse;
-        fx += (pcdx / pcdist) * pcpulse * 0.8;
-        fy += (pcdy / pcdist) * pcpulse * 0.8;
+        const pcpulse = Math.sin(this.time * 1.5 - pcdist * 0.015) * p.convectivePulse;
+        fx += (pcdx / pcdist) * pcpulse * 0.35;
+        fy += (pcdy / pcdist) * pcpulse * 0.35;
       }
       // Poe Bread: Airy buoyant flour lofting
       if (p.flourSpeckles > 0.2) {
-        fx += Math.sin(this.phase[i] + this.time * 2.5) * 0.6 * p.flourSpeckles;
-        fy -= (0.5 + Math.cos(this.phase[i] + this.time * 2.0) * 0.4) * p.flourSpeckles;
+        fx += Math.sin(this.phase[i] + this.time * 1.2) * 0.25 * p.flourSpeckles;
+        fy -= (0.2 + Math.cos(this.phase[i] + this.time * 1.0) * 0.15) * p.flourSpeckles;
       }
 
       // ----------------------------------------------------
@@ -2185,9 +2185,9 @@ export class GoanArtworkEngine {
       // Dudhsagar: Powerful vertical cataract plunge
       if (p.dudhsagarCascade > 0.2) {
         if (Math.abs(x - W * 0.5) < W * 0.32) {
-          fy += (Math.sin(x * 0.015 + this.time * 3.5) * 0.8 + 1.6) * p.dudhsagarCascade;
+          fy += (Math.sin(x * 0.015 + this.time * 1.8) * 0.35 + 0.7) * p.dudhsagarCascade;
         } else {
-          fy += 0.5 * p.dudhsagarCascade;
+          fy += 0.25 * p.dudhsagarCascade;
         }
       }
       // Aguada Fort: Rotating lighthouse sweeping beam
@@ -2197,28 +2197,28 @@ export class GoanArtworkEngine {
         const bang = Math.atan2(ady, adx);
         const bdiff = Math.abs(Math.sin((bang - this.beaconAngle) * 0.5));
         if (bdiff < 0.14) {
-          const push = (1.0 - bdiff / 0.14) * 2.0 * p.aguadaBeacon;
+          const push = (1.0 - bdiff / 0.14) * 0.9 * p.aguadaBeacon;
           fx += Math.cos(bang) * push;
           fy += Math.sin(bang) * push;
         }
       }
       // Fontainhas: Portuguese quarter rosette nodes dance
       if (p.fontainhasNodes > 0.2) {
-        fx += Math.sin(x * 0.008 + this.time * 1.5) * Math.cos(y * 0.008) * 1.2 * p.fontainhasNodes;
-        fy += Math.cos(x * 0.008) * Math.sin(y * 0.008 + this.time * 1.5) * 1.2 * p.fontainhasNodes;
+        fx += Math.sin(x * 0.008 + this.time * 0.8) * Math.cos(y * 0.008) * 0.5 * p.fontainhasNodes;
+        fy += Math.cos(x * 0.008) * Math.sin(y * 0.008 + this.time * 0.8) * 0.5 * p.fontainhasNodes;
       }
       // Palolem Beach: Coastal crescent tidal bay swell
       if (p.palolemCrescent > 0.2) {
-        fy += Math.sin(x * 0.005 + this.time * 1.8) * 1.3 * p.palolemCrescent;
-        fx += Math.cos(x * 0.004) * 0.7 * p.palolemCrescent;
+        fy += Math.sin(x * 0.005 + this.time * 0.9) * 0.6 * p.palolemCrescent;
+        fx += Math.cos(x * 0.004) * 0.35 * p.palolemCrescent;
       }
       // Chapora Fort: Clifftop ridge lift
       if (p.chaporaRidge > 0.2) {
-        fy -= (Math.cos(x * 0.005 + this.time * 1.5) * 0.9 + 0.7) * p.chaporaRidge;
+        fy -= (Math.cos(x * 0.005 + this.time * 0.8) * 0.4 + 0.3) * p.chaporaRidge;
       }
       // Cabo de Rama: Dramatic headland thermal updrafts
       if (p.caboRamaCape > 0.2 || p.basilicaSymmetry > 0.2) {
-        fy -= (Math.sin(x * 0.007 + this.time * 2.2) * 0.7 + 0.9) * (p.caboRamaCape || p.basilicaSymmetry || 0);
+        fy -= (Math.sin(x * 0.007 + this.time * 1.1) * 0.35 + 0.4) * (p.caboRamaCape || p.basilicaSymmetry || 0);
       }
 
       // ----------------------------------------------------
@@ -2226,40 +2226,40 @@ export class GoanArtworkEngine {
       // ----------------------------------------------------
       // Mandovi Boat: Oscillating V-wake ripples
       if (p.wakeRipples > 0.2) {
-        fy += Math.sin(x * 0.018 + this.time * 4.2) * 1.3 * p.wakeRipples;
-        fx += Math.cos(y * 0.012) * 0.6 * p.wakeRipples;
+        fy += Math.sin(x * 0.018 + this.time * 1.8) * 0.6 * p.wakeRipples;
+        fx += Math.cos(y * 0.012) * 0.3 * p.wakeRipples;
       }
       // Coconut Palm: Arching fronds swaying in tropical breeze
       if (p.frondTendrils > 0.2) {
-        fx += Math.cos(y * 0.008 + this.time * 2.2) * 1.3 * p.frondTendrils;
-        fy += Math.sin(x * 0.006 + this.time * 1.6) * 0.5 * p.frondTendrils;
+        fx += Math.cos(y * 0.008 + this.time * 1.0) * 0.6 * p.frondTendrils;
+        fy += Math.sin(x * 0.006 + this.time * 0.8) * 0.25 * p.frondTendrils;
       }
       // Sea Turtle: Deep, slow rhythmic oceanic respiration
       if (p.turtleSwell > 0.2) {
-        const tBreath = Math.sin(this.time * 0.85);
-        fy += tBreath * 1.2 * p.turtleSwell;
-        fx += Math.cos(this.time * 0.85) * 0.6 * p.turtleSwell;
+        const tBreath = Math.sin(this.time * 0.4);
+        fy += tBreath * 0.5 * p.turtleSwell;
+        fx += Math.cos(this.time * 0.4) * 0.25 * p.turtleSwell;
       }
       // Kingfisher: Rapid, agile turquoise dart streaks
-      if (p.kingfisherDarts > 0.25 && Math.random() < 0.003 * p.kingfisherDarts) {
-        this.vx[i] += (Math.random() - 0.4) * 9.5;
-        this.vy[i] += (Math.random() - 0.5) * 6.0;
+      if (p.kingfisherDarts > 0.25 && Math.random() < 0.0015 * p.kingfisherDarts) {
+        this.vx[i] += (Math.random() - 0.4) * 4.5;
+        this.vy[i] += (Math.random() - 0.5) * 3.0;
         this.colorIdx[i] = 9; // Electric turquoise
         this.colorExciteTime[i] = 0.8;
         this.alpha[i] = 1.0;
       }
       // Carnival Spirit: Celebratory confetti micro-bursts
-      if (p.carnivalConfetti > 0.25 && Math.random() < 0.003 * p.carnivalConfetti) {
-        this.vx[i] += (Math.random() - 0.5) * 6.0;
-        this.vy[i] -= Math.random() * 6.0;
-        this.colorIdx[i] = (Math.random() < 0.5 ? 9 : 10); // Festive bright
+      if (p.carnivalConfetti > 0.25 && Math.random() < 0.0015 * p.carnivalConfetti) {
+        this.vx[i] += (Math.random() - 0.5) * 3.0;
+        this.vy[i] -= Math.random() * 3.0;
+        this.colorIdx[i] = (Math.random() < 0.5 ? 9 : 10);
         this.colorExciteTime[i] = 0.8;
         this.alpha[i] = 1.0;
       }
       // Vindaloo Chili Sparks
-      if (p.chiliSparks > 0.25 && Math.random() < 0.003 * p.chiliSparks) {
-        this.vy[i] -= 5.5;
-        this.vx[i] += (Math.random() - 0.5) * 3.0;
+      if (p.chiliSparks > 0.25 && Math.random() < 0.0015 * p.chiliSparks) {
+        this.vy[i] -= 2.8;
+        this.vx[i] += (Math.random() - 0.5) * 1.5;
         this.colorIdx[i] = 3; // Vindaloo chili crimson
         this.colorExciteTime[i] = 0.8;
         this.alpha[i] = 1.0;
@@ -2381,15 +2381,15 @@ export class GoanArtworkEngine {
         soy += Math.cos(this.phase[i] * 2.5) * 10.0 * (p.carnivalConfetti / 3.8);
       }
 
-      // Integrate damping & subtle home anchor spring
-      const dampingFactor = 0.88 - ((p.susegadDamping || 0) * 0.06);
-      const ax = ((this.hx[i] + sox) - x) * 0.055;
-      const ay = ((this.hy[i] + soy) - y) * 0.055;
+      // Integrate damping & subtle home anchor spring (smooth, serene, meditative)
+      const dampingFactor = 0.85 - ((p.susegadDamping || 0) * 0.04);
+      const ax = ((this.hx[i] + sox) - x) * 0.038;
+      const ay = ((this.hy[i] + soy) - y) * 0.038;
 
       this.vx[i] = (this.vx[i] + fx + ax) * dampingFactor;
       this.vy[i] = (this.vy[i] + fy + ay) * dampingFactor;
 
-      const posStep = this.isLP ? 1.6 : 1.0;
+      const posStep = 1.0;
       this.px[i] += this.vx[i] * posStep;
       this.py[i] += this.vy[i] * posStep;
 
