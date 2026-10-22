@@ -367,8 +367,8 @@ export class TabletApp {
   }
 
   renderPreviousArtworksGallery() {
-    const sessions = this.getPastSessions();
-    if (!sessions || sessions.length === 0) {
+    const rawSessions = this.getPastSessions();
+    if (!rawSessions || rawSessions.length === 0) {
       return `
         <div class="tablet-past-empty-state" style="padding: 40px 20px; text-align: center; color: var(--goa-sand);">
           <p>No previous artworks recorded yet. Artworks archive every 30 minutes.</p>
@@ -376,6 +376,9 @@ export class TabletApp {
         </div>
       `;
     }
+
+    // Newest artwork at the very top
+    const sessions = [...rawSessions].reverse();
 
     return `
       <div class="tablet-past-gallery-scroll">
@@ -395,11 +398,20 @@ export class TabletApp {
           ${sessions.map((sess, idx) => {
             const imgSrc = sess.snapshotUrl || sess.gifUrl || `/api/sessions/${sess.id}/artwork.gif`;
             const reasoning = sess.topologyInfo?.reasoning || sess.description || 'Generated from 30-min attendee sentiment vector convergence.';
+            const artTitle = sess.name || sess.topologyInfo?.name || `Artwork #${sess.sessionNumber || ''}`;
+            const timeLabel = sess.timeLabel || '';
 
             return `
               <article class="tablet-art-card" data-session-id="${sess.id}">
+                <div class="tablet-art-card-header" style="padding: 6px 12px 8px; display: flex; flex-direction: column; gap: 3px; border-bottom: 1px solid rgba(224, 138, 46, 0.2); background: rgba(0, 0, 0, 0.25);">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <span class="tablet-art-card-time" style="font-size: 0.68rem; color: var(--goa-gold); opacity: 0.85; font-weight: 600;">${timeLabel}</span>
+                    ${idx === 0 ? '<span style="background: rgba(224, 138, 46, 0.4); color: #FFD180; border: 1px solid rgba(224, 138, 46, 0.6); border-radius: 8px; font-size: 0.58rem; padding: 1px 6px; font-weight: 800; letter-spacing: 0.04em;">NEWEST</span>' : ''}
+                  </div>
+                  <h3 class="tablet-art-card-title" style="margin: 0; font-size: 0.84rem; font-weight: 700; color: #FFF; line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${artTitle}</h3>
+                </div>
                 <div class="tablet-art-thumb-frame" data-session-id="${sess.id}" style="cursor: pointer;">
-                  <img src="${imgSrc}" alt="Artwork" class="tablet-art-gif" loading="lazy" />
+                  <img src="${imgSrc}" alt="${artTitle}" class="tablet-art-gif" loading="lazy" onerror="this.onerror=null;this.src='/api/sessions/${sess.id}/artwork.gif'" />
                 </div>
                 <div class="tablet-art-card-body">
                   <p class="tablet-art-reasoning">${reasoning}</p>

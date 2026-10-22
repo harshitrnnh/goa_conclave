@@ -606,6 +606,12 @@ function advanceToNextSession(customName, forcedMutation) {
     mutationTopology: selectedTopoInfo.id,
     topologyInfo: currentSession.topologyInfo
   });
+
+  return {
+    currentSession,
+    archivedSession: archived,
+    pastSessions
+  };
 }
 
 // API Routes
@@ -849,7 +855,7 @@ app.post('/api/simulate-cycle', (req, res) => {
   }
 
   // Advance session with the designated mutation topology or automatic selection
-  advanceToNextSession(preset.name, preset.mutationTopology);
+  const adv = advanceToNextSession(preset.name, preset.mutationTopology);
 
   res.json({
     success: true,
@@ -857,7 +863,9 @@ app.post('/api/simulate-cycle', (req, res) => {
     theme: preset.name,
     mutationTopology: currentSession.mutationTopology,
     topologyInfo: currentSession.topologyInfo,
-    currentSession
+    currentSession,
+    archivedSession: adv ? adv.archivedSession : null,
+    pastSessions
   });
 });
 

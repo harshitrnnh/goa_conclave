@@ -172,6 +172,9 @@ class ConclaveApp {
           if (this.activeShowcaseTab === 'past') {
             this.renderShowcasePastGallery();
           }
+          if (this.activeDualTab === 'past') {
+            this.renderDualKioskContent();
+          }
           this.updateTVArchiveCard();
         }
 
@@ -217,6 +220,9 @@ class ConclaveApp {
           if (tvTabCount) tvTabCount.textContent = this.pastSessions.length;
           if (this.activeShowcaseTab === 'past') {
             this.renderShowcasePastGallery();
+          }
+          if (this.activeDualTab === 'past') {
+            this.renderDualKioskContent();
           }
           this.updateTVArchiveCard();
         }
@@ -423,14 +429,53 @@ class ConclaveApp {
           <svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" class="spin-icon">
             <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/>
           </svg>
-          <span>Generating...</span>
+          <span>Archiving...</span>
         `;
         try {
-          await this.syncManager.simulateCycleAndAdvance();
+          // 1. Capture snapshot of the current canvas BEFORE cycle changes so it's authentic
+          let snap = null;
+          if (this.artworkEngine && typeof this.artworkEngine.captureCurrentFrameSnapshot === 'function') {
+            try {
+              snap = this.artworkEngine.captureCurrentFrameSnapshot('image/jpeg', 0.88);
+            } catch (snapErr) {
+              console.warn('Canvas snapshot capture failed:', snapErr);
+            }
+          }
+
+          // 2. Advance to next cycle
+          const result = await this.syncManager.simulateCycleAndAdvance();
+
+          // 3. Immediately upload snapshot for the archived session
+          if (result && result.archivedSession && snap) {
+            try {
+              await this.syncManager.uploadSessionSnapshot(result.archivedSession.id, snap);
+            } catch (upErr) {
+              console.warn('Snapshot upload failed:', upErr);
+            }
+          }
+
+          // 4. Update local state
+          if (result && result.pastSessions) {
+            this.pastSessions = result.pastSessions;
+            if (this.pastSessionsManager) {
+              this.pastSessionsManager.setSessions(this.pastSessions);
+            }
+            if (this.tabletApp) {
+              this.tabletApp.setPastSessions(this.pastSessions);
+            }
+          }
+
+          // 5. If user is currently looking at Previous Artworks tab, re-render immediately
+          if (this.activeDualTab === 'past') {
+            this.renderDualKioskContent();
+          }
+
           this.showToastNotification({
             author: 'Next Artwork',
-            note: '🎨 New artwork generated & archived!'
+            note: '🎨 Current artwork archived to Previous Artworks!'
           });
+        } catch (err) {
+          console.error('Next artwork cycle failed:', err);
         } finally {
           setTimeout(() => {
             if (simBtn) {
@@ -443,7 +488,7 @@ class ConclaveApp {
                 <span>Next Artwork</span>
               `;
             }
-          }, 900);
+          }, 600);
         }
       };
     }
@@ -532,11 +577,11 @@ class ConclaveApp {
   }
 
   renderDualPastGallery() {
-    const sessions = (this.pastSessionsManager && this.pastSessionsManager.sessions && this.pastSessionsManager.sessions.length > 0)
+    const rawSessions = (this.pastSessionsManager && this.pastSessionsManager.sessions && this.pastSessionsManager.sessions.length > 0)
       ? this.pastSessionsManager.sessions
-      : this.pastSessions;
+      : (this.pastSessions || []);
 
-    if (!sessions || sessions.length === 0) {
+    if (!rawSessions || rawSessions.length === 0) {
       return `
         <div class="tablet-past-empty-state" style="padding: 40px 20px; text-align: center; color: #7A2818;">
           <p>No previous artworks recorded yet. Artworks archive every 30 minutes.</p>
@@ -544,6 +589,9 @@ class ConclaveApp {
         </div>
       `;
     }
+
+    // Newest artwork at the very top of the list
+    const sessions = [...rawSessions].reverse();
 
     return `
       <div class="tablet-past-gallery-scroll" style="height: 100%; overflow-y: auto;">
@@ -561,13 +609,22 @@ class ConclaveApp {
 
         <div class="tablet-past-cards-grid">
           ${sessions.map((sess, idx) => {
-            const imgSrc = sess.snapshotUrl || sess.gifUrl || `/archive/${sess.id}.jpg`;
+            const imgSrc = sess.snapshotUrl || sess.gifUrl || `/api/sessions/${sess.id}/artwork.gif`;
             const reasoning = sess.topologyInfo?.reasoning || sess.description || 'Generated from 30-min attendee sentiment vector convergence.';
+            const artTitle = sess.name || sess.topologyInfo?.name || `Artwork #${sess.sessionNumber || ''}`;
+            const timeLabel = sess.timeLabel || '';
 
             return `
               <article class="tablet-art-card" data-session-id="${sess.id}">
+                <div class="tablet-art-card-header" style="padding: 6px 12px 8px; display: flex; flex-direction: column; gap: 3px; border-bottom: 1px solid rgba(122, 40, 24, 0.12); background: rgba(255, 255, 255, 0.45);">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <span class="tablet-art-card-time" style="font-size: 0.68rem; color: #7A2818; opacity: 0.85; font-weight: 600;">${timeLabel}</span>
+                    ${idx === 0 ? '<span style="background: rgba(224, 138, 46, 0.25); color: #B35B10; border: 1px solid rgba(224, 138, 46, 0.45); border-radius: 8px; font-size: 0.58rem; padding: 1px 6px; font-weight: 800; letter-spacing: 0.04em;">NEWEST</span>' : ''}
+                  </div>
+                  <h3 class="tablet-art-card-title" style="margin: 0; font-size: 0.84rem; font-weight: 700; color: #4A170B; line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${artTitle}</h3>
+                </div>
                 <div class="tablet-art-thumb-frame" data-session-id="${sess.id}" style="cursor: pointer;">
-                  <img src="${imgSrc}" alt="Artwork" class="tablet-art-gif" loading="lazy" />
+                  <img src="${imgSrc}" alt="${artTitle}" class="tablet-art-gif" loading="lazy" onerror="this.onerror=null;this.src='/api/sessions/${sess.id}/artwork.gif'" />
                 </div>
                 <div class="tablet-art-card-body">
                   <p class="tablet-art-reasoning">${reasoning}</p>

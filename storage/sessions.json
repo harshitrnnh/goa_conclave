@@ -4134,5 +4134,96 @@
     },
     "snapshotUrl": "/archive/session-45.jpg?v=1792698774825",
     "gifUrl": "/api/sessions/session-45/artwork.gif"
+  },
+  {
+    "id": "session-46",
+    "sessionNumber": 46,
+    "name": "Palolem Crescent Bay & Harmonic Tidal Swells",
+    "timeLabel": "01:51 AM - 02:21 AM IST",
+    "timestamp": 1792700472571,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "aguada_fort",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 28,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 5
+    },
+    "foodDistribution": {
+      "fish_curry": 24,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 9
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 23,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 10,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 31,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 2
+    },
+    "totalResponses": 33,
+    "seedVariant": 2,
+    "mutationTopology": 5,
+    "topologyInfo": {
+      "id": 5,
+      "name": "Palolem Crescent Bay & Harmonic Tidal Swells",
+      "archetype": "Semicircular Coastal Arc & Rhythmic Swells",
+      "reasoning": "Serene Susegad mindset (MANDOVI_BOAT) and southern Palolem crescent beach affinity (AGUADA_FORT) produced sweeping semicircular curved wavefronts and calm tidal swells.",
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "aguada_fort",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "aguada_fort": 0,
+          "dudhsagar": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-46.jpg?v=1792700514330",
+    "gifUrl": "/api/sessions/session-46/artwork.gif"
   }
 ]
