@@ -1,7 +1,7 @@
 // Main Application Bootstrap for Goa Conclave
 // Integrates Computational Artwork, Tablet Kiosk, Real-Time Sync, and 30-Min Cycles
 
-import { GoanArtworkEngine } from './particle-engine.js?v=46';
+import { GoanArtworkEngine } from './particle-engine.js?v=47';
 import { SentimentEngine, getArtworkImpactWriteup, scoreBestTopologyForResponse } from './sentiment-engine.js';
 import { TabletApp } from './tablet-app.js';
 import { SyncManager } from './sync.js';
@@ -294,19 +294,12 @@ class ConclaveApp {
 
     switch (this.currentMode) {
       case 'screen':
-      case 'lp': {
-        const params = new URLSearchParams(window.location.search);
-        const view = (params.get('view') || '').toLowerCase();
-        if (view === 'dual' || view === 'showcase' || params.get('dual') === '1') {
-          this.renderUnifiedShowcaseView();
-        } else {
-          this.renderPureScreenView();
-        }
+        this.renderPureScreenView();
         break;
-      }
       case 'tablet':
         this.renderTabletView();
         break;
+      case 'lp':
       case 'simulate':
       case 'dual':
       case 'tri':
@@ -1147,22 +1140,6 @@ class ConclaveApp {
         this.artworkEngine.baseColorIdx.set(this.artworkEngine.colorIdx);
       }
       this.artworkEngine.start();
-
-      if (isLP) {
-        this.mountLPBadge();
-      }
-    }
-  }
-
-  mountLPBadge() {
-    const frame = document.getElementById('vertical-frame');
-    if (frame && !document.getElementById('lp-mode-badge')) {
-      const badge = document.createElement('div');
-      badge.id = 'lp-mode-badge';
-      badge.className = 'lp-mode-badge';
-      badge.title = 'Fast LP Mode Active: 21,000 Particles @ 30 FPS · Hardware Accelerated';
-      badge.innerHTML = `<span class="lp-icon">⚡</span><span>FAST LP (21K)</span>`;
-      frame.appendChild(badge);
     }
   }
 
@@ -1352,7 +1329,6 @@ class ConclaveApp {
     document.getElementById('btn-mode-screen')?.addEventListener('click', () => this.switchMode('screen'));
     document.getElementById('btn-mode-tablet')?.addEventListener('click', () => this.switchMode('tablet'));
     document.getElementById('btn-mode-dual')?.addEventListener('click', () => this.switchMode('dual'));
-    document.getElementById('btn-mode-lp')?.addEventListener('click', () => this.switchMode('lp'));
 
     document.getElementById('btn-simulate-cycle')?.addEventListener('click', async () => {
       const btn = document.getElementById('btn-simulate-cycle');
@@ -1395,18 +1371,10 @@ class ConclaveApp {
   }
 
   updateTrayButtons() {
-    ['screen', 'tablet', 'dual', 'lp'].forEach(m => {
+    ['screen', 'tablet', 'dual'].forEach(m => {
       const btn = document.getElementById(`btn-mode-${m}`);
       if (btn) {
-        let isActive = false;
-        if (m === 'lp') {
-          isActive = this.isLowPowerMode();
-        } else if (m === 'dual') {
-          isActive = (this.currentMode === 'dual' || this.currentMode === 'wall' || this.currentMode === 'simulate');
-        } else {
-          isActive = (m === this.currentMode);
-        }
-        if (isActive) btn.classList.add('active');
+        if (m === this.currentMode || ((this.currentMode === 'wall' || this.currentMode === 'simulate' || this.currentMode === 'lp') && m === 'dual')) btn.classList.add('active');
         else btn.classList.remove('active');
       }
     });
