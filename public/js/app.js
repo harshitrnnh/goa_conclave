@@ -468,10 +468,10 @@ class ConclaveApp {
 
           <!-- Bottom Action Bar: Prominent Mobile Scan QR Card + Weave Submit Button -->
           <footer class="tv-bottom-action-bar">
-            <div class="tv-action-qr-card prominent-qr-card" aria-label="Scan to submit inputs">
+            <div class="tv-action-qr-card prominent-qr-card" aria-label="Scan to submit inputs from phone">
               <div class="tv-action-qr-box" id="screen-qr-container"></div>
               <div class="tv-action-qr-info">
-                <span class="tv-action-qr-simple-label">Scan to submit inputs</span>
+                <span class="tv-action-qr-simple-label">Scan to submit inputs from phone</span>
               </div>
             </div>
 

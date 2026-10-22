@@ -327,9 +327,9 @@ export class GoanArtworkEngine {
     }
   }
 
-  // Allocate 14 * 7 offscreen canvases once (added bold 16px size for rich painterly drops)
+  // Allocate 14 * 7 offscreen canvases once for crisp pointillist dots
   createDotSprites() {
-    const sizes = [2, 3, 4, 6, 8, 12, 16];
+    const sizes = [1.8, 2.5, 3.4, 4.6, 6.0, 7.8, 10.0];
     this.dotSprites = [];
     this.spriteContexts = [];
 
@@ -338,12 +338,14 @@ export class GoanArtworkEngine {
       const ctxSet = [];
       sizes.forEach(diam => {
         const offCanvas = document.createElement('canvas');
-        offCanvas.width = diam * 2;
-        offCanvas.height = diam * 2;
+        const d = Math.ceil(diam * 2) + 2;
+        offCanvas.width = d;
+        offCanvas.height = d;
         const offCtx = offCanvas.getContext('2d');
-        const rad = diam;
+        const rad = d / 2;
+        const dotR = diam;
         spriteSet.push({ canvas: offCanvas, radius: rad });
-        ctxSet.push({ ctx: offCtx, radius: rad, diam: diam });
+        ctxSet.push({ ctx: offCtx, radius: rad, dotR: dotR, d: d });
       });
       this.dotSprites.push(spriteSet);
       this.spriteContexts.push(ctxSet);
@@ -352,7 +354,7 @@ export class GoanArtworkEngine {
     this.rebuildDotSprites(true);
   }
 
-  // Efficiently re-render cached dot sprites with interpolated RGB colors (~0.2ms)
+  // Efficiently re-render cached dot sprites with crisp pointillist edges (~0.2ms)
   rebuildDotSprites(force = false) {
     for (let c = 0; c < 14; c++) {
       const base = c * 3;
@@ -366,17 +368,19 @@ export class GoanArtworkEngine {
         const item = ctxSet[s];
         const offCtx = item.ctx;
         const rad = item.radius;
-        const diam = item.diam;
+        const dotR = item.dotR;
+        const d = item.d;
 
-        offCtx.clearRect(0, 0, diam * 2, diam * 2);
-        const grad = offCtx.createRadialGradient(rad, rad, 0, rad, rad, rad);
+        offCtx.clearRect(0, 0, d, d);
+        // Crisp mineral pointillist dot: solid core with clean anti-aliased edge
+        const grad = offCtx.createRadialGradient(rad, rad, 0, rad, rad, dotR);
         grad.addColorStop(0, hex);
-        grad.addColorStop(0.55, hex);
+        grad.addColorStop(0.82, hex);
         grad.addColorStop(1, 'rgba(0,0,0,0)');
 
         offCtx.fillStyle = grad;
         offCtx.beginPath();
-        offCtx.arc(rad, rad, rad, 0, Math.PI * 2);
+        offCtx.arc(rad, rad, dotR, 0, Math.PI * 2);
         offCtx.fill();
       }
     }
@@ -2450,8 +2454,8 @@ export class GoanArtworkEngine {
       ctx.restore();
     }
 
-    // 4. Render Points using high-performance cached sprites
-    ctx.globalCompositeOperation = 'lighter';
+    // 4. Render Points with crisp pointillist pigment blending
+    ctx.globalCompositeOperation = 'source-over';
 
     const N = this.TOTAL_PARTICLES;
     const px = this.px;
@@ -2462,8 +2466,7 @@ export class GoanArtworkEngine {
     const sprites = this.dotSprites;
     const scale = p.particleSizeScale || 1.0;
     const step = this.particleStep || 1;
-    const lpScale = this.isLP ? 1.85 : 1.0;
-    const totalScale = scale * lpScale;
+    const totalScale = scale * 1.0;
 
     let lastAlpha = -1;
 
@@ -2475,10 +2478,6 @@ export class GoanArtworkEngine {
 
       let a = alpha[i];
       if (a <= 0.05) continue;
-
-      if (this.isLP) {
-        a = Math.min(1.0, a * 1.35);
-      }
 
       const quantAlpha = Math.round(a * 10) / 10;
       if (quantAlpha !== lastAlpha) {
@@ -2492,11 +2491,11 @@ export class GoanArtworkEngine {
       const s = size[i] * totalScale;
       let sBracket = 1;
       if (s < 1.4) sBracket = 0;
-      else if (s < 2.2) sBracket = 1;
-      else if (s < 3.2) sBracket = 2;
-      else if (s < 5.0) sBracket = 3;
-      else if (s < 7.5) sBracket = 4;
-      else if (s < 11.0) sBracket = 5;
+      else if (s < 2.0) sBracket = 1;
+      else if (s < 2.8) sBracket = 2;
+      else if (s < 4.0) sBracket = 3;
+      else if (s < 5.8) sBracket = 4;
+      else if (s < 8.0) sBracket = 5;
       else sBracket = 6;
 
       const sprite = spriteSet[sBracket];

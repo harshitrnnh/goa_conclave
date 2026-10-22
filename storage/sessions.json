@@ -3766,5 +3766,97 @@
     },
     "snapshotUrl": "/archive/session-41.jpg?v=1792691572847",
     "gifUrl": "/api/sessions/session-41/artwork.gif"
+  },
+  {
+    "id": "session-42",
+    "sessionNumber": 42,
+    "name": "Goa Carnival Samba Corona & Chromatic Confetti",
+    "timeLabel": "11:22 PM - 11:52 PM IST",
+    "timestamp": 1792691572790,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 14,
+    "topologyInfo": {
+      "id": 14,
+      "name": "Goa Carnival Samba Corona & Chromatic Confetti",
+      "archetype": "Radial Starburst Corona & Swirling Serpentine Spirals",
+      "reasoning": "Peak festive energy and Carnival spirit (MANDOVI_BOAT) unleashed an explosive radial starburst corona with multi-hued serpentine ribbons.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-42.jpg?v=1792693373424",
+    "gifUrl": "/api/sessions/session-42/artwork.gif"
   }
 ]
