@@ -731,12 +731,8 @@ class ConclaveApp {
           </div>
           <div class="tv-choice-options-grid weather-grid" id="tv-weather-options">
             ${weatherOptions.map(opt => `
-              <button class="sentiment-card tv-option-btn ${this.tvSurvey.weather === opt.id ? 'selected' : ''}" data-type="weather" data-value="${opt.id}" title="${opt.label}">
+              <button class="sentiment-card tv-option-btn ${this.tvSurvey.weather === opt.id ? 'selected' : ''}" data-type="weather" data-value="${opt.id}" title="${opt.label}" aria-label="${opt.label}">
                 <div class="sentiment-icon-circle">${opt.icon}</div>
-                <div class="sentiment-card-label">
-                  <span class="label-primary">${opt.label}</span>
-                  <span class="label-secondary">${opt.sub}</span>
-                </div>
               </button>
             `).join('')}
           </div>
@@ -751,12 +747,8 @@ class ConclaveApp {
           </div>
           <div class="tv-choice-options-grid food-grid" id="tv-food-options">
             ${foodOptions.map(opt => `
-              <button class="sentiment-card tv-option-btn ${this.tvSurvey.food === opt.id ? 'selected' : ''}" data-type="food" data-value="${opt.id}" title="${opt.label}">
+              <button class="sentiment-card tv-option-btn ${this.tvSurvey.food === opt.id ? 'selected' : ''}" data-type="food" data-value="${opt.id}" title="${opt.label}" aria-label="${opt.label}">
                 <div class="sentiment-icon-circle">${opt.icon}</div>
-                <div class="sentiment-card-label">
-                  <span class="label-primary">${opt.label}</span>
-                  <span class="label-secondary">${opt.sub}</span>
-                </div>
               </button>
             `).join('')}
           </div>
@@ -771,12 +763,8 @@ class ConclaveApp {
           </div>
           <div class="tv-choice-options-grid location-grid" id="tv-location-options">
             ${locationOptions.map(opt => `
-              <button class="sentiment-card tv-option-btn ${this.tvSurvey.location === opt.id ? 'selected' : ''}" data-type="location" data-value="${opt.id}" title="${opt.label}">
+              <button class="sentiment-card tv-option-btn ${this.tvSurvey.location === opt.id ? 'selected' : ''}" data-type="location" data-value="${opt.id}" title="${opt.label}" aria-label="${opt.label}">
                 <div class="sentiment-icon-circle">${opt.icon}</div>
-                <div class="sentiment-card-label">
-                  <span class="label-primary">${opt.label}</span>
-                  <span class="label-secondary">${opt.sub}</span>
-                </div>
               </button>
             `).join('')}
           </div>
@@ -791,12 +779,8 @@ class ConclaveApp {
           </div>
           <div class="tv-choice-options-grid emblem-grid" id="tv-emblem-options">
             ${emblemOptions.map(opt => `
-              <button class="sentiment-card tv-option-btn ${this.tvSurvey.emblem === opt.id ? 'selected' : ''}" data-type="emblem" data-value="${opt.id}" title="${opt.label}">
+              <button class="sentiment-card tv-option-btn ${this.tvSurvey.emblem === opt.id ? 'selected' : ''}" data-type="emblem" data-value="${opt.id}" title="${opt.label}" aria-label="${opt.label}">
                 <div class="sentiment-icon-circle">${opt.icon}</div>
-                <div class="sentiment-card-label">
-                  <span class="label-primary">${opt.label}</span>
-                  <span class="label-secondary">${opt.sub}</span>
-                </div>
               </button>
             `).join('')}
           </div>

@@ -1346,34 +1346,35 @@ body:has(.touch-tv-layout) .influx-toast-container,
   box-shadow: none !important;
 }
 
-/* ZERO box, ZERO border, ZERO background on selected choices - pure typography and scale */
+/* ZERO box, ZERO border, ZERO background on selected choices - pure icon scale & subtle underline */
 .tv-choice-category .sentiment-card.tv-option-btn.selected {
   opacity: 1.0 !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
-  transform: scale(1.03);
+  transform: scale(1.12);
 }
 
-.tv-choice-category .sentiment-card.tv-option-btn.selected .label-primary {
-  color: #872012 !important;
-  font-weight: 800 !important;
-  text-decoration: underline;
-  text-decoration-color: #872012;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1.5px;
+.tv-choice-category .sentiment-card.tv-option-btn.selected::after {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 2.5px;
+  background: #872012;
+  border-radius: 2px;
+  margin-top: 4px;
 }
 
-.tv-choice-category .sentiment-card.tv-option-btn.selected .label-secondary {
-  color: #872012 !important;
-  font-weight: 600 !important;
+/* Hide any text label inside tv-choice-category options */
+.tv-choice-category .sentiment-card-label {
+  display: none !important;
 }
 
-/* Selection icons without circular badge - clean, pure icon */
+/* Selection icons without circular badge - clean, pure, prominent icon */
 .tv-choice-category .sentiment-icon-circle {
   width: auto !important;
-  height: 18px !important;
+  height: 24px !important;
   border-radius: 0 !important;
   background: transparent !important;
   border: none !important;
@@ -1383,7 +1384,7 @@ body:has(.touch-tv-layout) .influx-toast-container,
   align-items: center;
   justify-content: center;
   color: #872012 !important;
-  margin: 0 auto 3px auto !important;
+  margin: 0 auto !important;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
@@ -1393,7 +1394,7 @@ body:has(.touch-tv-layout) .influx-toast-container,
   box-shadow: none !important;
   outline: none !important;
   color: #B83A24 !important;
-  transform: scale(1.12);
+  transform: scale(1.15);
 }
 
 .tv-choice-category .sentiment-card.tv-option-btn.selected .sentiment-icon-circle {
@@ -1402,12 +1403,12 @@ body:has(.touch-tv-layout) .influx-toast-container,
   box-shadow: none !important;
   outline: none !important;
   color: #872012 !important;
-  transform: scale(1.15);
+  transform: scale(1.18);
 }
 
 .tv-choice-category .sentiment-icon-circle svg {
-  width: 16px !important;
-  height: 16px !important;
+  width: 22px !important;
+  height: 22px !important;
   display: block;
 }
 
