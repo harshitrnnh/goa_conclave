@@ -32,7 +32,8 @@ class ConclaveApp {
 
     this.currentMode = this.detectMode();
     this.activeShowcaseTab = 'live'; // 'live' | 'past'
-    this.activeDualTab = 'vote'; // 'vote' | 'past'
+    const urlParams = new URLSearchParams(window.location.search);
+    this.activeDualTab = (urlParams.get('tab') === 'past') ? 'past' : 'vote'; // 'vote' | 'past'
     this.currentSession = null;
     this.pastSessions = [];
     this.tabletUrl = window.location.origin + '/';
@@ -590,8 +591,15 @@ class ConclaveApp {
       `;
     }
 
-    // Newest artwork at the very top of the list
-    const sessions = [...rawSessions].reverse();
+    // Newest artwork at the very top of the list (descending timestamp or sessionNumber)
+    const sessions = [...rawSessions].sort((a, b) => {
+      const tsA = a.timestamp || a.startTime || 0;
+      const tsB = b.timestamp || b.startTime || 0;
+      if (tsA && tsB) return tsB - tsA;
+      const numA = a.sessionNumber || 0;
+      const numB = b.sessionNumber || 0;
+      return numB - numA;
+    });
 
     return `
       <div class="tablet-past-gallery-scroll" style="height: 100%; overflow-y: auto;">
@@ -612,13 +620,13 @@ class ConclaveApp {
             const imgSrc = sess.snapshotUrl || sess.gifUrl || `/api/sessions/${sess.id}/artwork.gif`;
             const reasoning = sess.topologyInfo?.reasoning || sess.description || 'Generated from 30-min attendee sentiment vector convergence.';
             const artTitle = sess.name || sess.topologyInfo?.name || `Artwork #${sess.sessionNumber || ''}`;
-            const timeLabel = sess.timeLabel || '';
+            const dateTimeLabel = this.formatGenerationDateTime(sess);
 
             return `
               <article class="tablet-art-card" data-session-id="${sess.id}">
                 <div class="tablet-art-card-header" style="padding: 6px 12px 8px; display: flex; flex-direction: column; gap: 3px; border-bottom: 1px solid rgba(122, 40, 24, 0.12); background: rgba(255, 255, 255, 0.45);">
                   <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <span class="tablet-art-card-time" style="font-size: 0.68rem; color: #7A2818; opacity: 0.85; font-weight: 600;">${timeLabel}</span>
+                    <span class="tablet-art-card-time" style="font-size: 0.68rem; color: #7A2818; opacity: 0.9; font-weight: 600;">📅 ${dateTimeLabel}</span>
                     ${idx === 0 ? '<span style="background: rgba(224, 138, 46, 0.25); color: #B35B10; border: 1px solid rgba(224, 138, 46, 0.45); border-radius: 8px; font-size: 0.58rem; padding: 1px 6px; font-weight: 800; letter-spacing: 0.04em;">NEWEST</span>' : ''}
                   </div>
                   <h3 class="tablet-art-card-title" style="margin: 0; font-size: 0.84rem; font-weight: 700; color: #4A170B; line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${artTitle}</h3>
@@ -1000,7 +1008,14 @@ class ConclaveApp {
             <div style="grid-column: 1 / -1; text-align: center; color: var(--goa-sand); padding: 60px 20px;">
               <p>No previous artworks recorded yet. Artworks generate every 30 minutes or via the presenter tray simulate button.</p>
             </div>
-          ` : this.pastSessions.slice().reverse().map((sess, idx) => {
+          ` : [...this.pastSessions].sort((a, b) => {
+            const tsA = a.timestamp || a.startTime || 0;
+            const tsB = b.timestamp || b.startTime || 0;
+            if (tsA && tsB) return tsB - tsA;
+            const numA = a.sessionNumber || 0;
+            const numB = b.sessionNumber || 0;
+            return numB - numA;
+          }).map((sess, idx) => {
             const imgSrc = sess.snapshotUrl || sess.gifUrl || `/api/sessions/${sess.id}/artwork.gif`;
             const isRealSnapshot = !!sess.snapshotUrl;
             const loopTag = isRealSnapshot ? '🎨 42k Particles' : '⏱️ 9.6s GIF Loop';
@@ -1008,6 +1023,7 @@ class ConclaveApp {
             const topoName = topoInfo.name || `Topology #${sess.mutationTopology !== undefined ? sess.mutationTopology + 1 : idx + 1}`;
             const archetype = topoInfo.archetype || 'Parametric Morph';
             const reasoning = topoInfo.reasoning || sess.description || 'Responding to Goan sentiment influx during 30-min window.';
+            const dateTimeLabel = this.formatGenerationDateTime(sess);
 
             return `
               <article class="showcase-past-card" data-session-id="${sess.id}">
@@ -1015,6 +1031,9 @@ class ConclaveApp {
                   <img src="${imgSrc}" alt="Artwork" class="showcase-past-gif" loading="lazy" />
                 </div>
                 <div class="showcase-past-body">
+                  <div class="showcase-past-datetime" style="font-size: 0.72rem; color: var(--goa-gold); opacity: 0.92; font-weight: 600; margin-bottom: 5px;">
+                    📅 ${dateTimeLabel}
+                  </div>
                   <div class="showcase-past-reasoning">
                     <strong>Topology Reasoning:</strong> ${reasoning}
                   </div>
@@ -1173,6 +1192,30 @@ class ConclaveApp {
   formatName(str) {
     if (!str) return '—';
     return String(str).replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  formatGenerationDateTime(sess) {
+    if (!sess) return '';
+    let datePart = '';
+    const ts = sess.timestamp || sess.startTime;
+    if (ts) {
+      try {
+        const d = new Date(ts);
+        if (!isNaN(d.getTime())) {
+          datePart = d.toLocaleDateString('en-IN', {
+            timeZone: 'Asia/Kolkata',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          });
+        }
+      } catch (e) {}
+    }
+    const timePart = sess.timeLabel || '';
+    if (datePart && timePart) {
+      return `${datePart} · ${timePart}`;
+    }
+    return datePart || timePart || 'Conclave Session';
   }
 
   updateHUD() {

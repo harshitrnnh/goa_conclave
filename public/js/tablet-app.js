@@ -377,8 +377,15 @@ export class TabletApp {
       `;
     }
 
-    // Newest artwork at the very top
-    const sessions = [...rawSessions].reverse();
+    // Newest artwork at the very top (descending timestamp or sessionNumber)
+    const sessions = [...rawSessions].sort((a, b) => {
+      const tsA = a.timestamp || a.startTime || 0;
+      const tsB = b.timestamp || b.startTime || 0;
+      if (tsA && tsB) return tsB - tsA;
+      const numA = a.sessionNumber || 0;
+      const numB = b.sessionNumber || 0;
+      return numB - numA;
+    });
 
     return `
       <div class="tablet-past-gallery-scroll">
@@ -399,13 +406,13 @@ export class TabletApp {
             const imgSrc = sess.snapshotUrl || sess.gifUrl || `/api/sessions/${sess.id}/artwork.gif`;
             const reasoning = sess.topologyInfo?.reasoning || sess.description || 'Generated from 30-min attendee sentiment vector convergence.';
             const artTitle = sess.name || sess.topologyInfo?.name || `Artwork #${sess.sessionNumber || ''}`;
-            const timeLabel = sess.timeLabel || '';
+            const dateTimeLabel = this.formatGenerationDateTime(sess);
 
             return `
               <article class="tablet-art-card" data-session-id="${sess.id}">
                 <div class="tablet-art-card-header" style="padding: 6px 12px 8px; display: flex; flex-direction: column; gap: 3px; border-bottom: 1px solid rgba(224, 138, 46, 0.2); background: rgba(0, 0, 0, 0.25);">
                   <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <span class="tablet-art-card-time" style="font-size: 0.68rem; color: var(--goa-gold); opacity: 0.85; font-weight: 600;">${timeLabel}</span>
+                    <span class="tablet-art-card-time" style="font-size: 0.68rem; color: var(--goa-gold); opacity: 0.9; font-weight: 600;">📅 ${dateTimeLabel}</span>
                     ${idx === 0 ? '<span style="background: rgba(224, 138, 46, 0.4); color: #FFD180; border: 1px solid rgba(224, 138, 46, 0.6); border-radius: 8px; font-size: 0.58rem; padding: 1px 6px; font-weight: 800; letter-spacing: 0.04em;">NEWEST</span>' : ''}
                   </div>
                   <h3 class="tablet-art-card-title" style="margin: 0; font-size: 0.84rem; font-weight: 700; color: #FFF; line-height: 1.25; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${artTitle}</h3>
@@ -439,6 +446,30 @@ export class TabletApp {
   formatTag(str) {
     if (!str) return '';
     return str.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+  }
+
+  formatGenerationDateTime(sess) {
+    if (!sess) return '';
+    let datePart = '';
+    const ts = sess.timestamp || sess.startTime;
+    if (ts) {
+      try {
+        const d = new Date(ts);
+        if (!isNaN(d.getTime())) {
+          datePart = d.toLocaleDateString('en-IN', {
+            timeZone: 'Asia/Kolkata',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          });
+        }
+      } catch (e) {}
+    }
+    const timePart = sess.timeLabel || '';
+    if (datePart && timePart) {
+      return `${datePart} · ${timePart}`;
+    }
+    return datePart || timePart || 'Conclave Session';
   }
 
   bindEvents() {

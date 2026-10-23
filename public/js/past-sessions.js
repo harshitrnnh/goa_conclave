@@ -83,6 +83,9 @@ export class PastSessionsManager {
         <button class="conclave-modal-close" aria-label="Close">&times;</button>
         <div class="conclave-modal-header" style="margin-bottom: 8px;">
           <h2 class="modal-title" style="margin: 0; font-family: 'Cinzel', serif; font-size: 1.15rem; color: #FAF3E8;">Many Minds - Collective Artworks</h2>
+          <div style="font-size: 0.74rem; color: var(--goa-gold); margin-top: 3px; font-weight: 600;">
+            📅 ${this.formatGenerationDateTime(session)}
+          </div>
         </div>
 
         <div class="conclave-modal-body">
@@ -387,5 +390,29 @@ export class PastSessionsManager {
     link.href = rawUrl;
     link.target = '_blank';
     link.click();
+  }
+
+  formatGenerationDateTime(sess) {
+    if (!sess) return '';
+    let datePart = '';
+    const ts = sess.timestamp || sess.startTime;
+    if (ts) {
+      try {
+        const d = new Date(ts);
+        if (!isNaN(d.getTime())) {
+          datePart = d.toLocaleDateString('en-IN', {
+            timeZone: 'Asia/Kolkata',
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric'
+          });
+        }
+      } catch (e) {}
+    }
+    const timePart = sess.timeLabel || '';
+    if (datePart && timePart) {
+      return `${datePart} · ${timePart}`;
+    }
+    return datePart || timePart || 'Conclave Session';
   }
 }

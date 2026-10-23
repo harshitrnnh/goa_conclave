@@ -4225,5 +4225,1568 @@
     },
     "snapshotUrl": "/archive/session-46.jpg?v=1792700514330",
     "gifUrl": "/api/sessions/session-46/artwork.gif"
+  },
+  {
+    "id": "session-47",
+    "sessionNumber": 47,
+    "name": "Mandovi S-Curve & Sacred Kaavi Geometry",
+    "timeLabel": "01:51 AM - 02:21 AM IST",
+    "timestamp": 1792700514179,
+    "dominantWeather": "windy",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "aguada_fort",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 3,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 3,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 3,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 3,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 3,
+    "seedVariant": 1,
+    "mutationTopology": 0,
+    "topologyInfo": {
+      "id": 0,
+      "name": "Mandovi S-Curve & Sacred Kaavi Geometry",
+      "archetype": "Meandering River S-Curve & Kaavi Solar Geometry",
+      "reasoning": "Sunny riverside optimism (SUNNY) and Mandovi boat motifs (MANDOVI_BOAT) mapped to sacred Kaavi solar geometry and graceful fluvial S-curves.",
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "aguada_fort",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 28,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 5
+        },
+        "foodDist": {
+          "fish_curry": 24,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 9
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 23,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 10,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 31,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 2
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-47.jpg?v=1792702318070",
+    "gifUrl": "/api/sessions/session-47/artwork.gif"
+  },
+  {
+    "id": "session-48",
+    "sessionNumber": 48,
+    "name": "Mandovi River Sailboat & Fluvial Wake Currents",
+    "timeLabel": "02:21 AM - 02:51 AM IST",
+    "timestamp": 1792702318022,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 11,
+    "topologyInfo": {
+      "id": 11,
+      "name": "Mandovi River Sailboat & Fluvial Wake Currents",
+      "archetype": "Graceful Hull Silhouette, Billowing Solar Sails & Diverging Wake Ripples",
+      "reasoning": "Mandovi river navigation heritage and iconic sailboat emblem (MANDOVI_BOAT) mapped to a graceful hull silhouette, billowing solar sails, and expanding fluvial wake ripples.",
+      "score": 19,
+      "dataSummary": {
+        "dominantWeather": "windy",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "aguada_fort",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 3,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 3,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 3,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 3,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-48.jpg?v=1792704561975",
+    "gifUrl": "/api/sessions/session-48/artwork.gif"
+  },
+  {
+    "id": "session-49",
+    "sessionNumber": 49,
+    "name": "Fort Aguada Lighthouse Beacon & Expanding Orbital Ripples",
+    "timeLabel": "02:59 AM - 03:29 AM IST",
+    "timestamp": 1792704561912,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 2,
+    "topologyInfo": {
+      "id": 2,
+      "name": "Fort Aguada Lighthouse Beacon & Expanding Orbital Ripples",
+      "archetype": "Concentric Coastal Beacon Vortex & Celestial Rays",
+      "reasoning": "Restless coastal sea winds (SUNNY) and historic Aguada fortress presence (DUDHSAGAR) created 16 concentric orbital light shells and sweeping celestial ray arms.",
+      "score": 8,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-49.jpg?v=1792706448112",
+    "gifUrl": "/api/sessions/session-49/artwork.gif"
+  },
+  {
+    "id": "session-50",
+    "sessionNumber": 50,
+    "name": "Cumbarjua Mangrove Estuary & Braided Waterways",
+    "timeLabel": "03:30 AM - 04:00 AM IST",
+    "timestamp": 1792706448078,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 8,
+    "topologyInfo": {
+      "id": 8,
+      "name": "Cumbarjua Mangrove Estuary & Braided Waterways",
+      "archetype": "Dendritic Root Networks & Braided Silt Channels",
+      "reasoning": "Estuarine river currents and coconut palm motifs (MANDOVI_BOAT) formed dendritic branching root channels weaving through emerald and silt mud banks.",
+      "score": 8,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-50.jpg?v=1792708332539",
+    "gifUrl": "/api/sessions/session-50/artwork.gif"
+  },
+  {
+    "id": "session-51",
+    "sessionNumber": 51,
+    "name": "Chorao Bird Sanctuary & Kingfisher Flight Vectors",
+    "timeLabel": "04:02 AM - 04:32 AM IST",
+    "timestamp": 1792708332500,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 15,
+    "topologyInfo": {
+      "id": 15,
+      "name": "Chorao Bird Sanctuary & Kingfisher Flight Vectors",
+      "archetype": "Aerodynamic Vector Plumes & Turquoise Dart Plumes",
+      "reasoning": "Agile kingfisher emblem (MANDOVI_BOAT) and breezy coastal air (SUNNY) shaped particles into aerodynamic cobalt and turquoise flight vector plumes.",
+      "score": 8,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-51.jpg?v=1792710587247",
+    "gifUrl": "/api/sessions/session-51/artwork.gif"
+  },
+  {
+    "id": "session-52",
+    "sessionNumber": 52,
+    "name": "Goan Cashew Apple & Curved Kidney Nut",
+    "timeLabel": "04:39 AM - 05:09 AM IST",
+    "timestamp": 1792710587200,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 18,
+    "topologyInfo": {
+      "id": 18,
+      "name": "Goan Cashew Apple & Curved Kidney Nut",
+      "archetype": "Ripe Golden-Vermilion Bell Apple, Kidney Nut Crescent & Orchard Mist",
+      "reasoning": "Goan cashew harvest heritage (FISH_CURRY) and coastal sunshine (SUNNY) mapped to luscious pear-bell fruit contours, curved kidney nut crescent, and golden orchard mist.",
+      "score": 8,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-52.jpg?v=1792712468533",
+    "gifUrl": "/api/sessions/session-52/artwork.gif"
+  },
+  {
+    "id": "session-53",
+    "sessionNumber": 53,
+    "name": "Wood-Fired Goan Poi Bread & Baker Hearth",
+    "timeLabel": "05:11 AM - 05:41 AM IST",
+    "timestamp": 1792712468489,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 7,
+    "topologyInfo": {
+      "id": 7,
+      "name": "Wood-Fired Goan Poi Bread & Baker Hearth",
+      "archetype": "Puffed Dough Pockets, Aeration Slits & Flour-Dust Stipples",
+      "reasoning": "Traditional Goan Poder baking heritage (FISH_CURRY) and soothing village mornings mapped to wood-fired oven hearth contours, puffy crust pockets, and flour-dust ivory stipples.",
+      "score": 7,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-53.jpg?v=1792714874650",
+    "gifUrl": "/api/sessions/session-53/artwork.gif"
+  },
+  {
+    "id": "session-54",
+    "sessionNumber": 54,
+    "name": "Dudhsagar Waterfall Torrent & Rainforest Terraces",
+    "timeLabel": "05:51 AM - 06:21 AM IST",
+    "timestamp": 1792714874598,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 3,
+    "topologyInfo": {
+      "id": 3,
+      "name": "Dudhsagar Waterfall Torrent & Rainforest Terraces",
+      "archetype": "Vertical Roaring Plume & Stepped Mist Pools",
+      "reasoning": "Goan monsoon deluge (SUNNY) and Dudhsagar waterfall dominance (DUDHSAGAR) channeled particles into a roaring vertical plume feeding horizontal rainforest spray terraces.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-54.jpg?v=1792716760904",
+    "gifUrl": "/api/sessions/session-54/artwork.gif"
+  },
+  {
+    "id": "session-55",
+    "sessionNumber": 55,
+    "name": "Fontainhas Latin Quarter Archways & Polychrome Mosaic",
+    "timeLabel": "06:22 AM - 06:52 AM IST",
+    "timestamp": 1792716760851,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 4,
+    "topologyInfo": {
+      "id": 4,
+      "name": "Fontainhas Latin Quarter Archways & Polychrome Mosaic",
+      "archetype": "Triple Portuguese Archways & Polychrome Rosettes",
+      "reasoning": "Vibrant heritage architecture (DUDHSAGAR) and celebratory Carnival spirit (MANDOVI_BOAT) formed triple nested Portuguese baroque archways and polychromatic mosaic stipples.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-55.jpg?v=1792718650671",
+    "gifUrl": "/api/sessions/session-55/artwork.gif"
+  },
+  {
+    "id": "session-56",
+    "sessionNumber": 56,
+    "name": "Palolem Crescent Bay & Harmonic Tidal Swells",
+    "timeLabel": "06:54 AM - 07:24 AM IST",
+    "timestamp": 1792718650641,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 5,
+    "topologyInfo": {
+      "id": 5,
+      "name": "Palolem Crescent Bay & Harmonic Tidal Swells",
+      "archetype": "Semicircular Coastal Arc & Rhythmic Swells",
+      "reasoning": "Serene Susegad mindset (MANDOVI_BOAT) and southern Palolem crescent beach affinity (DUDHSAGAR) produced sweeping semicircular curved wavefronts and calm tidal swells.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-56.jpg?v=1792720518456",
+    "gifUrl": "/api/sessions/session-56/artwork.gif"
+  },
+  {
+    "id": "session-57",
+    "sessionNumber": 57,
+    "name": "Bebinca Seven-Layer Caramel Culinary Strata",
+    "timeLabel": "07:25 AM - 07:55 AM IST",
+    "timestamp": 1792720518411,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 10,
+    "topologyInfo": {
+      "id": 10,
+      "name": "Bebinca Seven-Layer Caramel Culinary Strata",
+      "archetype": "Horizontal Multi-Tiered Caramel & Coconut Bands",
+      "reasoning": "Consensus around iconic 7-layer Bebinca (FISH_CURRY) stratified the point field into 7 rich horizontal bands of golden caramel, jaggery, and coconut ivory.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-57.jpg?v=1792722823158",
+    "gifUrl": "/api/sessions/session-57/artwork.gif"
+  },
+  {
+    "id": "session-58",
+    "sessionNumber": 58,
+    "name": "Morjim Olive Ridley Nesting Swell & Ocean Drift",
+    "timeLabel": "08:03 AM - 08:33 AM IST",
+    "timestamp": 1792722823128,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 12,
+    "topologyInfo": {
+      "id": 12,
+      "name": "Morjim Olive Ridley Nesting Swell & Ocean Drift",
+      "archetype": "Elliptical Flipper Wave Arcs & Bioluminescent Drifts",
+      "reasoning": "Coastal conservation consciousness and sea turtle emblem (MANDOVI_BOAT) generated expansive rhythmic flipper stroke arcs through bioluminescent night currents.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-58.jpg?v=1792725224245",
+    "gifUrl": "/api/sessions/session-58/artwork.gif"
+  },
+  {
+    "id": "session-59",
+    "sessionNumber": 59,
+    "name": "Goa Carnival Samba Corona & Chromatic Confetti",
+    "timeLabel": "08:43 AM - 09:13 AM IST",
+    "timestamp": 1792725224212,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 14,
+    "topologyInfo": {
+      "id": 14,
+      "name": "Goa Carnival Samba Corona & Chromatic Confetti",
+      "archetype": "Radial Starburst Corona & Swirling Serpentine Spirals",
+      "reasoning": "Peak festive energy and Carnival spirit (MANDOVI_BOAT) unleashed an explosive radial starburst corona with multi-hued serpentine ribbons.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-59.jpg?v=1792727110875",
+    "gifUrl": "/api/sessions/session-59/artwork.gif"
+  },
+  {
+    "id": "session-60",
+    "sessionNumber": 60,
+    "name": "Anjuna Flea Market Kaleidoscope & Mandala Vortex",
+    "timeLabel": "09:15 AM - 09:45 AM IST",
+    "timestamp": 1792727110812,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 16,
+    "topologyInfo": {
+      "id": 16,
+      "name": "Anjuna Flea Market Kaleidoscope & Mandala Vortex",
+      "archetype": "Octagonal Sacred Mandala & Alternating Point Rings",
+      "reasoning": "Bohemian eclectic sentiment and sunny energy (SUNNY) triggered an octagonal geometric mandala vortex with alternating kaleidoscopic density rings.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-60.jpg?v=1792729514834",
+    "gifUrl": "/api/sessions/session-60/artwork.gif"
+  },
+  {
+    "id": "session-61",
+    "sessionNumber": 61,
+    "name": "Cabo de Rama Sunset Horizon & Golden Hour Thermals",
+    "timeLabel": "09:55 AM - 10:25 AM IST",
+    "timestamp": 1792729514803,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 19,
+    "topologyInfo": {
+      "id": 19,
+      "name": "Cabo de Rama Sunset Horizon & Golden Hour Thermals",
+      "archetype": "Low Radiant Sun Hearth & Rising Thermal Convection Plumes",
+      "reasoning": "Warm sunset nostalgia and southern cliffside tranquility (MANDOVI_BOAT) anchored a radiant solar hearth low on the horizon, driving golden thermal convection plumes upward.",
+      "score": 4,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-61.jpg?v=1792731388267",
+    "gifUrl": "/api/sessions/session-61/artwork.gif"
+  },
+  {
+    "id": "session-62",
+    "sessionNumber": 62,
+    "name": "Zuari Railway Bridge & Industrial Horizon Strata",
+    "timeLabel": "10:26 AM - 10:56 AM IST",
+    "timestamp": 1792731388208,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 2,
+    "mutationTopology": 13,
+    "topologyInfo": {
+      "id": 13,
+      "name": "Zuari Railway Bridge & Industrial Horizon Strata",
+      "archetype": "Diagonal Structural Truss Lattice & Crossing Currents",
+      "reasoning": "Intersection of Goan connectivity and river transport (MANDOVI_BOAT) created geometric truss line lattices spanning across deep blue-green tidal currents.",
+      "score": 3,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-62.jpg?v=1792733188872",
+    "gifUrl": "/api/sessions/session-62/artwork.gif"
+  },
+  {
+    "id": "session-63",
+    "sessionNumber": 63,
+    "name": "Chapora Clifftop Ridge & Western Sea Winds",
+    "timeLabel": "10:56 AM - 11:26 AM IST",
+    "timestamp": 1792733188820,
+    "dominantWeather": "sunny",
+    "dominantFood": "fish_curry",
+    "dominantLocation": "dudhsagar",
+    "dominantEmblem": "mandovi_boat",
+    "weatherDistribution": {
+      "sunny": 0,
+      "windy": 0,
+      "rainy": 0,
+      "stormy": 0,
+      "calm": 0
+    },
+    "foodDistribution": {
+      "fish_curry": 0,
+      "prawn_curry": 0,
+      "vindaloo": 0,
+      "xacuti": 0,
+      "bebinca": 0,
+      "poe_bread": 0
+    },
+    "locationDistribution": {
+      "dudhsagar": 0,
+      "aguada_fort": 0,
+      "fontainhas": 0,
+      "chapora_fort": 0,
+      "palolem_beach": 0,
+      "cabo_de_rama": 0
+    },
+    "emblemDistribution": {
+      "mandovi_boat": 0,
+      "coconut_palm": 0,
+      "sea_turtle": 0,
+      "kingfisher": 0,
+      "carnival_spirit": 0,
+      "susegad": 0
+    },
+    "totalResponses": 0,
+    "seedVariant": 1,
+    "mutationTopology": 6,
+    "topologyInfo": {
+      "id": 6,
+      "name": "Chapora Clifftop Ridge & Western Sea Winds",
+      "archetype": "Elevated Contour Crest & Windblown Aerosol Spray",
+      "reasoning": "High clifftop winds skimming Chapora ramparts (DUDHSAGAR) generated an elevated undulating contour ridge with high-speed horizontal particle drift.",
+      "score": 0,
+      "dataSummary": {
+        "dominantWeather": "sunny",
+        "dominantFood": "fish_curry",
+        "dominantLocation": "dudhsagar",
+        "dominantEmblem": "mandovi_boat",
+        "totalResponses": 0,
+        "weatherDist": {
+          "sunny": 0,
+          "windy": 0,
+          "rainy": 0,
+          "stormy": 0,
+          "calm": 0
+        },
+        "foodDist": {
+          "fish_curry": 0,
+          "prawn_curry": 0,
+          "vindaloo": 0,
+          "xacuti": 0,
+          "bebinca": 0,
+          "poe_bread": 0
+        },
+        "locationDist": {
+          "dudhsagar": 0,
+          "aguada_fort": 0,
+          "fontainhas": 0,
+          "chapora_fort": 0,
+          "palolem_beach": 0,
+          "cabo_de_rama": 0
+        },
+        "emblemDist": {
+          "mandovi_boat": 0,
+          "coconut_palm": 0,
+          "sea_turtle": 0,
+          "kingfisher": 0,
+          "carnival_spirit": 0,
+          "susegad": 0
+        }
+      }
+    },
+    "snapshotUrl": "/archive/session-63.jpg?v=1792734990251",
+    "gifUrl": "/api/sessions/session-63/artwork.gif"
   }
 ]
